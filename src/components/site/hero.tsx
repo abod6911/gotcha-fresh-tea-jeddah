@@ -6,28 +6,17 @@ import { Sparkles, ChevronDown, ChevronRight, ChevronLeft } from "lucide-react";
 
 export function Hero() {
   const { t, dir } = useLang();
-  const heroRef = useRef<HTMLDivElement | null>(null);
-  
-  // Interactive Step State (0: Intro, 1: Add Boba, 2: Pour Tea, 3: Straw & Enjoy)
   const [activeStep, setActiveStep] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
-  // Scroll Progress Hook
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end end"]
-  });
-
-  const smoothProgress = useSpring(scrollYProgress, { damping: 25, stiffness: 90 });
-
-  // Update step based on scroll
+  // Auto-play step sequence every 3.5 seconds
   useEffect(() => {
-    return smoothProgress.on("change", (latest) => {
-      if (latest < 0.22) setActiveStep(0);
-      else if (latest < 0.52) setActiveStep(1);
-      else if (latest < 0.82) setActiveStep(2);
-      else setActiveStep(3);
-    });
-  }, [smoothProgress]);
+    if (!isAutoPlaying) return;
+    const interval = setInterval(() => {
+      setActiveStep((prev) => (prev + 1) % 4);
+    }, 3500);
+    return () => clearInterval(interval);
+  }, [isAutoPlaying]);
 
   const steps = [
     {
@@ -35,8 +24,8 @@ export function Hero() {
       title: { en: "Sip the ", ar: "تذوّق سحر " },
       highlight: { en: "Magic.", ar: "الباستيل." },
       desc: {
-        en: "Scroll down or click the steps to watch us brew your fresh pastel tea live.",
-        ar: "مرّر للأسفل أو انقر على الخطوات لمشاهدة تحضير شاي الباستيل الطازج أمامك مباشرةً."
+        en: "Tap the cup or click the steps below to watch us brew your fresh boba tea live.",
+        ar: "انقر الكوب أو اضغط على الخطوات في الأسفل لمشاهدة تحضير شاي الباستيل مباشرةً."
       }
     },
     {
@@ -76,7 +65,7 @@ export function Hero() {
 
   // Visual parameters derived from activeStep
   const getLiquidHeightPercent = () => {
-    if (activeStep === 0) return 78; // Fully poured signature drink preview on Intro step!
+    if (activeStep === 0) return 78; // Fully poured signature drink preview
     if (activeStep === 1) return 20; // Step 1: Pearls at bottom
     if (activeStep === 2) return 72; // Step 2: Pouring tea liquid
     return 78; // Step 3: Complete drink!
@@ -94,16 +83,12 @@ export function Hero() {
   ];
 
   const goToStep = (idx: number) => {
+    setIsAutoPlaying(false); // Pause auto-play when user clicks
     setActiveStep(idx);
-    if (heroRef.current) {
-      const sectionHeight = heroRef.current.offsetHeight - window.innerHeight;
-      const targetY = heroRef.current.offsetTop + (idx / 3) * Math.max(100, sectionHeight);
-      window.scrollTo({ top: targetY, behavior: "smooth" });
-    }
   };
 
   return (
-    <section ref={heroRef} id="top" className="relative bg-gradient-pastel min-h-screen lg:min-h-[200vh] max-w-full overflow-hidden">
+    <section id="top" className="relative bg-gradient-pastel min-h-screen max-w-full overflow-hidden flex items-center justify-center pt-24 sm:pt-28 pb-12 px-4 sm:px-6">
       {/* Decorative trees & petals */}
       <TabebuiaTree
         className="hidden h-[520px] w-[400px] opacity-40 sm:block mix-blend-multiply pointer-events-none"
@@ -117,9 +102,8 @@ export function Hero() {
       <Petals />
       <FlowerDeco className="w-[220px] opacity-45 mix-blend-multiply pointer-events-none" style={{ top: 80, insetInlineStart: -60 }} />
 
-      {/* Sticky Hero Viewport (pt-24 sm:pt-28 prevents header overlap) */}
-      <div className="sticky top-0 flex min-h-screen items-center justify-center pt-24 sm:pt-28 pb-12 px-4 sm:px-6">
-        <div className="relative z-10 mx-auto grid w-full max-w-[1180px] items-center gap-8 lg:gap-14 lg:grid-cols-[1.1fr_0.9fr]">
+      {/* Hero Content Viewport */}
+      <div className="relative z-10 mx-auto grid w-full max-w-[1180px] items-center gap-8 lg:gap-14 lg:grid-cols-[1.1fr_0.9fr]">
           
           {/* Left Column: Interactive Dynamic Text */}
           <div className="flex flex-col items-start min-h-[340px] justify-center">
@@ -328,7 +312,6 @@ export function Hero() {
           </div>
 
         </div>
-      </div>
 
       {/* Scroll Prompt indicator */}
       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex flex-col items-center z-30 pointer-events-none opacity-80">
