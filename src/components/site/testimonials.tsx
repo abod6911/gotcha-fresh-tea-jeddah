@@ -51,12 +51,14 @@ export function Testimonials() {
         </h2>
       </div>
 
-      <div className="flex w-full group overflow-hidden">
-        <div 
-          className={`flex w-max shrink-0 items-center gap-6 group-hover:[animation-play-state:paused] ${
-            dir === "rtl" ? "flex-row-reverse animate-marquee-rtl" : "animate-marquee"
+      <div className="flex w-full group overflow-hidden py-2">
+        <div
+          dir="ltr"
+          className={`flex w-max shrink-0 items-stretch gap-6 ps-6 group-hover:[animation-play-state:paused] animate-marquee ${
+            dir === "rtl" ? "[animation-direction:reverse]" : ""
           }`}
         >
+
           {items.map((item, i) => (
             <div 
               key={i} 
