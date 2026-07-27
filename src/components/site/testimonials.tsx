@@ -51,9 +51,9 @@ export function Testimonials() {
         </h2>
       </div>
 
-      <div className="flex w-full group">
+      <div className="flex w-full group overflow-hidden">
         <div 
-          className={`flex w-fit animate-marquee items-center gap-6 group-hover:[animation-play-state:paused] ${
+          className={`flex w-max shrink-0 animate-marquee items-center gap-6 group-hover:[animation-play-state:paused] ${
             dir === "rtl" ? "flex-row-reverse" : ""
           }`}
         >

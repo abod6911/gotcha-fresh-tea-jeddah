@@ -83,7 +83,7 @@ export function CartDrawer() {
         animate={{ x: 0 }}
         exit={{ x: "100%" }}
         transition={{ type: "spring", damping: 25, stiffness: 200 }}
-        className="absolute inset-y-0 end-0 flex w-full max-w-md flex-col bg-card shadow-2xl touch-pan-y"
+        className="absolute inset-y-0 right-0 flex w-full max-w-md flex-col bg-card shadow-2xl touch-pan-y"
       >
         <header className="flex items-center justify-between border-b border-border px-6 py-4">
           <h2 className="flex items-center gap-2 text-lg font-bold text-plum">

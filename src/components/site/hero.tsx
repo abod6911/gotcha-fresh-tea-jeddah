@@ -77,7 +77,7 @@ function CupVisual() {
           animate={{ scaleY: 1, y: 0 }}
           transition={{ type: "spring", delay: 1, stiffness: 80 }}
           style={{ originY: 1 }}
-          className="absolute -top-24 end-8 h-[125%] w-[22px] rotate-[12deg] rounded-full bg-gradient-to-r from-lav-deep via-lav-soft to-lav-deep shadow-[inset_-3px_0_8px_rgba(0,0,0,0.4),2px_2px_10px_rgba(0,0,0,0.2)] z-10"
+          className="absolute -top-24 left-8 h-[125%] w-[22px] rotate-[12deg] rounded-full bg-gradient-to-r from-lav-deep via-lav-soft to-lav-deep shadow-[inset_-3px_0_8px_rgba(0,0,0,0.4),2px_2px_10px_rgba(0,0,0,0.2)] z-10"
         />
 
         {/* Cup Lid / Rim */}
