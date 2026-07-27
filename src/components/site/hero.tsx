@@ -228,14 +228,14 @@ export function Hero() {
           </motion.div>
         </motion.div>
 
-        <div className="relative w-full flex justify-center items-center mt-10 lg:mt-0">
+        <div className="relative w-full flex flex-col justify-center items-center mt-10 lg:mt-0">
           <CupVisual />
           
           <motion.div 
-            initial={{ opacity: 0, scale: 0.8, x: 20 }}
-            animate={{ opacity: 1, scale: 1, x: 0 }}
+            initial={{ opacity: 0, scale: 0.8, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ type: "spring", stiffness: 100, delay: 1.5 }}
-            className="absolute bottom-6 end-0 sm:end-6 flex items-center gap-2.5 rounded-full border border-border bg-card/90 backdrop-blur-md px-5 py-2.5 text-sm font-bold text-plum shadow-glow-lg z-20"
+            className="relative mt-8 lg:absolute lg:bottom-10 lg:-end-6 flex items-center gap-2.5 rounded-full border border-border bg-card/90 backdrop-blur-md px-5 py-2.5 text-sm font-bold text-plum shadow-glow-lg z-20"
           >
             <span className="relative flex h-3 w-3">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon opacity-75"></span>
