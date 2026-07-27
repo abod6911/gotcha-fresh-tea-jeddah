@@ -77,7 +77,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Gotcha Fresh Tea | قوتشا فريش تي" },
+      { title: "test" },
       {
         name: "description",
         content:
@@ -87,6 +87,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "theme-color", content: "#FFFBF6" },
+      { property: "og:title", content: "test" },
+      { name: "twitter:title", content: "test" },
+      { property: "og:description", content: "Handcrafted fresh tea, boba and collagen drinks — Melbourne born, Taiwan grown, now in Jeddah." },
+      { name: "twitter:description", content: "Handcrafted fresh tea, boba and collagen drinks — Melbourne born, Taiwan grown, now in Jeddah." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/4095c8bd-047b-4b35-8520-398e5c69132e/id-preview-5017517c--9e4d8328-f827-4211-97f1-06cc8cef075b.lovable.app-1785167902806.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/4095c8bd-047b-4b35-8520-398e5c69132e/id-preview-5017517c--9e4d8328-f827-4211-97f1-06cc8cef075b.lovable.app-1785167902806.png" },
     ],
     links: [
       {
