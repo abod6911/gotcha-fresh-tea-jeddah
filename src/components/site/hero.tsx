@@ -31,15 +31,16 @@ function CupVisual() {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  const springConfig = { damping: 25, stiffness: 150, mass: 0.5 };
+  // Smoother, easier spring config
+  const springConfig = { damping: 40, stiffness: 60, mass: 1 };
   const smoothX = useSpring(mouseX, springConfig);
   const smoothY = useSpring(mouseY, springConfig);
 
-  // Calculate parallax offsets
-  const bobaX = useTransform(smoothX, [-500, 500], [15, -15]);
-  const bobaY = useTransform(smoothY, [-500, 500], [10, -10]);
-  const liquidY = useTransform(smoothY, [-500, 500], [3, -3]);
-  const liquidSkew = useTransform(smoothX, [-500, 500], [-2, 2]);
+  // Calculate parallax offsets (smoother movement)
+  const bobaX = useTransform(smoothX, [-500, 500], [20, -20]);
+  const bobaY = useTransform(smoothY, [-500, 500], [15, -15]);
+  const liquidY = useTransform(smoothY, [-500, 500], [4, -4]);
+  const liquidSkew = useTransform(smoothX, [-500, 500], [-3, 3]);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -50,6 +51,21 @@ function CupVisual() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [mouseX, mouseY]);
 
+  const bobaConfigs = [
+    { s: 20, x: -60, y: -5, d: 0.5 },
+    { s: 16, x: -35, y: 5, d: 0.6 },
+    { s: 22, x: -10, y: 0, d: 0.7 },
+    { s: 18, x: 15, y: -8, d: 0.8 },
+    { s: 20, x: 40, y: 2, d: 0.9 },
+    { s: 17, x: 65, y: -4, d: 1.0 },
+    { s: 16, x: -80, y: 2, d: 1.1 },
+    { s: 22, x: 80, y: -2, d: 0.55 },
+    { s: 18, x: -45, y: -12, d: 0.65 },
+    { s: 21, x: 30, y: 8, d: 0.75 },
+    { s: 16, x: -20, y: -15, d: 0.85 },
+    { s: 20, x: 55, y: -10, d: 0.95 },
+  ];
+
   return (
     <motion.div 
       initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
@@ -58,8 +74,8 @@ function CupVisual() {
       className="relative mx-auto h-[340px] w-[220px] sm:h-[400px] sm:w-[260px]"
     >
       <motion.div 
-        animate={{ y: [0, -15, 0], rotate: [-2, 2, -2] }}
-        transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
+        animate={{ y: [0, -10, 0], rotate: [-1, 1, -1] }}
+        transition={{ repeat: Infinity, duration: 8, ease: "easeInOut" }}
         className="h-full w-full relative"
       >
         <div className="absolute inset-x-3 top-4 h-6 rounded-t-[2rem] bg-lav-soft shadow-soft" />
@@ -78,20 +94,27 @@ function CupVisual() {
           
           <motion.div 
             style={{ x: bobaX, y: bobaY }}
-            className="absolute inset-x-0 bottom-3 flex justify-center gap-3"
+            className="absolute inset-x-0 bottom-6 flex justify-center items-end"
           >
-            {[0, 1, 2, 3].map((i) => (
+            {bobaConfigs.map((b, i) => (
               <motion.span
                 key={i}
-                className="h-4 w-4 rounded-full bg-plum shadow-md"
-                initial={{ y: -250, opacity: 0, scale: 0.5 }}
+                className="absolute rounded-full shadow-[inset_-3px_-3px_6px_rgba(0,0,0,0.6),3px_3px_5px_rgba(0,0,0,0.4)]"
+                style={{ 
+                  width: b.s, 
+                  height: b.s, 
+                  left: `calc(50% + ${b.x}px)`, 
+                  bottom: b.y,
+                  background: "radial-gradient(circle at 35% 35%, #5a4b40 0%, #1a1510 50%, #0a0805 100%)"
+                }}
+                initial={{ y: -300, opacity: 0, scale: 0.5 }}
                 animate={{ y: 0, opacity: 1, scale: 1 }}
                 transition={{
                   type: "spring",
-                  stiffness: 200,
-                  damping: 12,
-                  delay: 0.6 + i * 0.15,
-                  mass: 0.8
+                  stiffness: 120,
+                  damping: 15,
+                  delay: b.d,
+                  mass: 1.2
                 }}
               />
             ))}
