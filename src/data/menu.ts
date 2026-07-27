@@ -25,8 +25,8 @@ export const menuItems: MenuItem[] = [
     category: "milk",
     name: { en: "Classic Milk Tea", ar: "شاي الحليب الكلاسيكي" },
     desc: {
-      en: "Black tea, fresh milk, a timeless favourite.",
-      ar: "شاي أسود مع حليب طازج، الطعم الكلاسيكي الذي لا يمل.",
+      en: "Black tea brewed fresh daily with silky farm milk.",
+      ar: "شاي أسود محضر طازجاً مع الحليب الحريري — المذاق الكلاسيكي الأصيل.",
     },
     price: 22,
     icon: "🍵",
@@ -36,8 +36,8 @@ export const menuItems: MenuItem[] = [
     category: "milk",
     name: { en: "Brown Sugar Milk Tea", ar: "شاي الحليب بالسكر البني" },
     desc: {
-      en: "Caramelised brown sugar swirls with fresh milk.",
-      ar: "شاي الحليب مع دوامات السكر البني المكرمل.",
+      en: "Rich caramelised brown sugar swirls with fresh milk.",
+      ar: "دوامات السكر البني المكرمل الغنية مع الحليب الصافي الطازج.",
     },
     price: 26,
     icon: "🍯",
@@ -47,8 +47,8 @@ export const menuItems: MenuItem[] = [
     category: "milk",
     name: { en: "Oolong Milk Tea", ar: "شاي الأولونغ بالحليب" },
     desc: {
-      en: "Roasted oolong leaves, silky and aromatic.",
-      ar: "أوراق أولونغ محمصة بنكهة حريرية وعطرية.",
+      en: "Slow-roasted Formosa oolong leaves with silky milk.",
+      ar: "أوراق أولونغ جبلية محمصة بعناية مع الحليب الناعم.",
     },
     price: 24,
     icon: "🌿",
@@ -56,10 +56,10 @@ export const menuItems: MenuItem[] = [
   {
     id: "matcha-milk",
     category: "milk",
-    name: { en: "Matcha Milk Tea", ar: "شاي الماتشا بالحليب" },
+    name: { en: "Matcha Milk Tea", ar: "شاي الماتشا الياباني" },
     desc: {
-      en: "Ceremonial-grade matcha whisked with fresh milk.",
-      ar: "ماتشا فاخرة تُخفق مع الحليب الطازج.",
+      en: "Ceremonial-grade Japanese matcha whisked to order.",
+      ar: "ماتشا يابانية فاخرة تُخفق طازجة مع الحليب الصافي.",
     },
     price: 27,
     icon: "🍃",
@@ -69,8 +69,8 @@ export const menuItems: MenuItem[] = [
     category: "pearl",
     name: { en: "Classic Pearl Milk Tea", ar: "شاي اللؤلؤ الكلاسيكي" },
     desc: {
-      en: "Our signature — chewy pearls in black milk tea.",
-      ar: "طبقنا المميز — لؤلؤ طري في شاي الحليب الأسود.",
+      en: "Our signature — chewy tapioca pearls in rich milk tea.",
+      ar: "المشروب الأيقوني — لؤلؤ تابيوكا طري في شاي الحليب الأسود.",
     },
     price: 24,
     icon: "🧋",
@@ -78,10 +78,10 @@ export const menuItems: MenuItem[] = [
   {
     id: "brown-sugar-pearl",
     category: "pearl",
-    name: { en: "Brown Sugar Pearl", ar: "لؤلؤ السكر البني" },
+    name: { en: "Brown Sugar Pearl Delight", ar: "بوبا السكر البني الفاخرة" },
     desc: {
-      en: "Hand-cooked pearls in warm brown sugar syrup.",
-      ar: "لؤلؤ مطهو يدويًا مع شراب السكر البني الدافئ.",
+      en: "Warm hand-cooked pearls steeped in caramel syrup.",
+      ar: "لؤلؤ دافئ مطهو ببطء في شراب السكر البني المكرمل.",
     },
     price: 28,
     icon: "🫧",
@@ -90,10 +90,10 @@ export const menuItems: MenuItem[] = [
   {
     id: "taro-pearl",
     category: "pearl",
-    name: { en: "Taro Pearl Delight", ar: "متعة القلقاس باللؤلؤ" },
+    name: { en: "Taro Pearl Cream", ar: "كريم التارو باللؤلؤ" },
     desc: {
-      en: "Creamy taro tea topped with soft pearls.",
-      ar: "شاي القلقاس الكريمي مع لؤلؤ طري.",
+      en: "Creamy purple taro tea with soft tapioca pearls.",
+      ar: "شاي التارو البنفسجي الكريمي المخفوق مع البوبا الطرية.",
     },
     price: 27,
     icon: "💜",
@@ -101,10 +101,10 @@ export const menuItems: MenuItem[] = [
   {
     id: "coconut-pearl",
     category: "pearl",
-    name: { en: "Coconut Pearl Tea", ar: "شاي اللؤلؤ بجوز الهند" },
+    name: { en: "Tropical Coconut Pearl", ar: "بوبا جوز الهند الاستوائية" },
     desc: {
-      en: "Tropical coconut milk tea with pearls.",
-      ar: "شاي حليب جوز الهند الاستوائي مع اللؤلؤ.",
+      en: "Pure coconut milk tea layered with chewy boba pearls.",
+      ar: "حليب جوز الهند الاستوائي المنعش مع لؤلؤ التابيوكا.",
     },
     price: 26,
     icon: "🥥",
@@ -112,10 +112,10 @@ export const menuItems: MenuItem[] = [
   {
     id: "passionfruit-green",
     category: "fruit",
-    name: { en: "Passionfruit Green Tea", ar: "شاي أخضر بفاكهة الباشن" },
+    name: { en: "Passionfruit Green Tea", ar: "شاي أخضر بالباشن فروت" },
     desc: {
-      en: "Green tea brightened with tart passionfruit.",
-      ar: "شاي أخضر منعش بنكهة فاكهة الباشن الحامضة.",
+      en: "High-mountain jasmine green tea with tart passionfruit.",
+      ar: "شاي ياسمين أخضر منعش مع نكهة الباشن فروت الحامضة.",
     },
     price: 24,
     icon: "🍈",
@@ -123,10 +123,10 @@ export const menuItems: MenuItem[] = [
   {
     id: "strawberry-yakult",
     category: "fruit",
-    name: { en: "Strawberry Yakult Tea", ar: "شاي الفراولة بالياكولت" },
+    name: { en: "Strawberry Yakult Elixir", ar: "إكسير الفراولة بالياكولت" },
     desc: {
-      en: "Fresh strawberry meets probiotic Yakult.",
-      ar: "فراولة طازجة تلتقي بمشروب الياكولت البروبيوتيك.",
+      en: "Real crushed strawberries blended with probiotic Yakult.",
+      ar: "قطع فراولة طازجة مهروسة مع مشروب الياكولت الصحي.",
     },
     price: 27,
     icon: "🍓",
@@ -134,10 +134,10 @@ export const menuItems: MenuItem[] = [
   {
     id: "peach-oolong",
     category: "fruit",
-    name: { en: "Peach Oolong", ar: "شاي الأولونغ بالخوخ" },
+    name: { en: "Peach Oolong Nectar", ar: "رحيق الخوخ بالأولونغ" },
     desc: {
-      en: "Roasted oolong with juicy peach notes.",
-      ar: "أولونغ محمص مع نكهة الخوخ العصيرية.",
+      en: "Roasted oolong infused with sweet orchard peaches.",
+      ar: "شاي أولونغ محمص منسجم مع عصارة الخوخ الطبيعية.",
     },
     price: 25,
     icon: "🍑",
@@ -145,10 +145,10 @@ export const menuItems: MenuItem[] = [
   {
     id: "lychee-rose",
     category: "fruit",
-    name: { en: "Lychee Rose Tea", ar: "شاي الليتشي بالورد" },
+    name: { en: "Lychee Rose Bloom", ar: "زهرة الليتشي والورد" },
     desc: {
-      en: "Floral rose and sweet lychee, iced.",
-      ar: "ورد عطري مع ليتشي حلو، يُقدَّم مثلجًا.",
+      en: "Aromatic Damask rose & sweet iced lychee infusion.",
+      ar: "خلاصة الورد العطري مع فاكهة الليتشي الحلوة المثلجة.",
     },
     price: 26,
     icon: "🌹",
@@ -156,10 +156,10 @@ export const menuItems: MenuItem[] = [
   {
     id: "rose-collagen",
     category: "collagen",
-    name: { en: "Rose Collagen Tea", ar: "شاي الكولاجين بالورد" },
+    name: { en: "Rose Marine Collagen", ar: "كولاجين الورد البحري" },
     desc: {
-      en: "Marine collagen meets rose oolong tea.",
-      ar: "كولاجين بحري مع شاي الأولونغ بالورد.",
+      en: "Pure marine collagen peptides in rose oolong tea.",
+      ar: "ببتيدات كولاجين بحري نقي ممزوج مع شاي أولونغ الورد.",
     },
     price: 30,
     icon: "🌷",
@@ -168,10 +168,10 @@ export const menuItems: MenuItem[] = [
   {
     id: "peach-collagen",
     category: "collagen",
-    name: { en: "Peach Collagen Fizz", ar: "فوران الخوخ بالكولاجين" },
+    name: { en: "Peach Sparkle Collagen", ar: "فوران الخوخ بالكولاجين" },
     desc: {
-      en: "Sparkling peach tea infused with collagen.",
-      ar: "شاي الخوخ الفوار مغذى بالكولاجين.",
+      en: "Sparkling organic peach tea enriched with collagen.",
+      ar: "شاي الخوخ الفوار المنعش المشرّب بالكولاجين المغربي.",
     },
     price: 30,
     icon: "🍑",
@@ -180,10 +180,10 @@ export const menuItems: MenuItem[] = [
   {
     id: "berry-collagen",
     category: "collagen",
-    name: { en: "Berry Collagen Bliss", ar: "نشوة التوت بالكولاجين" },
+    name: { en: "Wild Berry Collagen", ar: "كولاجين التوت البري" },
     desc: {
-      en: "Mixed berries, green tea and collagen.",
-      ar: "توت مشكل مع شاي أخضر وكولاجين.",
+      en: "Crushed forest berries, green tea and collagen.",
+      ar: "توت بري طازج مع شاي أخضر جبيلي وكولاجين نقي.",
     },
     price: 32,
     icon: "🫐",
@@ -192,10 +192,10 @@ export const menuItems: MenuItem[] = [
   {
     id: "pastel-glow-collagen",
     category: "collagen",
-    name: { en: "Pastel Glow Collagen", ar: "توهج الباستيل بالكولاجين" },
+    name: { en: "Pastel Glow Signature", ar: "إكسير الباستيل بالكولاجين" },
     desc: {
-      en: "Our signature pink-lavender collagen blend.",
-      ar: "مزيجنا المميز من الكولاجين بالوردي والبنفسجي.",
+      en: "Our flagship pink-lavender collagen beauty blend.",
+      ar: "خلاصة الجمال الخاصة بنا — مزيج الكولاجين بالوردي واللافندر.",
     },
     price: 32,
     icon: "✨",

@@ -31,9 +31,9 @@ export function Hero() {
 
   const steps = [
     {
-      badge: { en: "Interactive Menu · Handcrafted", ar: "قائمة تفاعلية · لمسة يدوية" },
-      title: { en: "Sip the ", ar: "رشفة من " },
-      highlight: { en: "Magic.", ar: "السحر." },
+      badge: { en: "Interactive Experience · Handcrafted", ar: "تجربة تفاعلية · تحضير يدوي فاخر" },
+      title: { en: "Sip the ", ar: "تذوّق سحر " },
+      highlight: { en: "Magic.", ar: "الباستيل." },
       desc: {
         en: "Scroll down or click the steps to watch us brew your fresh pastel tea live.",
         ar: "مرّر للأسفل أو انقر على الخطوات لمشاهدة تحضير شاي الباستيل الطازج أمامك مباشرةً."
@@ -45,25 +45,25 @@ export function Hero() {
       highlight: { en: "Boba.", ar: "البوبا." },
       desc: {
         en: "Hand-cooked brown sugar tapioca pearls — warm, chewy, and rich.",
-        ar: "لؤلؤ السكر البني الدافئ المطهو يدويًا — طري، غني، ومتوازن الحلاوة."
+        ar: "لؤلؤ السكر البني المكرمل الدافئ — طري، غني، وذو قوام متناغم رائع."
       }
     },
     {
-      badge: { en: "Step 2 · Farm Fresh Brew", ar: "الخطوة 2 · شاي طازج من المزرعة" },
+      badge: { en: "Step 2 · Farm Fresh Brew", ar: "الخطوة 2 · سكب الشاي الطازج" },
       title: { en: "Pour the ", ar: "اسكب " },
       highlight: { en: "Tea.", ar: "الشاي." },
       desc: {
         en: "Single-origin Formosa Oolong & fresh milk poured to silky perfection.",
-        ar: "شاي الأولونغ المحمص مع الحليب الطازج المنساب بسلاسة حريرية."
+        ar: "شاي الأولونغ المحمص من مزارعنا الجبلية مع الحليب الطازج المنساب بسلاسة."
       }
     },
     {
-      badge: { en: "Step 3 · Ready to Drink", ar: "الخطوة 3 · جاهز للشرب" },
+      badge: { en: "Step 3 · Ready to Drink", ar: "الخطوة 3 · جاهز للاستمتاع" },
       title: { en: "Ready to ", ar: "جاهز " },
-      highlight: { en: "Enjoy!", ar: "للاستلذاذ!" },
+      highlight: { en: "Enjoy!", ar: "للارتشاف!" },
       desc: {
         en: "Your fresh boba tea is ready! Taste the authentic freshness of Taiwan & Melbourne in Jeddah.",
-        ar: "كوبك الباستيل جاهز الآن! تذوق نضارة تايوان وفخامة ملبورن في جدة."
+        ar: "كوب قوتشا الباستيل جاهز الآن! نضارة تايوان وفخامة ملبورن بين يديك في جدة."
       }
     }
   ];
@@ -95,7 +95,7 @@ export function Hero() {
   };
 
   return (
-    <section ref={heroRef} id="top" className="relative bg-gradient-pastel min-h-[250vh]">
+    <section ref={heroRef} id="top" className="relative bg-gradient-pastel min-h-screen lg:min-h-[200vh]">
       {/* Decorative trees & petals */}
       <TabebuiaTree
         className="hidden h-[520px] w-[400px] opacity-40 sm:block mix-blend-multiply pointer-events-none"
