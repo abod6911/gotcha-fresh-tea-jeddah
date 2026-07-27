@@ -1,5 +1,4 @@
-import { useMemo, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Minus, Plus, Search, ShoppingBag } from "lucide-react";
 import { categories, menuItems, type MenuCategory, type MenuItem } from "@/data/menu";
 import { useLang } from "@/lib/i18n";
@@ -195,11 +194,39 @@ function MenuCard({ item, index }: { item: MenuItem; index: number }) {
 }
 
 export function MenuSection() {
-  const { t } = useLang();
+  const { t, dir } = useLang();
   const head = useReveal();
   const tabsReveal = useReveal();
   const [cat, setCat] = useState<MenuCategory>("milk");
   const [query, setQuery] = useState("");
+  const tabsRef = useRef<HTMLDivElement | null>(null);
+  const [indicator, setIndicator] = useState({ width: 0, offset: 0 });
+
+  const position = () => {
+    const container = tabsRef.current;
+    if (!container) return;
+    const active = container.querySelector<HTMLButtonElement>("[data-active='true']");
+    if (!active) return;
+    // container does not scroll, so offsetWidth is safe and stable
+    const offset =
+      dir === "rtl"
+        ? container.offsetWidth - active.offsetLeft - active.offsetWidth
+        : active.offsetLeft;
+    setIndicator({ width: active.offsetWidth, offset });
+  };
+
+  useEffect(() => {
+    position();
+    const onResize = () => position();
+    window.addEventListener("resize", onResize);
+    const timer = window.setTimeout(position, 80);
+    if (document.fonts?.ready) void document.fonts.ready.then(position);
+    return () => {
+      window.removeEventListener("resize", onResize);
+      window.clearTimeout(timer);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cat, dir]);
 
   const items = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -235,28 +262,34 @@ export function MenuSection() {
           ref={tabsReveal.ref}
           className={`${tabsReveal.className} mt-10 flex flex-col items-center gap-4`}
         >
-          <div
-            className="relative flex w-full max-w-full overflow-x-auto no-scrollbar justify-start sm:justify-center gap-1 rounded-full border border-border bg-card p-1.5"
-          >
-            {categories.map((c) => (
-              <button
-                key={c.id}
-                onClick={() => setCat(c.id)}
-                className={`relative z-10 flex shrink-0 whitespace-nowrap items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-colors ${
-                  cat === c.id ? "text-primary-foreground" : "text-plum-soft hover:text-plum"
-                }`}
-              >
-                {cat === c.id && (
-                  <motion.div
-                    layoutId="active-tab-indicator"
-                    className="bg-gradient-neon absolute inset-0 rounded-full z-[-1]"
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                  />
-                )}
-                <img src={c.icon} alt="" className="w-5 h-5 rounded-full object-cover border border-white/20" aria-hidden="true" />
-                {t(c.label)}
-              </button>
-            ))}
+          <div className="w-full max-w-full overflow-x-auto no-scrollbar pb-1">
+            <div
+              ref={tabsRef}
+              className="relative flex w-max mx-auto justify-start gap-1 rounded-full border border-border bg-card p-1.5"
+            >
+              <span
+                className="bg-gradient-neon absolute top-1.5 bottom-1.5 rounded-full transition-all duration-300"
+                style={{
+                  width: indicator.width,
+                  insetInlineStart: indicator.offset,
+                  opacity: indicator.width ? 1 : 0,
+                }}
+                aria-hidden="true"
+              />
+              {categories.map((c) => (
+                <button
+                  key={c.id}
+                  data-active={cat === c.id}
+                  onClick={() => setCat(c.id)}
+                  className={`relative z-10 flex shrink-0 whitespace-nowrap items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-colors ${
+                    cat === c.id ? "text-primary-foreground" : "text-plum-soft hover:text-plum"
+                  }`}
+                >
+                  <img src={c.icon} alt="" className="w-5 h-5 rounded-full object-cover border border-white/20" aria-hidden="true" />
+                  {t(c.label)}
+                </button>
+              ))}
+            </div>
           </div>
 
           <label className="relative w-full max-w-sm">

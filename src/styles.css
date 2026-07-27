@@ -236,6 +236,10 @@
   animation: marquee 35s linear infinite;
 }
 
+@utility animate-marquee-rtl {
+  animation: marquee-rtl 35s linear infinite;
+}
+
 /* scroll reveal */
 .reveal {
   opacity: 0;
@@ -313,6 +317,15 @@
   }
   to {
     transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-rtl {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(50%);
   }
 }
 
