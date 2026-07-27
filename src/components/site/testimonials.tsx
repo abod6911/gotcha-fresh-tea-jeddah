@@ -62,9 +62,17 @@ export function Testimonials() {
 
   return (
     <section id="testimonials" className="relative overflow-hidden bg-gradient-to-b from-cream via-cream-2/80 to-cream py-16 lg:py-24 border-y border-pink-deep/15 max-w-full">
-      {/* Side Fade Gradients */}
-      <div className="absolute inset-y-0 start-0 z-20 w-16 sm:w-32 bg-gradient-to-r from-cream via-cream/80 to-transparent pointer-events-none" />
-      <div className="absolute inset-y-0 end-0 z-20 w-16 sm:w-32 bg-gradient-to-l from-cream via-cream/80 to-transparent pointer-events-none" />
+      {/* Side Fade Gradients (Dynamically flipped for RTL/LTR) */}
+      <div className={`absolute inset-y-0 start-0 z-20 w-16 sm:w-32 pointer-events-none ${
+        dir === "rtl" 
+          ? "bg-gradient-to-l from-cream via-cream/90 to-transparent" 
+          : "bg-gradient-to-r from-cream via-cream/90 to-transparent"
+      }`} />
+      <div className={`absolute inset-y-0 end-0 z-20 w-16 sm:w-32 pointer-events-none ${
+        dir === "rtl" 
+          ? "bg-gradient-to-r from-cream via-cream/90 to-transparent" 
+          : "bg-gradient-to-l from-cream via-cream/90 to-transparent"
+      }`} />
       
       {/* Section Header */}
       <div className="mx-auto mb-10 sm:mb-12 max-w-xl text-center px-4 sm:px-6">

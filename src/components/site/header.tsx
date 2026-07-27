@@ -80,27 +80,24 @@ export function Header() {
           </span>
         </a>
 
-        {/* Desktop Nav Links (Visible on XL screens 1280px+ to prevent collision) */}
-        <nav className="hidden items-center gap-4 xl:gap-6 xl:flex shrink min-w-0">
-          {NAV.map((item, i) => (
-            <a
-              key={item.href}
-              href={item.href}
-              style={{ animationDelay: `${i * 60}ms` }}
-              className={`group relative py-1 text-xs xl:text-sm font-bold whitespace-nowrap transition-all duration-300 hover:-translate-y-0.5 ${
-                active === item.href ? "text-plum" : "text-plum/70 hover:text-plum"
-              }`}
-            >
-              {t(item.label)}
-              <span
-                className={`bg-gradient-neon absolute -bottom-0.5 inset-x-0 h-0.5 rounded-full transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                  active === item.href
-                    ? "origin-center scale-x-100"
-                    : "origin-[left] scale-x-0 group-hover:scale-x-100"
+        {/* Desktop Nav Links Pill Container */}
+        <nav className="hidden items-center gap-1 xl:gap-2 xl:flex shrink-0 bg-card/85 backdrop-blur-md px-3 py-1.5 rounded-full border border-pink-deep/25 shadow-soft">
+          {NAV.map((item) => {
+            const isActive = active === item.href;
+            return (
+              <a
+                key={item.href}
+                href={item.href}
+                className={`relative rounded-full px-3.5 py-1 text-xs xl:text-sm font-bold whitespace-nowrap transition-all duration-300 ${
+                  isActive
+                    ? "bg-gradient-neon text-white shadow-glow"
+                    : "text-plum/80 hover:text-plum hover:bg-pink-soft/60"
                 }`}
-              />
-            </a>
-          ))}
+              >
+                {t(item.label)}
+              </a>
+            );
+          })}
         </nav>
 
         {/* Right/Left Action Controls */}
