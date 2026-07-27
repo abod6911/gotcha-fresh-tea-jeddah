@@ -32,6 +32,17 @@ export function Header() {
   }, []);
 
   useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (userDropdown && !target.closest('.user-dropdown-container')) {
+        setUserDropdown(false);
+      }
+    };
+    window.addEventListener("click", handleClickOutside);
+    return () => window.removeEventListener("click", handleClickOutside);
+  }, [userDropdown]);
+
+  useEffect(() => {
     const sections = NAV.map((n) => document.querySelector(n.href)).filter(
       Boolean
     ) as Element[];
@@ -102,7 +113,7 @@ export function Header() {
 
           {/* User Loyalty / Auth */}
           {user ? (
-            <div className="relative">
+            <div className="relative user-dropdown-container">
               <button
                 onClick={() => setUserDropdown((v) => !v)}
                 className="flex items-center gap-1.5 sm:gap-2 rounded-full border-[1.5px] border-pink-deep bg-cream-2 px-2 sm:px-3 py-1 text-xs font-semibold text-plum shadow-sm transition-all hover:bg-pink-soft"

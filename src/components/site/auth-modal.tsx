@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { X, Sparkles, Award } from "lucide-react";
 import { useAuth } from "@/lib/auth";
 import { useLang } from "@/lib/i18n";
@@ -9,6 +9,16 @@ export function AuthModal() {
   
   const [nameInput, setNameInput] = useState("");
   const [ageInput, setAgeInput] = useState("");
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isAuthOpen) {
+        setAuthOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isAuthOpen, setAuthOpen]);
 
   if (!isAuthOpen) return null;
 
