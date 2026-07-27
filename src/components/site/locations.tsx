@@ -63,7 +63,7 @@ export function Locations() {
   ];
 
   return (
-    <section id="locations" className="bg-cream-2 py-24 relative z-10">
+    <section id="locations" className="bg-cream-2 py-24 relative z-10 overflow-hidden max-w-full">
       <div className="mx-auto max-w-[1180px] px-6">
         <div ref={head.ref} className={`${head.className} mx-auto max-w-2xl text-center`}>
           <span className="text-xs font-bold uppercase tracking-[0.2em] text-ink">

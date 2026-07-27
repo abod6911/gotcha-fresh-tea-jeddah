@@ -19,7 +19,7 @@ export function Petals({ count = 18 }: PetalProps) {
         return {
           id: i,
           size,
-          left: rnd(2) * 100,
+          left: rnd(2) * 90,
           bottom: 20 + rnd(3) * 40,
           duration: 10 + rnd(4) * 10,
           delay: rnd(5) * 10,

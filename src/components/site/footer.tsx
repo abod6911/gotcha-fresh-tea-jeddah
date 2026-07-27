@@ -37,7 +37,7 @@ export function Footer() {
   ];
 
   return (
-    <footer id="contact" className="border-t border-border bg-cream pt-16 relative z-10">
+    <footer id="contact" className="border-t border-border bg-cream pt-16 relative z-10 overflow-hidden max-w-full">
       <div className="mx-auto grid max-w-[1180px] gap-10 px-6 md:grid-cols-3">
         <div>
           <div className="flex items-center gap-2.5">

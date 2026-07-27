@@ -119,9 +119,18 @@
     border-color: var(--color-border);
   }
 
+  html,
+  body {
+    max-width: 100vw;
+    overflow-x: hidden;
+    position: relative;
+    width: 100%;
+  }
+
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 90px;
+    scroll-padding-top: 80px;
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
@@ -132,7 +141,6 @@
     font-weight: 500; /* Increased font weight for readability */
     letter-spacing: 0.025em; /* tracking-wide */
     -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
   }
 
   html[lang="ar"] body {

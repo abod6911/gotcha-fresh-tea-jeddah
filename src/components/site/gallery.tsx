@@ -18,7 +18,7 @@ export function Gallery() {
   const grid = useReveal();
 
   return (
-    <section id="gallery" className="bg-gradient-to-b from-lav-soft to-cream py-16 lg:py-24">
+    <section id="gallery" className="bg-gradient-to-b from-lav-soft to-cream py-16 lg:py-24 overflow-hidden max-w-full">
       <div className="mx-auto max-w-[1180px] px-4 sm:px-6">
         <div ref={head.ref} className={`${head.className} mx-auto max-w-2xl text-center`}>
           <span className="text-xs font-bold uppercase tracking-[0.2em] text-ink">

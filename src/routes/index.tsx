@@ -63,7 +63,7 @@ function Index() {
         <CartProvider>
           <MouseGlow />
           <Header />
-          <main>
+          <main className="relative w-full max-w-full overflow-x-hidden">
             <Hero />
             <Story />
             <MenuSection />
