@@ -14,9 +14,9 @@ export function Story() {
   ];
 
   return (
-    <section id="story" className="relative py-24">
-      <div className="mx-auto grid max-w-[1180px] items-center gap-14 px-6 lg:grid-cols-2">
-        <div ref={art.ref} className={`${art.className} rounded-[2rem] bg-cream-2 p-8 shadow-soft`}>
+    <section id="story" className="relative py-16 lg:py-24">
+      <div className="mx-auto grid max-w-[1180px] items-center gap-10 lg:gap-14 px-4 sm:px-6 lg:grid-cols-2">
+        <div ref={art.ref} className={`${art.className} rounded-[2rem] bg-cream-2 p-5 sm:p-8 shadow-soft`}>
           <svg viewBox="0 0 300 220" className="w-full" role="img" aria-label="Melbourne to Taiwan to Jeddah">
             <path
               d="M45 55 C 100 90, 140 60, 170 110"

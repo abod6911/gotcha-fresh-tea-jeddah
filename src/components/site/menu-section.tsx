@@ -161,8 +161,8 @@ function MenuCard({ item, index }: { item: MenuItem; index: number }) {
       className="animate-card-in rounded-[1.75rem] border border-border bg-card p-5 shadow-soft transition-transform duration-300 hover:-translate-y-1"
       style={{ animationDelay: `${index * 0.08}s` }}
     >
-      <div className="flex items-start gap-4">
-        <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-pink-soft to-lav-soft overflow-hidden relative">
+      <div className="flex flex-col sm:flex-row items-start gap-4">
+        <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-pink-soft to-lav-soft overflow-hidden relative self-start">
           <img src={categories.find(c => c.id === item.category)?.icon || item.icon} alt="" className="w-full h-full object-cover mix-blend-multiply" aria-hidden="true" />
         </div>
         <div className="min-w-0 flex-1">
@@ -240,8 +240,8 @@ export function MenuSection() {
   }, [cat, query]);
 
   return (
-    <section id="menu" className="relative bg-gradient-to-b from-cream to-pink-soft/60 py-24">
-      <div className="mx-auto max-w-[1180px] px-6">
+    <section id="menu" className="relative bg-gradient-to-b from-cream to-pink-soft/60 py-16 lg:py-24">
+      <div className="mx-auto max-w-[1180px] px-4 sm:px-6">
         <div ref={head.ref} className={`${head.className} mx-auto max-w-2xl text-center`}>
           <span className="text-xs font-bold uppercase tracking-[0.2em] text-ink">
             {t({ en: "Our Menu", ar: "قائمتنا" })}
@@ -263,7 +263,7 @@ export function MenuSection() {
         >
           <div
             ref={tabsRef}
-            className="relative inline-flex flex-wrap justify-center gap-1 rounded-full border border-border bg-card p-1.5"
+            className="relative flex w-full max-w-full overflow-x-auto no-scrollbar justify-start sm:justify-center gap-1 rounded-full border border-border bg-card p-1.5"
           >
             <span
               className="bg-gradient-neon absolute top-1.5 bottom-1.5 rounded-full transition-all duration-300"

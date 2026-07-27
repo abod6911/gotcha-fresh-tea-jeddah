@@ -64,7 +64,7 @@ function CupVisual() {
       initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
       animate={{ opacity: 1, scale: 1, rotate: 0 }}
       transition={{ type: "spring", stiffness: 60, damping: 20, delay: 0.3 }}
-      className="relative mx-auto h-[340px] w-[220px] sm:h-[400px] sm:w-[260px] drop-shadow-2xl"
+      className="relative mx-auto h-[280px] w-[180px] sm:h-[340px] sm:w-[220px] lg:h-[400px] lg:w-[260px] drop-shadow-2xl"
     >
       <motion.div 
         animate={{ y: [0, -10, 0], rotate: [-1, 1, -1] }}
@@ -164,7 +164,7 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="bg-gradient-pastel relative flex min-h-screen items-center overflow-hidden pb-16 pt-32"
+      className="bg-gradient-pastel relative flex min-h-screen items-center overflow-hidden pb-12 pt-24 sm:pb-16 sm:pt-32"
     >
       <TabebuiaTree
         className="hidden h-[520px] w-[400px] opacity-40 sm:block mix-blend-multiply"
@@ -178,7 +178,7 @@ export function Hero() {
       <Petals />
       <FlowerDeco className="w-[220px] opacity-45 mix-blend-multiply" style={{ top: 80, insetInlineStart: -60 }} />
 
-      <div className="relative z-10 mx-auto grid w-full max-w-[1180px] items-center gap-14 px-6 lg:grid-cols-[1.1fr_0.9fr]">
+      <div className="relative z-10 mx-auto grid w-full max-w-[1180px] items-center gap-8 lg:gap-14 px-4 sm:px-6 lg:grid-cols-[1.1fr_0.9fr]">
         <motion.div 
           variants={containerVariants}
           initial="hidden"
@@ -189,9 +189,9 @@ export function Hero() {
             {t({ en: "Melbourne born · Taiwan grown", ar: "وُلدت في ملبورن · نمت في تايوان" })}
           </motion.span>
           
-          <motion.h1 variants={itemVariants} className="mt-6 text-5xl leading-[1.1] text-plum sm:text-6xl lg:text-7xl drop-shadow-sm">
+          <motion.h1 variants={itemVariants} className="mt-5 sm:mt-6 text-4xl sm:text-5xl lg:text-7xl leading-[1.15] text-plum drop-shadow-sm">
             {t({ en: "Handcrafted fresh tea, ", ar: "شاي طازج بلمسة يدوية، " })}
-            <span className="text-gradient-neon block mt-2 pb-2">
+            <span className="text-gradient-neon block mt-1 sm:mt-2 pb-2">
               {t({ en: "poured with pastel joy", ar: "تُقدَّم بفرحة الباستيل" })}
             </span>
           </motion.h1>
@@ -203,22 +203,22 @@ export function Hero() {
             })}
           </motion.p>
           
-          <motion.div variants={itemVariants} className="mt-10 flex flex-wrap gap-4">
+          <motion.div variants={itemVariants} className="mt-8 sm:mt-10 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 w-full sm:w-auto">
             <a
               href="#menu"
-              className="bg-gradient-neon inline-flex rounded-full px-8 py-4 text-base font-semibold text-primary-foreground shadow-glow transition-all duration-300 hover:-translate-y-1 hover:shadow-glow-lg hover:scale-105"
+              className="bg-gradient-neon inline-flex items-center justify-center rounded-full w-full sm:w-auto px-8 py-4 text-base font-semibold text-primary-foreground shadow-glow transition-all duration-300 hover:-translate-y-1 hover:shadow-glow-lg hover:scale-105"
             >
               {t({ en: "View Menu", ar: "استعرض القائمة" })}
             </a>
             <a
               href="#locations"
-              className="inline-flex items-center justify-center rounded-full border-2 border-pink-deep/30 bg-card/50 backdrop-blur px-8 py-4 text-base font-semibold text-plum transition-all duration-300 hover:bg-pink-soft hover:border-pink-deep"
+              className="inline-flex items-center justify-center rounded-full w-full sm:w-auto border-2 border-pink-deep/30 bg-card/50 backdrop-blur px-8 py-4 text-base font-semibold text-plum transition-all duration-300 hover:bg-pink-soft hover:border-pink-deep"
             >
               {t({ en: "Find a Branch", ar: "أقرب فرع" })}
             </a>
           </motion.div>
           
-          <motion.div variants={itemVariants} className="mt-14 flex flex-wrap gap-10 border-t border-border/50 pt-8 w-full">
+          <motion.div variants={itemVariants} className="mt-10 sm:mt-14 flex flex-wrap gap-6 sm:gap-10 border-t border-border/50 pt-6 sm:pt-8 w-full justify-between sm:justify-start">
             {stats.map((s) => (
               <div key={s.value} className="flex flex-col gap-1">
                 <b className="font-display text-3xl text-plum">{s.value}</b>
