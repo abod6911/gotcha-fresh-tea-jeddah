@@ -76,26 +76,34 @@ export function Hero() {
 
   // Visual parameters derived from activeStep
   const getLiquidHeightPercent = () => {
-    if (activeStep === 0 || activeStep === 1) return 0;
-    if (activeStep === 2) return 72;
-    return 78;
+    if (activeStep === 0) return 78; // Fully poured signature drink preview on Intro step!
+    if (activeStep === 1) return 20; // Step 1: Pearls at bottom
+    if (activeStep === 2) return 72; // Step 2: Pouring tea liquid
+    return 78; // Step 3: Complete drink!
   };
 
-  const isBobaVisible = activeStep >= 1;
-  const isIceVisible = activeStep >= 2;
-  const isStrawDropped = activeStep >= 3;
+  const isBobaVisible = activeStep === 0 || activeStep >= 1;
+  const isIceVisible = activeStep === 0 || activeStep >= 2;
+  const isStrawDropped = activeStep === 0 || activeStep >= 3;
+
+  const stepLabels = [
+    { en: "Preview", ar: "الظهور" },
+    { en: "1. Boba", ar: "1. البوبا" },
+    { en: "2. Tea", ar: "2. الشاي" },
+    { en: "3. Enjoy", ar: "3. الجاهزية" },
+  ];
 
   const goToStep = (idx: number) => {
     setActiveStep(idx);
     if (heroRef.current) {
       const sectionHeight = heroRef.current.offsetHeight - window.innerHeight;
-      const targetY = heroRef.current.offsetTop + (idx / 3) * sectionHeight;
+      const targetY = heroRef.current.offsetTop + (idx / 3) * Math.max(100, sectionHeight);
       window.scrollTo({ top: targetY, behavior: "smooth" });
     }
   };
 
   return (
-    <section ref={heroRef} id="top" className="relative bg-gradient-pastel min-h-screen lg:min-h-[200vh]">
+    <section ref={heroRef} id="top" className="relative bg-gradient-pastel min-h-screen lg:min-h-[200vh] max-w-full overflow-hidden">
       {/* Decorative trees & petals */}
       <TabebuiaTree
         className="hidden h-[520px] w-[400px] opacity-40 sm:block mix-blend-multiply pointer-events-none"
@@ -109,8 +117,8 @@ export function Hero() {
       <Petals />
       <FlowerDeco className="w-[220px] opacity-45 mix-blend-multiply pointer-events-none" style={{ top: 80, insetInlineStart: -60 }} />
 
-      {/* Sticky Hero Viewport */}
-      <div className="sticky top-0 flex min-h-screen items-center justify-center py-12 px-4 sm:px-6">
+      {/* Sticky Hero Viewport (pt-24 sm:pt-28 prevents header overlap) */}
+      <div className="sticky top-0 flex min-h-screen items-center justify-center pt-24 sm:pt-28 pb-12 px-4 sm:px-6">
         <div className="relative z-10 mx-auto grid w-full max-w-[1180px] items-center gap-8 lg:gap-14 lg:grid-cols-[1.1fr_0.9fr]">
           
           {/* Left Column: Interactive Dynamic Text */}
@@ -124,38 +132,40 @@ export function Hero() {
                 transition={{ duration: 0.3 }}
                 className="flex flex-col items-start"
               >
-                <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card/80 backdrop-blur-md px-4 py-1.5 text-xs font-semibold tracking-wide text-ink shadow-sm">
-                  <Sparkles className="h-3.5 w-3.5 text-neon" />
+                <span className="inline-flex items-center gap-2 rounded-full border border-pink-deep/30 bg-card/90 backdrop-blur-md px-4 py-1.5 text-xs font-bold tracking-wide text-plum shadow-sm">
+                  <Sparkles className="h-3.5 w-3.5 text-neon shrink-0" />
                   {t(steps[activeStep].badge)}
                 </span>
                 
-                <h1 className="mt-4 sm:mt-5 text-4xl sm:text-5xl lg:text-7xl leading-[1.25] sm:leading-[1.18] text-plum drop-shadow-sm font-display">
+                <h1 className="mt-4 sm:mt-5 text-4xl sm:text-5xl lg:text-7xl leading-[1.25] sm:leading-[1.18] text-plum drop-shadow-sm font-display font-bold">
                   {t(steps[activeStep].title)}
                   <span className="text-gradient-neon block mt-1 sm:mt-2 pb-2">
                     {t(steps[activeStep].highlight)}
                   </span>
                 </h1>
                 
-                <p className="mt-3 sm:mt-4 max-w-xl text-base sm:text-lg leading-relaxed text-plum-soft">
+                <p className="mt-3 sm:mt-4 max-w-xl text-base sm:text-lg leading-relaxed text-plum/90 font-medium">
                   {t(steps[activeStep].desc)}
                 </p>
               </motion.div>
             </AnimatePresence>
 
-            {/* Step Controls: Next/Prev & Indicators */}
-            <div className="mt-6 flex flex-wrap items-center gap-3">
-              <div className="flex items-center gap-2 rounded-full bg-card/80 backdrop-blur-md p-1.5 border border-border shadow-sm">
+            {/* Clear Labeled Interactive Step Buttons */}
+            <div className="mt-6 flex flex-wrap items-center gap-2 sm:gap-3">
+              <div className="flex items-center gap-1.5 rounded-full bg-card/90 backdrop-blur-md p-1.5 border border-pink-deep/30 shadow-soft">
                 {steps.map((_, idx) => (
                   <button
                     key={idx}
                     onClick={() => goToStep(idx)}
                     aria-label={`Step ${idx + 1}`}
-                    className={`h-3 rounded-full transition-all duration-300 ${
+                    className={`rounded-full px-3 py-1.5 text-xs font-bold transition-all duration-300 ${
                       activeStep === idx
-                        ? "w-8 bg-gradient-neon shadow-glow"
-                        : "w-3 bg-plum/20 hover:bg-plum/40"
+                        ? "bg-gradient-neon text-white shadow-glow scale-105"
+                        : "text-plum-soft hover:text-plum hover:bg-pink-soft/50"
                     }`}
-                  />
+                  >
+                    {t(stepLabels[idx])}
+                  </button>
                 ))}
               </div>
 
@@ -163,7 +173,7 @@ export function Hero() {
                 <button
                   onClick={() => goToStep(Math.max(0, activeStep - 1))}
                   disabled={activeStep === 0}
-                  className="rounded-full p-2 border border-border bg-card/80 text-plum disabled:opacity-30 disabled:cursor-not-allowed hover:bg-pink-soft transition-colors"
+                  className="rounded-full p-2 border border-pink-deep/30 bg-card text-plum disabled:opacity-30 disabled:cursor-not-allowed hover:bg-pink-soft transition-colors shadow-sm"
                   aria-label="Previous step"
                 >
                   {dir === "rtl" ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
@@ -171,7 +181,7 @@ export function Hero() {
                 <button
                   onClick={() => goToStep(Math.min(3, activeStep + 1))}
                   disabled={activeStep === 3}
-                  className="rounded-full p-2 border border-border bg-card/80 text-plum disabled:opacity-30 disabled:cursor-not-allowed hover:bg-pink-soft transition-colors"
+                  className="rounded-full p-2 border border-pink-deep/30 bg-card text-plum disabled:opacity-30 disabled:cursor-not-allowed hover:bg-pink-soft transition-colors shadow-sm"
                   aria-label="Next step"
                 >
                   {dir === "rtl" ? <ChevronLeft className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
