@@ -1,11 +1,11 @@
 import { useLang } from "@/lib/i18n";
 import { FlowerDeco, Petals, TabebuiaTree } from "./decor";
 import { useEffect, useState, useRef } from "react";
-import { motion, useScroll, useSpring, useTransform, AnimatePresence } from "framer-motion";
-import { Sparkles, ChevronDown } from "lucide-react";
+import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
+import { Sparkles, ChevronDown, ChevronRight, ChevronLeft } from "lucide-react";
 
 export function Hero() {
-  const { t, lang } = useLang();
+  const { t, dir } = useLang();
   const heroRef = useRef<HTMLDivElement | null>(null);
   
   // Interactive Step State (0: Intro, 1: Add Boba, 2: Pour Tea, 3: Straw & Enjoy)
@@ -22,17 +22,12 @@ export function Hero() {
   // Update step based on scroll
   useEffect(() => {
     return smoothProgress.on("change", (latest) => {
-      if (latest < 0.25) setActiveStep(0);
-      else if (latest < 0.55) setActiveStep(1);
-      else if (latest < 0.85) setActiveStep(2);
+      if (latest < 0.22) setActiveStep(0);
+      else if (latest < 0.52) setActiveStep(1);
+      else if (latest < 0.82) setActiveStep(2);
       else setActiveStep(3);
     });
   }, [smoothProgress]);
-
-  // Derived progress values for visuals
-  const liquidHeight = useTransform(smoothProgress, [0.3, 0.85], [0, 78]);
-  const strawY = useTransform(smoothProgress, [0.8, 0.95], [-400, 0]);
-  const strawRotate = useTransform(smoothProgress, [0.8, 0.95], [-20, 12]);
 
   const steps = [
     {
@@ -40,8 +35,8 @@ export function Hero() {
       title: { en: "Sip the ", ar: "رشفة من " },
       highlight: { en: "Magic.", ar: "السحر." },
       desc: {
-        en: "Scroll down to start brewing your perfect cup of handcrafted pastel tea.",
-        ar: "مرّر للأسفل للبدء بجمُع وتحضير كوبك المثالي من شاي قوتشا الباستيل."
+        en: "Scroll down or click the steps to watch us brew your fresh pastel tea live.",
+        ar: "مرّر للأسفل أو انقر على الخطوات لمشاهدة تحضير شاي الباستيل الطازج أمامك مباشرةً."
       }
     },
     {
@@ -49,7 +44,7 @@ export function Hero() {
       title: { en: "Add the ", ar: "أضف " },
       highlight: { en: "Boba.", ar: "البوبا." },
       desc: {
-        en: "Warm, hand-cooked brown sugar tapioca pearls — chewy, sweet, and soft.",
+        en: "Hand-cooked brown sugar tapioca pearls — warm, chewy, and rich.",
         ar: "لؤلؤ السكر البني الدافئ المطهو يدويًا — طري، غني، ومتوازن الحلاوة."
       }
     },
@@ -58,16 +53,16 @@ export function Hero() {
       title: { en: "Pour the ", ar: "اسكب " },
       highlight: { en: "Tea.", ar: "الشاي." },
       desc: {
-        en: "Roasted Formosa Oolong & fresh milk poured to silky perfection.",
+        en: "Single-origin Formosa Oolong & fresh milk poured to silky perfection.",
         ar: "شاي الأولونغ المحمص مع الحليب الطازج المنساب بسلاسة حريرية."
       }
     },
     {
-      badge: { en: "Enjoy · Fresh in Jeddah", ar: "استمتع · طازج في جدة" },
+      badge: { en: "Step 3 · Ready to Drink", ar: "الخطوة 3 · جاهز للشرب" },
       title: { en: "Ready to ", ar: "جاهز " },
-      highlight: { en: "Drink!", ar: "للشرب!" },
+      highlight: { en: "Enjoy!", ar: "للاستلذاذ!" },
       desc: {
-        en: "Your fresh pastel boba tea is ready! Taste the freshness of Taiwan & Melbourne.",
+        en: "Your fresh boba tea is ready! Taste the authentic freshness of Taiwan & Melbourne in Jeddah.",
         ar: "كوبك الباستيل جاهز الآن! تذوق نضارة تايوان وفخامة ملبورن في جدة."
       }
     }
@@ -79,8 +74,28 @@ export function Hero() {
     { value: "0", label: { en: "Artificial powders used", ar: "مسحوق مستخدم" } },
   ];
 
+  // Visual parameters derived from activeStep
+  const getLiquidHeightPercent = () => {
+    if (activeStep === 0 || activeStep === 1) return 0;
+    if (activeStep === 2) return 72;
+    return 78;
+  };
+
+  const isBobaVisible = activeStep >= 1;
+  const isIceVisible = activeStep >= 2;
+  const isStrawDropped = activeStep >= 3;
+
+  const goToStep = (idx: number) => {
+    setActiveStep(idx);
+    if (heroRef.current) {
+      const sectionHeight = heroRef.current.offsetHeight - window.innerHeight;
+      const targetY = heroRef.current.offsetTop + (idx / 3) * sectionHeight;
+      window.scrollTo({ top: targetY, behavior: "smooth" });
+    }
+  };
+
   return (
-    <section ref={heroRef} id="top" className="relative bg-gradient-pastel min-h-[300vh] overflow-hidden">
+    <section ref={heroRef} id="top" className="relative bg-gradient-pastel min-h-[250vh]">
       {/* Decorative trees & petals */}
       <TabebuiaTree
         className="hidden h-[520px] w-[400px] opacity-40 sm:block mix-blend-multiply pointer-events-none"
@@ -95,18 +110,18 @@ export function Hero() {
       <FlowerDeco className="w-[220px] opacity-45 mix-blend-multiply pointer-events-none" style={{ top: 80, insetInlineStart: -60 }} />
 
       {/* Sticky Hero Viewport */}
-      <div className="sticky top-0 flex min-h-screen items-center justify-center py-16 px-4 sm:px-6">
+      <div className="sticky top-0 flex min-h-screen items-center justify-center py-12 px-4 sm:px-6">
         <div className="relative z-10 mx-auto grid w-full max-w-[1180px] items-center gap-8 lg:gap-14 lg:grid-cols-[1.1fr_0.9fr]">
           
           {/* Left Column: Interactive Dynamic Text */}
-          <div className="flex flex-col items-start min-h-[320px] justify-center">
+          <div className="flex flex-col items-start min-h-[340px] justify-center">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeStep}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.4 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.3 }}
                 className="flex flex-col items-start"
               >
                 <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card/80 backdrop-blur-md px-4 py-1.5 text-xs font-semibold tracking-wide text-ink shadow-sm">
@@ -114,40 +129,54 @@ export function Hero() {
                   {t(steps[activeStep].badge)}
                 </span>
                 
-                <h1 className="mt-5 sm:mt-6 text-4xl sm:text-5xl lg:text-7xl leading-[1.25] sm:leading-[1.18] text-plum drop-shadow-sm font-display">
+                <h1 className="mt-4 sm:mt-5 text-4xl sm:text-5xl lg:text-7xl leading-[1.25] sm:leading-[1.18] text-plum drop-shadow-sm font-display">
                   {t(steps[activeStep].title)}
                   <span className="text-gradient-neon block mt-1 sm:mt-2 pb-2">
                     {t(steps[activeStep].highlight)}
                   </span>
                 </h1>
                 
-                <p className="mt-4 max-w-xl text-base sm:text-lg leading-relaxed text-plum-soft">
+                <p className="mt-3 sm:mt-4 max-w-xl text-base sm:text-lg leading-relaxed text-plum-soft">
                   {t(steps[activeStep].desc)}
                 </p>
               </motion.div>
             </AnimatePresence>
 
-            {/* Interactive Step Switcher Dots */}
-            <div className="mt-6 flex items-center gap-2">
-              {steps.map((_, idx) => (
+            {/* Step Controls: Next/Prev & Indicators */}
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <div className="flex items-center gap-2 rounded-full bg-card/80 backdrop-blur-md p-1.5 border border-border shadow-sm">
+                {steps.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => goToStep(idx)}
+                    aria-label={`Step ${idx + 1}`}
+                    className={`h-3 rounded-full transition-all duration-300 ${
+                      activeStep === idx
+                        ? "w-8 bg-gradient-neon shadow-glow"
+                        : "w-3 bg-plum/20 hover:bg-plum/40"
+                    }`}
+                  />
+                ))}
+              </div>
+
+              <div className="flex items-center gap-1.5">
                 <button
-                  key={idx}
-                  onClick={() => {
-                    setActiveStep(idx);
-                    if (heroRef.current) {
-                      const sectionHeight = heroRef.current.offsetHeight - window.innerHeight;
-                      const targetY = heroRef.current.offsetTop + (idx / 3) * sectionHeight;
-                      window.scrollTo({ top: targetY, behavior: "smooth" });
-                    }
-                  }}
-                  aria-label={`Step ${idx + 1}`}
-                  className={`h-2.5 rounded-full transition-all duration-300 ${
-                    activeStep === idx
-                      ? "w-8 bg-gradient-neon shadow-glow"
-                      : "w-2.5 bg-plum/20 hover:bg-plum/40"
-                  }`}
-                />
-              ))}
+                  onClick={() => goToStep(Math.max(0, activeStep - 1))}
+                  disabled={activeStep === 0}
+                  className="rounded-full p-2 border border-border bg-card/80 text-plum disabled:opacity-30 disabled:cursor-not-allowed hover:bg-pink-soft transition-colors"
+                  aria-label="Previous step"
+                >
+                  {dir === "rtl" ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+                </button>
+                <button
+                  onClick={() => goToStep(Math.min(3, activeStep + 1))}
+                  disabled={activeStep === 3}
+                  className="rounded-full p-2 border border-border bg-card/80 text-plum disabled:opacity-30 disabled:cursor-not-allowed hover:bg-pink-soft transition-colors"
+                  aria-label="Next step"
+                >
+                  {dir === "rtl" ? <ChevronLeft className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
+                </button>
+              </div>
             </div>
 
             {/* CTA Buttons */}
@@ -167,7 +196,7 @@ export function Hero() {
             </div>
 
             {/* Stats Bar */}
-            <div className="mt-10 sm:mt-12 flex flex-wrap gap-6 sm:gap-10 border-t border-border/50 pt-6 w-full justify-between sm:justify-start">
+            <div className="mt-8 sm:mt-10 flex flex-wrap gap-6 sm:gap-10 border-t border-border/50 pt-5 w-full justify-between sm:justify-start">
               {stats.map((s) => (
                 <div key={s.value} className="flex flex-col gap-0.5">
                   <b className="font-display text-2xl sm:text-3xl text-plum">{s.value}</b>
@@ -180,11 +209,21 @@ export function Hero() {
           {/* Right Column: Visual Interactive Boba Cup */}
           <div className="relative w-full flex flex-col justify-center items-center">
             
-            <div className="relative mx-auto h-[320px] w-[200px] sm:h-[380px] sm:w-[240px] drop-shadow-2xl">
+            <div 
+              onClick={() => goToStep((activeStep + 1) % 4)}
+              className="relative mx-auto h-[320px] w-[200px] sm:h-[380px] sm:w-[240px] drop-shadow-2xl cursor-pointer group"
+              title={t({ en: "Tap cup to brew next step!", ar: "انقر الكوب لتحضير الخطوة التالية!" })}
+            >
               
               {/* Animated Straw */}
               <motion.div 
-                style={{ y: strawY, rotate: strawRotate, originY: 1 }}
+                animate={{
+                  y: isStrawDropped ? 0 : -350,
+                  rotate: isStrawDropped ? 12 : -15,
+                  opacity: isStrawDropped ? 1 : 0
+                }}
+                transition={{ type: "spring", stiffness: 100, damping: 15 }}
+                style={{ originY: 1 }}
                 className="absolute -top-28 left-1/2 -translate-x-1/2 h-[125%] w-[24px] rounded-full bg-gradient-to-r from-lav-deep via-lav-soft to-lav-deep shadow-[inset_-3px_0_8px_rgba(0,0,0,0.4),2px_2px_10px_rgba(0,0,0,0.2)] z-10"
               />
 
@@ -198,11 +237,12 @@ export function Hero() {
                 
                 {/* Dynamic Wavy Tea Liquid */}
                 <motion.div 
-                  style={{ height: liquidHeight }}
-                  className="absolute inset-x-0 bottom-0 origin-bottom transition-all duration-300"
+                  animate={{ height: `${getLiquidHeightPercent()}%` }}
+                  transition={{ type: "spring", stiffness: 70, damping: 16 }}
+                  className="absolute inset-x-0 bottom-0 origin-bottom"
                 >
                   {/* Wavy Surface SVG */}
-                  <div className="absolute -top-6 inset-x-0 h-8 w-[200%] animate-[wave-move_3s_linear_infinite] pointer-events-none">
+                  <div className="absolute -top-5 inset-x-0 h-7 w-[200%] animate-[wave-move_3s_linear_infinite] pointer-events-none">
                     <svg className="w-full h-full" viewBox="0 0 800 50" preserveAspectRatio="none">
                       <path d="M0,25 C100,0 100,50 200,25 C300,0 300,50 400,25 C500,0 500,50 600,25 C700,0 700,50 800,25 L800,50 L0,50 Z" fill="oklch(0.79 0.06 35)" opacity="0.9" />
                     </svg>
@@ -212,7 +252,7 @@ export function Hero() {
                   <div className="absolute inset-0 bg-gradient-to-t from-pink-deep/95 via-pink/80 to-lav/70 backdrop-blur-sm" />
                   
                   {/* Floating Ice Cubes */}
-                  {activeStep >= 2 && (
+                  {isIceVisible && (
                     <>
                       <div className="absolute top-2 left-4 w-9 h-9 rounded-xl bg-white/40 border border-white/60 backdrop-blur-sm animate-pulse transform rotate-12" />
                       <div className="absolute top-4 right-5 w-8 h-8 rounded-xl bg-white/40 border border-white/60 backdrop-blur-sm animate-pulse transform -rotate-12" />
@@ -220,27 +260,26 @@ export function Hero() {
                   )}
                 </motion.div>
                 
-                {/* Boba Pearls (Appear during Step 1 & 2) */}
+                {/* Boba Pearls */}
                 <div className="absolute inset-x-0 bottom-3 flex justify-center items-end h-[50%]">
                   {Array.from({ length: 28 }).map((_, i) => {
                     const row = Math.floor(i / 6);
                     const col = i % 6;
-                    const pearlVisible = activeStep >= 1;
 
                     return (
                       <motion.span
                         key={i}
                         initial={false}
                         animate={{
-                          y: pearlVisible ? 0 : -300,
-                          opacity: pearlVisible ? 1 : 0,
-                          scale: pearlVisible ? 1 : 0.4
+                          y: isBobaVisible ? 0 : -320,
+                          opacity: isBobaVisible ? 1 : 0,
+                          scale: isBobaVisible ? 1 : 0.3
                         }}
                         transition={{
                           type: "spring",
-                          stiffness: 120,
+                          stiffness: 110,
                           damping: 14,
-                          delay: (i * 0.03) % 0.4
+                          delay: (i * 0.02) % 0.3
                         }}
                         className="absolute rounded-full shadow-[inset_-3px_-3px_6px_rgba(0,0,0,0.9),1px_1px_3px_rgba(0,0,0,0.5)]"
                         style={{
@@ -266,13 +305,14 @@ export function Hero() {
 
             {/* Badge pill below cup */}
             <motion.div 
-              className="relative mt-8 flex items-center gap-2.5 rounded-full border border-border bg-card/90 backdrop-blur-md px-5 py-2 text-xs font-bold text-plum shadow-glow-lg z-20"
+              onClick={() => goToStep((activeStep + 1) % 4)}
+              className="relative mt-7 flex items-center gap-2.5 rounded-full border border-border bg-card/90 backdrop-blur-md px-5 py-2 text-xs font-bold text-plum shadow-glow-lg z-20 cursor-pointer hover:scale-105 transition-transform"
             >
               <span className="relative flex h-2.5 w-2.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-neon"></span>
               </span>
-              {t({ en: "Live Interactive Brewing • Scroll Down", ar: "تحضير تفاعلي مباشر • مرّر للأسفل" })}
+              {t({ en: "Tap cup or scroll to brew", ar: "انقر الكوب أو مرّر للتحضير" })}
             </motion.div>
 
           </div>
@@ -281,7 +321,7 @@ export function Hero() {
       </div>
 
       {/* Scroll Prompt indicator */}
-      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex flex-col items-center z-30 pointer-events-none opacity-80">
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex flex-col items-center z-30 pointer-events-none opacity-80">
         <span className="text-[0.65rem] font-bold text-plum uppercase tracking-widest mb-1.5 font-display">
           {t({ en: "Scroll to Brew", ar: "مرّر للتحضير" })}
         </span>
