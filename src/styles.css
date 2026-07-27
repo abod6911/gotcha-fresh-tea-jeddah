@@ -71,7 +71,8 @@
   --animate-shine: shine 5s ease-in-out infinite;
   --animate-sway: sway 9s ease-in-out infinite;
   --animate-nav-in: nav-in 0.5s var(--ease-silk) both;
-
+  --animate-marquee: marquee 30s linear infinite;
+  --animate-marquee-rtl: marquee-rtl 30s linear infinite;
 }
 
 :root {
@@ -369,4 +370,22 @@
     opacity: 1;
     transform: none;
   }
+}
+
+/* Guaranteed Marquee Infinite Movement */
+.marquee-track-ltr {
+  display: flex;
+  width: max-content;
+  animation: marquee 25s linear infinite;
+}
+
+.marquee-track-rtl {
+  display: flex;
+  width: max-content;
+  animation: marquee-rtl 25s linear infinite;
+}
+
+.marquee-track-ltr:hover,
+.marquee-track-rtl:hover {
+  animation-play-state: paused;
 }
