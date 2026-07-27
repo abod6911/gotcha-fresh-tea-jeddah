@@ -50,8 +50,10 @@ export function Header() {
 
   return (
     <header
-      className={`glass-panel fixed inset-x-0 top-0 z-50 border-b border-border transition-all duration-300 ${
-        scrolled ? "shadow-soft bg-card/90 backdrop-blur-md" : "bg-card/70"
+      className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-500 ${
+        scrolled 
+          ? "shadow-soft bg-white/40 backdrop-blur-2xl border-white/40" 
+          : "bg-transparent border-transparent"
       }`}
     >
       <div className="mx-auto flex max-w-[1180px] items-center justify-between px-6 py-3">

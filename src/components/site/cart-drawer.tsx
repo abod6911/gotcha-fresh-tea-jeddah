@@ -1,5 +1,6 @@
 import { Minus, Plus, ShoppingBag, Trash2, X, Sparkles } from "lucide-react";
 import { useState } from "react";
+import { motion, useAnimation, PanInfo } from "framer-motion";
 import { TOPPINGS, useCart } from "@/lib/cart";
 import { useLang } from "@/lib/i18n";
 import { useAuth } from "@/lib/auth";
@@ -13,8 +14,16 @@ export function CartDrawer() {
   const [orderType, setOrderType] = useState<OrderType>("pickup");
   const [name, setName] = useState("");
   const [note, setNote] = useState("");
+  const controls = useAnimation();
 
   if (!isOpen) return null;
+
+  const handleDragEnd = (e: any, info: PanInfo) => {
+    // If swiped right or left fast, close it
+    if (info.offset.x > 100 || info.velocity.x > 500) {
+      setOpen(false);
+    }
+  };
 
   const sugarIce = (sugar: number, ice: string) =>
     `${t({ en: "Sugar", ar: "سكر" })} ${sugar}% · ${t({ en: "Ice", ar: "ثلج" })}: ${
@@ -57,12 +66,25 @@ export function CartDrawer() {
 
   return (
     <div className="fixed inset-0 z-[60]">
-      <button
+      <motion.button
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
         aria-label={t({ en: "Close cart", ar: "إغلاق السلة" })}
         onClick={() => setOpen(false)}
-        className="absolute inset-0 bg-plum/40 backdrop-blur-sm transition-opacity animate-in fade-in duration-300"
+        className="absolute inset-0 w-full cursor-default bg-plum/40 backdrop-blur-sm"
       />
-      <aside className="absolute inset-y-0 end-0 flex w-full max-w-md flex-col bg-card shadow-2xl transition-all animate-in slide-in-from-end duration-300">
+      <motion.aside 
+        drag="x"
+        dragConstraints={{ left: 0, right: 0 }}
+        dragElastic={{ left: 0, right: 0.8 }}
+        onDragEnd={handleDragEnd}
+        initial={{ x: "100%" }}
+        animate={{ x: 0 }}
+        exit={{ x: "100%" }}
+        transition={{ type: "spring", damping: 25, stiffness: 200 }}
+        className="absolute inset-y-0 end-0 flex w-full max-w-md flex-col bg-card shadow-2xl touch-pan-y"
+      >
         <header className="flex items-center justify-between border-b border-border px-6 py-4">
           <h2 className="flex items-center gap-2 text-lg font-bold text-plum">
             <ShoppingBag className="h-5 w-5 text-ink" />
@@ -210,7 +232,7 @@ export function CartDrawer() {
             </button>
           </footer>
         )}
-      </aside>
+      </motion.aside>
     </div>
   );
 }

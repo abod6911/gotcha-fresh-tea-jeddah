@@ -11,6 +11,7 @@ import { Farms } from "@/components/site/farms";
 import { Gallery } from "@/components/site/gallery";
 import { Rewards } from "@/components/site/rewards";
 import { Locations } from "@/components/site/locations";
+import { Testimonials } from "@/components/site/testimonials";
 import { Footer } from "@/components/site/footer";
 import { CartDrawer } from "@/components/site/cart-drawer";
 import { FloatingActions } from "@/components/site/floating-actions";
@@ -69,6 +70,7 @@ function Index() {
             <Farms />
             <Gallery />
             <Rewards />
+            <Testimonials />
             <Locations />
           </main>
           <Footer />
