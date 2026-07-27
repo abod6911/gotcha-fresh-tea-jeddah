@@ -63,29 +63,32 @@ export function Header() {
     <header
       className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-500 ${
         scrolled 
-          ? "shadow-soft bg-white/40 backdrop-blur-2xl border-white/40" 
+          ? "shadow-soft bg-white/60 backdrop-blur-2xl border-white/40" 
           : "bg-transparent border-transparent"
       }`}
     >
-      <div className="mx-auto flex max-w-[1180px] items-center justify-between px-4 sm:px-6 py-2.5 sm:py-3">
-        <a href="#top" className="flex items-center gap-2 sm:gap-2.5 group shrink-0">
-          <GotchaLogo className="h-8 w-8 sm:h-10 sm:w-10 shrink-0 transition-transform duration-300 group-hover:scale-105" />
+      <div className="mx-auto flex max-w-[1180px] items-center justify-between gap-2 sm:gap-4 px-3 sm:px-6 py-2.5 sm:py-3 flex-nowrap overflow-hidden">
+        
+        {/* Brand Logo */}
+        <a href="#top" className="flex items-center gap-2 sm:gap-2.5 group shrink-0 select-none">
+          <GotchaLogo className="h-8 w-8 sm:h-9 sm:w-9 shrink-0 transition-transform duration-300 group-hover:scale-105" />
           <span className="flex flex-col leading-none">
-            <b className="font-display text-xl tracking-wide text-plum">Gotcha</b>
-            <span className="text-[0.6rem] uppercase tracking-[0.24em] text-ink">
+            <b className="font-display text-lg sm:text-xl tracking-wide text-plum">Gotcha</b>
+            <span className="text-[0.55rem] sm:text-[0.6rem] uppercase tracking-[0.2em] text-ink font-bold">
               {t({ en: "Fresh Tea", ar: "قوتشا فريش تي" })}
             </span>
           </span>
         </a>
 
-        <nav className="hidden items-center gap-6 lg:flex">
+        {/* Desktop Nav Links (Visible on XL screens 1280px+ to prevent collision) */}
+        <nav className="hidden items-center gap-4 xl:gap-6 xl:flex shrink min-w-0">
           {NAV.map((item, i) => (
             <a
               key={item.href}
               href={item.href}
-              style={{ animationDelay: `${i * 70}ms` }}
-              className={`group relative py-1 text-sm font-medium transition-all duration-300 hover:-translate-y-0.5 ${
-                active === item.href ? "text-plum" : "text-plum-soft hover:text-plum"
+              style={{ animationDelay: `${i * 60}ms` }}
+              className={`group relative py-1 text-xs xl:text-sm font-bold whitespace-nowrap transition-all duration-300 hover:-translate-y-0.5 ${
+                active === item.href ? "text-plum" : "text-plum/70 hover:text-plum"
               }`}
             >
               {t(item.label)}
@@ -100,15 +103,16 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+        {/* Right/Left Action Controls */}
+        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
           {/* Language Toggle */}
           <button
             onClick={toggle}
             aria-label="Switch language"
-            className="flex items-center gap-1 sm:gap-1.5 rounded-full border-[1.5px] border-pink-deep bg-card px-2 sm:px-3.5 py-1.5 text-[0.65rem] sm:text-xs font-semibold text-plum transition-all duration-300 hover:border-neon hover:bg-pink-soft hover:scale-105"
+            className="flex items-center gap-1 rounded-full border-[1.5px] border-pink-deep/40 bg-card px-2.5 sm:px-3 py-1.5 text-[0.65rem] sm:text-xs font-bold text-plum transition-all duration-300 hover:border-neon hover:bg-pink-soft hover:scale-105"
           >
-            <Globe className="h-3.5 w-3.5" />
-            {lang === "ar" ? "English" : "العربية"}
+            <Globe className="h-3.5 w-3.5 text-neon shrink-0" />
+            <span>{lang === "ar" ? "English" : "العربية"}</span>
           </button>
 
           {/* User Loyalty / Auth */}
@@ -116,21 +120,21 @@ export function Header() {
             <div className="relative user-dropdown-container">
               <button
                 onClick={() => setUserDropdown((v) => !v)}
-                className="flex items-center gap-1.5 sm:gap-2 rounded-full border-[1.5px] border-pink-deep bg-cream-2 px-2 sm:px-3 py-1 text-xs font-semibold text-plum shadow-sm transition-all hover:bg-pink-soft"
+                className="flex items-center gap-1.5 rounded-full border-[1.5px] border-pink-deep/40 bg-cream-2 px-2 sm:px-3 py-1 text-xs font-bold text-plum shadow-sm transition-all hover:bg-pink-soft"
               >
                 <img
                   src={user.avatar}
                   alt={user.name}
-                  className="h-6 w-6 rounded-full object-cover ring-1 ring-pink-deep"
+                  className="h-5 w-5 sm:h-6 sm:w-6 rounded-full object-cover ring-1 ring-pink-deep"
                 />
-                <span className="hidden sm:inline-block max-w-[90px] truncate">{user.name}</span>
-                <span className="flex items-center gap-1 rounded-full bg-plum/10 px-2 py-0.5 text-[0.65rem] font-bold text-plum">
+                <span className="hidden md:inline-block max-w-[80px] truncate">{user.name}</span>
+                <span className="flex items-center gap-1 rounded-full bg-plum/10 px-1.5 py-0.5 text-[0.65rem] font-bold text-plum">
                   🌸 {user.blossoms}
                 </span>
               </button>
 
               {userDropdown && (
-                <div className="absolute end-0 mt-2 w-56 rounded-2xl border border-border bg-card p-3 shadow-xl animate-in fade-in slide-in-from-top-2 duration-200">
+                <div className="absolute end-0 mt-2 w-56 rounded-2xl border border-pink-deep/20 bg-card p-3 shadow-xl animate-in fade-in slide-in-from-top-2 duration-200 z-50">
                   <div className="border-b border-border pb-2.5 mb-2 px-2">
                     <p className="text-xs font-bold text-plum">{user.name}</p>
                     <p className="text-[0.7rem] text-plum-soft truncate">{user.email}</p>
@@ -165,38 +169,38 @@ export function Header() {
           ) : (
             <button
               onClick={() => setAuthOpen(true)}
-              className="flex items-center gap-1 sm:gap-1.5 rounded-full border-[1.5px] border-pink-deep bg-card px-2 sm:px-3.5 py-1.5 text-[0.65rem] sm:text-xs font-semibold text-plum transition-all duration-300 hover:border-neon hover:bg-pink-soft hover:scale-105"
+              className="flex items-center gap-1 rounded-full border-[1.5px] border-pink-deep/40 bg-card px-2.5 sm:px-3 py-1.5 text-[0.65rem] sm:text-xs font-bold text-plum transition-all duration-300 hover:border-neon hover:bg-pink-soft hover:scale-105"
             >
               <User className="h-3.5 w-3.5 text-ink shrink-0" />
               <span className="hidden xs:inline-block">{t({ en: "Login", ar: "دخول" })}</span>
             </button>
           )}
 
-          {/* Cart button */}
+          {/* Cart Button */}
           <button
             onClick={() => setOpen(true)}
             aria-label={t({ en: "Open cart", ar: "فتح السلة" })}
-            className="relative rounded-full border-[1.5px] border-pink-deep bg-card p-1.5 sm:p-2 text-plum transition-all duration-300 hover:bg-pink-soft hover:scale-105 shrink-0"
+            className="relative rounded-full border-[1.5px] border-pink-deep/40 bg-card p-1.5 sm:p-2 text-plum transition-all duration-300 hover:bg-pink-soft hover:scale-105 shrink-0"
           >
             <ShoppingBag className="h-4 w-4" />
             {count > 0 && (
-              <span className="bg-gradient-neon absolute -top-1.5 -end-1.5 flex h-5 min-w-5 items-center justify-center rounded-full px-1 text-[0.65rem] font-bold text-primary-foreground animate-pulse">
+              <span className="bg-gradient-neon absolute -top-1.5 -end-1.5 flex h-4 min-w-4 sm:h-5 sm:min-w-5 items-center justify-center rounded-full px-1 text-[0.6rem] sm:text-[0.65rem] font-bold text-primary-foreground animate-pulse shadow-glow">
                 {count}
               </span>
             )}
           </button>
 
-          {/* Order Now CTA */}
+          {/* Order Now CTA Button */}
           <a
             href="#menu"
-            className="bg-gradient-neon hidden rounded-full px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-glow transition-all duration-300 hover:-translate-y-0.5 hover:shadow-glow-lg active:scale-95 sm:inline-flex"
+            className="bg-gradient-neon hidden rounded-full px-4 sm:px-5 py-2 text-xs sm:text-sm font-bold text-primary-foreground shadow-glow transition-all duration-300 hover:-translate-y-0.5 hover:shadow-glow-lg active:scale-95 sm:inline-flex shrink-0"
           >
             {t({ en: "Order Now", ar: "اطلب الآن" })}
           </a>
 
-          {/* Mobile menu toggle */}
+          {/* Mobile Menu Toggle (Visible up to XL) */}
           <button
-            className="rounded-full border-[1.5px] border-pink-deep p-1.5 sm:p-2 text-plum lg:hidden shrink-0"
+            className="rounded-full border-[1.5px] border-pink-deep/40 p-1.5 sm:p-2 text-plum xl:hidden shrink-0"
             onClick={() => setMobileOpen((v) => !v)}
             aria-label={t({ en: "Menu", ar: "القائمة" })}
             aria-expanded={mobileOpen}
