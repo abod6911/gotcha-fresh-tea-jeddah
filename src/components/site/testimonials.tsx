@@ -37,8 +37,9 @@ const TESTIMONIALS = [
 export function Testimonials() {
   const { t, dir, lang } = useLang();
 
-  // Duplicate for seamless infinite scrolling
-  const items = [...TESTIMONIALS, ...TESTIMONIALS, ...TESTIMONIALS];
+  // Duplicate once for seamless infinite scrolling (animation shifts by -50%)
+  const items = [...TESTIMONIALS, ...TESTIMONIALS];
+
 
   return (
     <section className="relative overflow-hidden bg-cream-2 py-16 border-y border-border">
