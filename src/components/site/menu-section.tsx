@@ -207,13 +207,14 @@ export function MenuSection() {
     if (!container) return;
     const active = container.querySelector<HTMLButtonElement>("[data-active='true']");
     if (!active) return;
-    // container does not scroll, so offsetWidth is safe and stable
+    const cRect = container.getBoundingClientRect();
+    const aRect = active.getBoundingClientRect();
+    // inset-inline-start is measured from the right edge in RTL
     const offset =
-      dir === "rtl"
-        ? container.offsetWidth - active.offsetLeft - active.offsetWidth
-        : active.offsetLeft;
-    setIndicator({ width: active.offsetWidth, offset });
+      dir === "rtl" ? cRect.right - aRect.right : aRect.left - cRect.left;
+    setIndicator({ width: aRect.width, offset });
   };
+
 
   useEffect(() => {
     position();
