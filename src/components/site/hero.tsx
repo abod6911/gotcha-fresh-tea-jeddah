@@ -189,7 +189,7 @@ export function Hero() {
             {t({ en: "Melbourne born · Taiwan grown", ar: "وُلدت في ملبورن · نمت في تايوان" })}
           </motion.span>
           
-          <motion.h1 variants={itemVariants} className="mt-5 sm:mt-6 text-4xl sm:text-5xl lg:text-7xl leading-[1.15] text-plum drop-shadow-sm">
+          <motion.h1 variants={itemVariants} className="mt-5 sm:mt-6 text-4xl sm:text-5xl lg:text-7xl leading-[1.25] sm:leading-[1.18] text-plum drop-shadow-sm">
             {t({ en: "Handcrafted fresh tea, ", ar: "شاي طازج بلمسة يدوية، " })}
             <span className="text-gradient-neon block mt-1 sm:mt-2 pb-2">
               {t({ en: "poured with pastel joy", ar: "تُقدَّم بفرحة الباستيل" })}

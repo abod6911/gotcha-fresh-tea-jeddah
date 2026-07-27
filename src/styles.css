@@ -137,6 +137,8 @@
 
   html[lang="ar"] body {
     font-family: "Tajawal", "Poppins", sans-serif;
+    letter-spacing: 0 !important;
+    word-spacing: 0.05em;
   }
 
   h1,
@@ -154,6 +156,8 @@
   html[lang="ar"] h4,
   html[lang="ar"] .font-display {
     font-family: "El Messiri", "Fraunces", serif;
+    letter-spacing: 0 !important;
+    line-height: 1.35;
   }
 
   ::selection {
