@@ -158,36 +158,56 @@ function MenuCard({ item, index }: { item: MenuItem; index: number }) {
 
   return (
     <article
-      className="animate-card-in rounded-[1.75rem] border border-border bg-card p-5 shadow-soft transition-transform duration-300 hover:-translate-y-1"
+      className="animate-card-in group relative rounded-[2rem] border border-pink-deep/20 bg-card p-5 sm:p-6 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-glow hover:border-neon/50"
       style={{ animationDelay: `${index * 0.08}s` }}
     >
       <div className="flex flex-col sm:flex-row items-start gap-4">
-        <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-pink-soft to-lav-soft overflow-hidden relative self-start">
-          <img src={categories.find(c => c.id === item.category)?.icon || item.icon} alt="" className="w-full h-full object-cover mix-blend-multiply" aria-hidden="true" />
+        {/* Item Icon / Image Container */}
+        <div className="flex h-16 w-16 sm:h-20 sm:w-20 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-pink-soft/80 via-cream-2 to-lav-soft/60 p-2 shadow-inner border border-white/60 relative overflow-hidden group-hover:scale-105 transition-transform duration-300">
+          <img 
+            src={categories.find(c => c.id === item.category)?.icon || item.icon} 
+            alt="" 
+            className="w-full h-full object-cover rounded-xl" 
+            aria-hidden="true" 
+          />
         </div>
-        <div className="min-w-0 flex-1">
+
+        {/* Item Content */}
+        <div className="min-w-0 flex-1 w-full">
           <div className="flex items-start justify-between gap-3">
-            <h3 className="text-base font-semibold text-plum">
+            <h3 className="text-base sm:text-lg font-bold text-plum font-display leading-snug">
               {t(item.name)}
               {item.isNew && (
-                <span className="bg-gradient-neon ms-2 rounded-full px-2 py-0.5 align-middle text-[0.6rem] font-bold text-primary-foreground">
+                <span className="bg-gradient-neon ms-2 inline-block rounded-full px-2.5 py-0.5 align-middle text-[0.65rem] font-bold text-primary-foreground shadow-glow">
                   {t({ en: "NEW", ar: "جديد" })}
                 </span>
               )}
             </h3>
-            <span className="whitespace-nowrap text-sm font-bold text-ink">
+
+            {/* Glowing Price Tag */}
+            <span className="shrink-0 bg-pink-soft/90 border border-pink-deep/30 px-3 py-1 rounded-full text-xs sm:text-sm font-bold text-plum shadow-sm">
               {item.price} {t({ en: "SAR", ar: "ر.س" })}
             </span>
           </div>
-          <p className="mt-1.5 text-sm leading-relaxed text-plum-soft">{t(item.desc)}</p>
-          <button
-            onClick={() => setOpen((v) => !v)}
-            className="mt-3 rounded-full border-[1.5px] border-pink-deep px-4 py-1.5 text-xs font-semibold text-plum transition-colors hover:bg-pink-soft"
-          >
-            {open ? t({ en: "Close", ar: "إغلاق" }) : t({ en: "Customise & order", ar: "خصّص واطلب" })}
-          </button>
+
+          <p className="mt-2 text-xs sm:text-sm leading-relaxed text-plum-soft font-medium">
+            {t(item.desc)}
+          </p>
+
+          <div className="mt-4 flex items-center justify-between border-t border-pink-deep/10 pt-3">
+            <span className="text-[0.7rem] font-bold uppercase tracking-wider text-plum-soft">
+              Gotcha Signature
+            </span>
+            <button
+              onClick={() => setOpen((v) => !v)}
+              className="rounded-full border-2 border-pink-deep/40 bg-card px-4 sm:px-5 py-1.5 text-xs font-bold text-plum transition-all duration-300 hover:bg-pink-soft hover:border-pink-deep hover:scale-105 active:scale-95 shadow-sm"
+            >
+              {open ? t({ en: "Close Panel", ar: "إغلاق النافذة" }) : t({ en: "Customise & Order", ar: "خصّص واطلب" })}
+            </button>
+          </div>
         </div>
       </div>
+
       {open && <OrderPanel item={item} onDone={() => setOpen(false)} />}
     </article>
   );
