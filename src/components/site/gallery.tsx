@@ -24,7 +24,7 @@ export function Gallery() {
           <span className="text-xs font-bold uppercase tracking-[0.2em] text-ink">
             {t({ en: "Pastel Moments", ar: "لحظات باستيل" })}
           </span>
-          <h2 className="mt-3 text-3xl text-plum sm:text-4xl">
+          <h2 className="mt-3 text-2xl font-bold text-plum sm:text-4xl font-display">
             {t({ en: "Made for the feed, made for you", ar: "صُنعت لتُصوَّر، وصُنعت من أجلك" })}
           </h2>
         </div>

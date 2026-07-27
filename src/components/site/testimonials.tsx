@@ -80,7 +80,7 @@ export function Testimonials() {
           <Sparkles className="h-3.5 w-3.5 text-neon shrink-0" />
           {t({ en: "Community Reviews", ar: "آراء مجتمعنا وتجاربهم" })}
         </span>
-        <h2 className="mt-3 text-3xl font-bold text-plum sm:text-4xl lg:text-5xl font-display">
+        <h2 className="mt-3 text-xl sm:text-3xl lg:text-4xl font-bold text-plum font-display">
           {t({ en: "Loved by our community", ar: "محبوب من مجتمعنا في جدة" })}
         </h2>
       </div>
