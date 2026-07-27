@@ -37,8 +37,9 @@ const TESTIMONIALS = [
 export function Testimonials() {
   const { t, dir, lang } = useLang();
 
-  // Duplicate for seamless infinite scrolling
-  const items = [...TESTIMONIALS, ...TESTIMONIALS, ...TESTIMONIALS];
+  // Duplicate once for seamless infinite scrolling (animation shifts by -50%)
+  const items = [...TESTIMONIALS, ...TESTIMONIALS];
+
 
   return (
     <section className="relative overflow-hidden bg-cream-2 py-16 border-y border-border">
@@ -51,16 +52,19 @@ export function Testimonials() {
         </h2>
       </div>
 
-      <div className="flex w-full group overflow-hidden">
-        <div 
-          className={`flex w-max shrink-0 items-center gap-6 group-hover:[animation-play-state:paused] ${
-            dir === "rtl" ? "flex-row-reverse animate-marquee-rtl" : "animate-marquee"
+      <div dir="ltr" className="flex w-full group overflow-hidden py-2">
+        <div
+          dir="ltr"
+          className={`flex w-max shrink-0 items-stretch group-hover:[animation-play-state:paused] animate-marquee ${
+            dir === "rtl" ? "[animation-direction:reverse]" : ""
           }`}
         >
           {items.map((item, i) => (
-            <div 
-              key={i} 
-              className="w-[300px] shrink-0 rounded-2xl border border-border bg-card p-6 shadow-soft transition-transform duration-300 hover:-translate-y-2 hover:shadow-xl cursor-default"
+            <div
+              key={i}
+              dir={dir}
+              className="mx-3 w-[300px] shrink-0 rounded-2xl border border-border bg-card p-6 shadow-soft transition-transform duration-300 hover:-translate-y-2 hover:shadow-xl cursor-default"
+
             >
               <div className="flex items-center gap-1 mb-3 text-neon">
                 {Array.from({ length: 5 }).map((_, i) => (
