@@ -1,159 +1,179 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-  type ReactNode,
-} from "react";
+import { createContext, useContext, useEffect, useState, useMemo, useCallback } from "react";
 import { toast } from "sonner";
+import { 
+  GoogleAuthProvider, 
+  OAuthProvider, 
+  signInWithPopup, 
+  onAuthStateChanged,
+  signOut as firebaseSignOut
+} from "firebase/auth";
+import { doc, getDoc, setDoc, onSnapshot, updateDoc, increment } from "firebase/firestore";
+import { auth, db } from "./firebase";
+import { useLang } from "./i18n";
 
-export type UserProfile = {
+export interface UserProfile {
   id: string;
   name: string;
   email: string;
   avatar: string;
-  provider: "google" | "apple";
   points: number;
   blossoms: number;
   tier: "Bronze" | "Silver" | "Gold" | "VIP";
-};
+  age?: number;
+  needsProfile?: boolean;
+}
 
 type AuthContextValue = {
   user: UserProfile | null;
   isAuthOpen: boolean;
+  isAuthenticating: boolean;
   setAuthOpen: (open: boolean) => void;
-  loginWithGoogle: () => void;
-  loginWithApple: () => void;
-  logout: () => void;
-  addPoints: (earnedPoints: number, orderTotalSAR?: number) => void;
-  redeemBlossom: (cost: number, rewardTitle: string) => boolean;
+  loginWithGoogle: () => Promise<void>;
+  loginWithApple: () => Promise<void>;
+  logout: () => Promise<void>;
+  addPoints: (earnedPoints: number, orderTotalSAR?: number) => Promise<void>;
+  redeemBlossom: (cost: number, rewardTitle: string) => Promise<boolean>;
+  saveProfile: (name: string, age: number) => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextValue | null>(null);
-const STORAGE_KEY = "gotcha-user-auth";
 
-export function AuthProvider({ children }: { children: ReactNode }) {
+export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<UserProfile | null>(null);
   const [isAuthOpen, setAuthOpen] = useState(false);
-  const [isAuthenticating, setIsAuthenticating] = useState(false);
+  const [isAuthenticating, setIsAuthenticating] = useState(true);
+  const { t } = useLang();
 
+  // Listen to Firebase Auth state
   useEffect(() => {
+    const unsubscribeAuth = onAuthStateChanged(auth, async (firebaseUser) => {
+      if (firebaseUser) {
+        // User logged in, listen to their Firestore document
+        const userRef = doc(db, "users", firebaseUser.uid);
+        const unsubscribeDoc = onSnapshot(userRef, (docSnap) => {
+          if (docSnap.exists()) {
+            setUser(docSnap.data() as UserProfile);
+          }
+        });
+        setIsAuthenticating(false);
+        return () => unsubscribeDoc();
+      } else {
+        setUser(null);
+        setIsAuthenticating(false);
+      }
+    });
+
+    return () => unsubscribeAuth();
+  }, []);
+
+  const handleOAuthLogin = async (provider: any, providerName: string) => {
     try {
-      const stored = window.localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        setUser(JSON.parse(stored) as UserProfile);
+      setIsAuthenticating(true);
+      const result = await signInWithPopup(auth, provider);
+      const firebaseUser = result.user;
+
+      // Check if user exists in Firestore
+      const userRef = doc(db, "users", firebaseUser.uid);
+      const docSnap = await getDoc(userRef);
+
+      if (!docSnap.exists()) {
+        // Create new user document
+        const newUser: UserProfile = {
+          id: firebaseUser.uid,
+          name: firebaseUser.displayName || "New User",
+          email: firebaseUser.email || "",
+          avatar: firebaseUser.photoURL || `https://api.dicebear.com/7.x/notionists/svg?seed=${firebaseUser.uid}`,
+          points: 50, // Welcome bonus
+          blossoms: 0,
+          tier: "Bronze",
+          needsProfile: true, // Force profile setup
+        };
+        await setDoc(userRef, newUser);
+        toast.success(t({ en: `Welcome to Gotcha, ${newUser.name}!`, ar: `أهلاً بك في قوتشا، ${newUser.name}!` }));
+      } else {
+        toast.success(t({ en: `Welcome back!`, ar: `أهلاً بعودتك!` }));
+        setAuthOpen(false);
       }
-    } catch {
-      /* ignore invalid storage */
-    }
-  }, []);
-
-  useEffect(() => {
-    if (user) {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(user));
-    } else {
-      window.localStorage.removeItem(STORAGE_KEY);
-    }
-  }, [user]);
-
-  const loginWithGoogle = useCallback(() => {
-    setIsAuthenticating(true);
-    // Simulate network delay
-    setTimeout(() => {
-      const mockUser: UserProfile = {
-        id: "google-" + Math.random().toString(36).substring(2, 9),
-        name: "عبدالمجيد الأحمد",
-        email: "abed.user@gmail.com",
-        avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
-        provider: "google",
-        points: 120,
-        blossoms: 6,
-        tier: "Silver",
-      };
-      setUser(mockUser);
+    } catch (error: any) {
+      console.error(error);
+      toast.error(t({ en: `Failed to sign in with ${providerName}.`, ar: `فشل تسجيل الدخول بواسطة ${providerName}.` }));
+    } finally {
       setIsAuthenticating(false);
-      setAuthOpen(false);
-      toast.success("تم تسجيل الدخول بنجاح عبر Google! 🌸", {
-        description: "مرحباً بك مجدداً! رصيدك الحالي 6 أزهار و120 نقطة ولاء.",
-      });
-    }, 1500);
-  }, []);
+    }
+  };
 
-  const loginWithApple = useCallback(() => {
-    setIsAuthenticating(true);
-    setTimeout(() => {
-      const mockUser: UserProfile = {
-        id: "apple-" + Math.random().toString(36).substring(2, 9),
-        name: "Abed Al-Ahmad",
-        email: "abed@icloud.com",
-        avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80",
-        provider: "apple",
-        points: 150,
-        blossoms: 8,
-        tier: "Gold",
-      };
-      setUser(mockUser);
-      setIsAuthenticating(false);
-      setAuthOpen(false);
-      toast.success("تم تسجيل الدخول بنجاح عبر Apple! ", {
-        description: "أهلاً بك! تم تفعيل حساب الولاء الخاص بك.",
-      });
-    }, 1500);
-  }, []);
+  const loginWithGoogle = async () => {
+    const provider = new GoogleAuthProvider();
+    await handleOAuthLogin(provider, "Google");
+  };
 
-  const logout = useCallback(() => {
-    setUser(null);
-    toast.info("تم تسجيل الخروج");
-  }, []);
+  const loginWithApple = async () => {
+    const provider = new OAuthProvider('apple.com');
+    await handleOAuthLogin(provider, "Apple");
+  };
 
-  const addPoints = useCallback((earnedPoints: number, orderTotalSAR?: number) => {
-    setUser((prev) => {
-      if (!prev) return null;
-      const newPoints = prev.points + earnedPoints;
-      const newBlossoms = prev.blossoms + Math.max(1, Math.floor((orderTotalSAR ?? 25) / 20));
-      let newTier: UserProfile["tier"] = prev.tier;
-      if (newPoints >= 300) newTier = "VIP";
-      else if (newPoints >= 200) newTier = "Gold";
-      else if (newPoints >= 100) newTier = "Silver";
-
-      toast.success(`🎉 تم إضافة ${earnedPoints} نقطة ولاء إلى حسابك!`, {
-        description: `رصيدك الجديد: ${newBlossoms} أزهار · ${newPoints} نقطة.`,
-      });
-
-      return {
-        ...prev,
-        points: newPoints,
-        blossoms: newBlossoms,
-        tier: newTier,
-      };
+  const saveProfile = async (name: string, age: number) => {
+    if (!user) return;
+    const userRef = doc(db, "users", user.id);
+    await updateDoc(userRef, {
+      name,
+      age,
+      needsProfile: false
     });
-  }, []);
+    toast.success(t({ en: "Profile updated!", ar: "تم تحديث الملف الشخصي!" }));
+    setAuthOpen(false);
+  };
 
-  const redeemBlossom = useCallback((cost: number, rewardTitle: string) => {
-    let success = false;
-    setUser((prev) => {
-      if (!prev) {
-        toast.error("يرجى تسجيل الدخول لاستبدال المكافأة");
-        setAuthOpen(true);
-        return null;
-      }
-      if (prev.blossoms < cost) {
-        toast.error(`تحتاج إلى ${cost} أزهار على الأقل لاستبدال هذه المكافأة`);
-        return prev;
-      }
-      success = true;
-      toast.success(`🌸 تم استبدال المكافأة: ${rewardTitle}!`, {
-        description: "رمز الكوبون: GOTCHA-FREE-DRINK-2026",
-      });
-      return {
-        ...prev,
-        blossoms: prev.blossoms - cost,
-      };
+  const logout = async () => {
+    await firebaseSignOut(auth);
+    toast.success(t({ en: "Signed out safely", ar: "تم تسجيل الخروج بأمان" }));
+  };
+
+  const addPoints = async (earnedPoints: number, orderTotalSAR?: number) => {
+    if (!user) return;
+    const userRef = doc(db, "users", user.id);
+    
+    const newBlossoms = Math.max(1, Math.floor((orderTotalSAR ?? 25) / 20));
+    
+    // Simple tier logic based on total points
+    const currentTotal = user.points + earnedPoints;
+    let newTier = user.tier;
+    if (currentTotal > 300) newTier = "VIP";
+    else if (currentTotal > 200) newTier = "Gold";
+    else if (currentTotal > 100) newTier = "Silver";
+
+    await updateDoc(userRef, {
+      points: increment(earnedPoints),
+      blossoms: increment(newBlossoms),
+      tier: newTier
     });
-    return success;
-  }, []);
+
+    toast.success(`🎉 تم إضافة ${earnedPoints} نقطة ولاء إلى حسابك!`, {
+      description: `تم كسب ${newBlossoms} أزهار · ${earnedPoints} نقطة.`,
+    });
+  };
+
+  const redeemBlossom = async (cost: number, rewardTitle: string): Promise<boolean> => {
+    if (!user) {
+      toast.error("يرجى تسجيل الدخول لاستبدال المكافأة");
+      setAuthOpen(true);
+      return false;
+    }
+    if (user.blossoms < cost) {
+      toast.error(`تحتاج إلى ${cost} أزهار على الأقل لاستبدال هذه المكافأة`);
+      return false;
+    }
+
+    const userRef = doc(db, "users", user.id);
+    await updateDoc(userRef, {
+      blossoms: increment(-cost)
+    });
+
+    toast.success(`🌸 تم استبدال المكافأة: ${rewardTitle}!`, {
+      description: "رمز الكوبون: GOTCHA-FREE-DRINK-2026",
+    });
+    return true;
+  };
 
   const value = useMemo<AuthContextValue>(
     () => ({
@@ -166,8 +186,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       logout,
       addPoints,
       redeemBlossom,
+      saveProfile
     }),
-    [user, isAuthOpen, isAuthenticating, loginWithGoogle, loginWithApple, logout, addPoints, redeemBlossom]
+    [user, isAuthOpen, isAuthenticating]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
