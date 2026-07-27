@@ -23,14 +23,14 @@ export function Farms() {
       <div className="mx-auto grid max-w-[1180px] items-center gap-14 px-6 lg:grid-cols-2">
         <div ref={copy.ref} className={copy.className}>
           <span className="text-xs font-bold uppercase tracking-[0.2em] text-ink">
-            {t({ en: "Sourced With Care", ar: "مصدر تُقدَّر عنايته" })}
+            {t({ en: "Single-Origin Farming", ar: "مصدر تُقدَّر عنايته" })}
           </span>
           <h2 className="mt-3 text-3xl text-plum sm:text-4xl">
-            {t({ en: "From our farms in Taiwan", ar: "من مزارعنا في تايوان" })}
+            {t({ en: "Pristine High-Altitude Taiwanese Tea Gardens", ar: "من مزارعنا في تايوان" })}
           </h2>
           <p className="mt-4 leading-relaxed text-plum-soft">
             {t({
-              en: "High in the misty hills of Taiwan, our leaves are grown at elevation, hand-picked at their peak, and inspected leaf by leaf before they ever reach a cup. It's the reason our tea tastes like tea — not like a mix.",
+              en: "Nestled in the misty high mountain ridges of Taiwan, our leaves are cultivated at 1,200m elevation. Each bud is hand-harvested at peak bloom and rigorously inspected to ensure uncompromised purity. That is why Gotcha tea tastes genuinely fresh, botanical, and pure — never artificial.",
               ar: "في التلال الضبابية المرتفعة بتايوان، تُزرع أوراق شاينا على ارتفاعات مثالية، وتُقطف يدويًا في أوج نضجها، وتُفحص ورقة تلو الأخرى قبل أن تصل إلى الكوب. لهذا السبب يبقى طعم شاينا شاي حقيقي، لا مجرد خليط جاهز.",
             })}
           </p>

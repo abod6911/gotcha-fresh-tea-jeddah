@@ -49,19 +49,19 @@ export function Story() {
           </span>
           <h2 className="mt-3 text-3xl text-plum sm:text-4xl">
             {t({
-              en: "From a Melbourne idea to a Taiwan tea farm",
+              en: "From a Melbourne Dream to Taiwan's Mountain Orchards",
               ar: "من فكرة في ملبورن إلى مزرعة شاي في تايوان",
             })}
           </h2>
           <p className="mt-4 leading-relaxed text-plum-soft">
             {t({
-              en: "Gotcha Fresh Tea began in Melbourne, Australia, with one simple belief: tea deserves to be treated like a craft, not a shortcut. Every cup starts on our own tea farms in Taiwan, where leaves are hand-picked at their peak and brewed fresh in-store.",
+              en: "Born in Australia's cultural capital, Gotcha Fresh Tea was founded on a singular philosophy: tea is an artisan craft, never a shortcut. We cultivate our own tea leaves on high-altitude family estates in Taiwan, harvesting every flush at peak aroma and hand-steeping each batch fresh in-store daily.",
               ar: "بدأت قوتشا فريش تي في ملبورن، أستراليا، من فكرة بسيطة: الشاي يستحق أن يُعامل كحرفة أصيلة لا كحل سريع. كل كوب يبدأ رحلته من مزارعنا الخاصة في تايوان، حيث تُقطف الأوراق يدويًا في أوج نضجها وتُحضّر طازجة داخل المحل.",
             })}
           </p>
           <p className="mt-3 leading-relaxed text-plum-soft">
             {t({
-              en: "What began as a small idea now blooms in cities around the world — including right here in Jeddah, where every branch carries our signature pastel warmth.",
+              en: "What began as a boutique tea house now blooms globally — welcoming you to our pastel sanctuary in Jeddah, where every sip carries pure aesthetic joy & uncompromising quality.",
               ar: "وما بدأ فكرة صغيرة أصبح اليوم يتفتّح في مدن حول العالم، وها هو يزهر هنا في جدة، حيث يحمل كل فرع دفء الباستيل الذي يميزنا.",
             })}
           </p>

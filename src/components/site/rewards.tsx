@@ -39,19 +39,19 @@ export function Rewards() {
           <div className="relative z-10">
             <div className="inline-flex items-center gap-2 rounded-full border border-pink/30 bg-pink/10 px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-pink">
               <Sparkles className="h-3.5 w-3.5" />
-              {t({ en: "Gotcha Rewards System", ar: "برنامج ولاء قوتشا فريش تي" })}
+              {t({ en: "Gotcha Loyalty Society", ar: "برنامج ولاء قوتشا فريش تي" })}
             </div>
 
             <h2 className="mt-4 text-3xl font-bold leading-snug text-cream md:text-4xl">
               {t({
-                en: "Every cup brings you closer to a free one",
+                en: "Every handcrafted sip earns you complimentary rewards",
                 ar: "كل كوب يقربك خطوة من كوب طازج مجاني",
               })}
             </h2>
 
             <p className="mt-4 leading-relaxed text-pink-soft/90 text-sm md:text-base">
               {t({
-                en: "Sign in with Google or Apple, collect blossoms automatically with every order, and unlock exclusive rewards!",
+                en: "Authenticate effortlessly with Google or Apple. Collect blossoms automatically on every purchase and redeem complimentary signature teas!",
                 ar: "سجّل دخولك بواسطة حساب جوجل أو أبل، واجمع الأزهار والنقاط تلقائياً مع كل طلب، واستبدلها بمشروبات مجانية وإضافات مميزة!",
               })}
             </p>
