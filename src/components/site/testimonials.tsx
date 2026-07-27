@@ -52,7 +52,7 @@ export function Testimonials() {
         </h2>
       </div>
 
-      <div className="flex w-full group overflow-hidden py-2">
+      <div dir="ltr" className="flex w-full group overflow-hidden py-2">
         <div
           dir="ltr"
           className={`flex w-max shrink-0 items-stretch group-hover:[animation-play-state:paused] animate-marquee ${
