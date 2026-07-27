@@ -13,10 +13,10 @@ export type MenuItem = {
 };
 
 export const categories: { id: MenuCategory; label: Bilingual; icon: string }[] = [
-  { id: "milk", label: { en: "Milk Tea", ar: "شاي الحليب" }, icon: "🍵" },
-  { id: "pearl", label: { en: "Pearl Boba", ar: "بوبا اللؤلؤ" }, icon: "🧋" },
-  { id: "fruit", label: { en: "Fruit Tea", ar: "شاي الفواكه" }, icon: "🍓" },
-  { id: "collagen", label: { en: "Collagen Tea", ar: "كولاجين الشاي" }, icon: "✨" },
+  { id: "milk", label: { en: "Milk Tea", ar: "شاي الحليب" }, icon: "/images/milk_tea.jpg" },
+  { id: "pearl", label: { en: "Pearl Boba", ar: "بوبا اللؤلؤ" }, icon: "/images/boba_pearl.jpg" },
+  { id: "fruit", label: { en: "Fruit Tea", ar: "شاي الفواكه" }, icon: "/images/fruit_tea.jpg" },
+  { id: "collagen", label: { en: "Collagen Tea", ar: "كولاجين الشاي" }, icon: "/images/collagen_tea.jpg" },
 ];
 
 export const menuItems: MenuItem[] = [

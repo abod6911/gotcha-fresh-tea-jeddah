@@ -37,6 +37,7 @@ const STORAGE_KEY = "gotcha-user-auth";
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<UserProfile | null>(null);
   const [isAuthOpen, setAuthOpen] = useState(false);
+  const [isAuthenticating, setIsAuthenticating] = useState(false);
 
   useEffect(() => {
     try {
@@ -58,39 +59,48 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [user]);
 
   const loginWithGoogle = useCallback(() => {
-    const mockUser: UserProfile = {
-      id: "google-" + Math.random().toString(36).substring(2, 9),
-      name: "عبدالمجيد الأحمد",
-      email: "abed.user@gmail.com",
-      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
-      provider: "google",
-      points: 120,
-      blossoms: 6,
-      tier: "Silver",
-    };
-    setUser(mockUser);
-    setAuthOpen(false);
-    toast.success("تم تسجيل الدخول بنجاح عبر Google! 🌸", {
-      description: "مرحباً بك مجدداً! رصيدك الحالي 6 أزهار و120 نقطة ولاء.",
-    });
+    setIsAuthenticating(true);
+    // Simulate network delay
+    setTimeout(() => {
+      const mockUser: UserProfile = {
+        id: "google-" + Math.random().toString(36).substring(2, 9),
+        name: "عبدالمجيد الأحمد",
+        email: "abed.user@gmail.com",
+        avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+        provider: "google",
+        points: 120,
+        blossoms: 6,
+        tier: "Silver",
+      };
+      setUser(mockUser);
+      setIsAuthenticating(false);
+      setAuthOpen(false);
+      toast.success("تم تسجيل الدخول بنجاح عبر Google! 🌸", {
+        description: "مرحباً بك مجدداً! رصيدك الحالي 6 أزهار و120 نقطة ولاء.",
+      });
+    }, 1500);
   }, []);
 
   const loginWithApple = useCallback(() => {
-    const mockUser: UserProfile = {
-      id: "apple-" + Math.random().toString(36).substring(2, 9),
-      name: "Abed Al-Ahmad",
-      email: "abed@icloud.com",
-      avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80",
-      provider: "apple",
-      points: 150,
-      blossoms: 8,
-      tier: "Gold",
-    };
-    setUser(mockUser);
-    setAuthOpen(false);
-    toast.success("تم تسجيل الدخول بنجاح عبر Apple! ", {
-      description: "أهلاً بك! تم تفعيل حساب الولاء الخاص بك.",
-    });
+    setIsAuthenticating(true);
+    setTimeout(() => {
+      const mockUser: UserProfile = {
+        id: "apple-" + Math.random().toString(36).substring(2, 9),
+        name: "Abed Al-Ahmad",
+        email: "abed@icloud.com",
+        avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80",
+        provider: "apple",
+        points: 150,
+        blossoms: 8,
+        tier: "Gold",
+      };
+      setUser(mockUser);
+      setIsAuthenticating(false);
+      setAuthOpen(false);
+      toast.success("تم تسجيل الدخول بنجاح عبر Apple! ", {
+        description: "أهلاً بك! تم تفعيل حساب الولاء الخاص بك.",
+      });
+    }, 1500);
   }, []);
 
   const logout = useCallback(() => {
@@ -149,6 +159,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     () => ({
       user,
       isAuthOpen,
+      isAuthenticating,
       setAuthOpen,
       loginWithGoogle,
       loginWithApple,
@@ -156,7 +167,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       addPoints,
       redeemBlossom,
     }),
-    [user, isAuthOpen, loginWithGoogle, loginWithApple, logout, addPoints, redeemBlossom]
+    [user, isAuthOpen, isAuthenticating, loginWithGoogle, loginWithApple, logout, addPoints, redeemBlossom]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

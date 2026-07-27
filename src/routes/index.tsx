@@ -14,6 +14,7 @@ import { Locations } from "@/components/site/locations";
 import { Footer } from "@/components/site/footer";
 import { CartDrawer } from "@/components/site/cart-drawer";
 import { FloatingActions } from "@/components/site/floating-actions";
+import { MouseGlow } from "@/components/site/mouse-glow";
 import { Toaster } from "sonner";
 
 const title = "Gotcha Fresh Tea Jeddah | قوتشا فريش تي جدة";
@@ -59,6 +60,7 @@ function Index() {
     <LanguageProvider>
       <AuthProvider>
         <CartProvider>
+          <MouseGlow />
           <Header />
           <main>
             <Hero />

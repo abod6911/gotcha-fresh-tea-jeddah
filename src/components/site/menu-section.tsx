@@ -162,8 +162,8 @@ function MenuCard({ item, index }: { item: MenuItem; index: number }) {
       style={{ animationDelay: `${index * 0.08}s` }}
     >
       <div className="flex items-start gap-4">
-        <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-pink-soft to-lav-soft text-3xl">
-          <span aria-hidden="true">{item.icon}</span>
+        <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-pink-soft to-lav-soft overflow-hidden relative">
+          <img src={categories.find(c => c.id === item.category)?.icon || item.icon} alt="" className="w-full h-full object-cover mix-blend-multiply" aria-hidden="true" />
         </div>
         <div className="min-w-0 flex-1">
           <div className="flex items-start justify-between gap-3">
@@ -279,13 +279,11 @@ export function MenuSection() {
                 key={c.id}
                 data-active={cat === c.id}
                 onClick={() => setCat(c.id)}
-                className={`relative z-10 rounded-full px-5 py-2.5 text-sm font-semibold transition-colors ${
+                className={`relative z-10 flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-colors ${
                   cat === c.id ? "text-primary-foreground" : "text-plum-soft hover:text-plum"
                 }`}
               >
-                <span className="me-1.5" aria-hidden="true">
-                  {c.icon}
-                </span>
+                <img src={c.icon} alt="" className="w-5 h-5 rounded-full object-cover border border-white/20" aria-hidden="true" />
                 {t(c.label)}
               </button>
             ))}

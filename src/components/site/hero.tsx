@@ -1,6 +1,7 @@
 import { useLang } from "@/lib/i18n";
 import { FlowerDeco, Petals, TabebuiaTree } from "./decor";
-import { motion } from "framer-motion";
+import { useEffect } from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -27,6 +28,28 @@ const itemVariants = {
 };
 
 function CupVisual() {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const springConfig = { damping: 25, stiffness: 150, mass: 0.5 };
+  const smoothX = useSpring(mouseX, springConfig);
+  const smoothY = useSpring(mouseY, springConfig);
+
+  // Calculate parallax offsets
+  const bobaX = useTransform(smoothX, [-500, 500], [15, -15]);
+  const bobaY = useTransform(smoothY, [-500, 500], [10, -10]);
+  const liquidY = useTransform(smoothY, [-500, 500], [3, -3]);
+  const liquidSkew = useTransform(smoothX, [-500, 500], [-2, 2]);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX.set(e.clientX - window.innerWidth / 2);
+      mouseY.set(e.clientY - window.innerHeight / 2);
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [mouseX, mouseY]);
+
   return (
     <motion.div 
       initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
@@ -41,10 +64,22 @@ function CupVisual() {
       >
         <div className="absolute inset-x-3 top-4 h-6 rounded-t-[2rem] bg-lav-soft shadow-soft" />
         <div className="absolute inset-x-0 top-8 bottom-0 overflow-hidden rounded-b-[3rem] rounded-t-[1.5rem] border border-border bg-card/70 shadow-soft backdrop-blur">
-          <div className="absolute inset-x-0 bottom-0 h-[62%] bg-gradient-to-t from-pink-deep via-pink to-lav opacity-90" />
-          <div className="absolute inset-x-0 bottom-0 h-[24%] bg-plum/90" />
+          
+          <motion.div 
+            style={{ y: liquidY, skewX: liquidSkew }}
+            className="absolute inset-x-0 bottom-0 h-[62%] bg-gradient-to-t from-pink-deep via-pink to-lav opacity-90 origin-bottom" 
+          />
+          <motion.div 
+            style={{ y: liquidY, skewX: liquidSkew }}
+            className="absolute inset-x-0 bottom-0 h-[24%] bg-plum/90 origin-bottom" 
+          />
+          
           <div className="absolute inset-y-0 start-4 w-6 animate-shine rounded-full bg-white/40 blur-[3px]" />
-          <div className="absolute inset-x-0 bottom-3 flex justify-center gap-3">
+          
+          <motion.div 
+            style={{ x: bobaX, y: bobaY }}
+            className="absolute inset-x-0 bottom-3 flex justify-center gap-3"
+          >
             {[0, 1, 2, 3].map((i) => (
               <motion.span
                 key={i}
@@ -60,7 +95,7 @@ function CupVisual() {
                 }}
               />
             ))}
-          </div>
+          </motion.div>
         </div>
         <motion.div 
           initial={{ scale: 0 }}
