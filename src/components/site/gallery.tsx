@@ -2,14 +2,14 @@ import { useLang } from "@/lib/i18n";
 import { useReveal } from "@/hooks/use-reveal";
 
 const CARDS = [
-  { emoji: "🌸", label: { en: "Peony corner", ar: "ركن الفاوانيا" }, tone: "from-pink to-lav" },
-  { emoji: "🧋", label: { en: "Pearl pour", ar: "سكب اللؤلؤ" }, tone: "from-lav to-pink-deep" },
-  { emoji: "🌷", label: { en: "Rose collagen", ar: "كولاجين الورد" }, tone: "from-pink-soft to-pink-deep" },
-  { emoji: "✨", label: { en: "Neon evenings", ar: "أمسيات نيون" }, tone: "from-lav-deep to-pink" },
-  { emoji: "🍑", label: { en: "Peach oolong", ar: "أولونغ الخوخ" }, tone: "from-pink to-lav-soft" },
-  { emoji: "💜", label: { en: "Taro delight", ar: "متعة القلقاس" }, tone: "from-lav to-lav-deep" },
-  { emoji: "🌼", label: { en: "Bloom wall", ar: "جدار الأزهار" }, tone: "from-pink-soft to-lav" },
-  { emoji: "🍵", label: { en: "Fresh pour", ar: "تحضير طازج" }, tone: "from-lav-soft to-pink-deep" },
+  { imgSrc: "/images/gallery/peony_corner.jpg", label: { en: "Peony corner", ar: "ركن الفاوانيا" } },
+  { imgSrc: "/images/gallery/rose_collagen.jpg", label: { en: "Rose collagen", ar: "كولاجين الورد" } },
+  { imgSrc: "/images/gallery/pearl_pour.jpg", label: { en: "Pearl pour", ar: "سكب اللؤلؤ" } },
+  { imgSrc: "/images/gallery/neon_evening.jpg", label: { en: "Neon evenings", ar: "أمسيات نيون" } },
+  { imgSrc: "/images/gallery/fresh_pour.jpg", label: { en: "Fresh pour", ar: "تحضير طازج" } },
+  { imgSrc: "/images/gallery/bloom_wall.jpg", label: { en: "Bloom wall", ar: "جدار الأزهار" } },
+  { imgSrc: "/images/gallery/taro_delight.jpg", label: { en: "Taro delight", ar: "متعة القلقاس" } },
+  { imgSrc: "/images/gallery/peach_oolong.jpg", label: { en: "Peach oolong", ar: "أولونغ الخوخ" } },
 ];
 
 export function Gallery() {
@@ -35,17 +35,17 @@ export function Gallery() {
         >
           {CARDS.map((card) => (
             <figure
-              key={card.emoji + card.label.en}
-              className={`group relative aspect-square overflow-hidden rounded-[1.5rem] bg-gradient-to-br ${card.tone} shadow-soft`}
+              key={card.label.en}
+              className="group relative aspect-square overflow-hidden rounded-[1.5rem] shadow-soft"
             >
-              <span
-                aria-hidden="true"
-                className="absolute inset-0 flex items-center justify-center text-5xl transition-transform duration-500 group-hover:scale-110"
-              >
-                {card.emoji}
-              </span>
-              <span className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-plum/85 to-transparent" />
-              <figcaption className="absolute inset-x-0 bottom-0 p-3 text-sm font-semibold text-cream">
+              <img
+                src={card.imgSrc}
+                alt={t(card.label)}
+                loading="lazy"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110 group-hover:rotate-1"
+              />
+              <span className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-plum/90 via-plum/30 to-transparent opacity-80 transition-opacity duration-300 group-hover:opacity-100" />
+              <figcaption className="absolute inset-x-0 bottom-0 p-4 text-sm font-bold text-white z-10 drop-shadow-md translate-y-1 transition-transform duration-300 group-hover:translate-y-0">
                 {t(card.label)}
               </figcaption>
             </figure>

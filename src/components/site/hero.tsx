@@ -51,20 +51,13 @@ function CupVisual() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [mouseX, mouseY]);
 
-  const bobaConfigs = [
-    { s: 20, x: -60, y: -5, d: 0.5 },
-    { s: 16, x: -35, y: 5, d: 0.6 },
-    { s: 22, x: -10, y: 0, d: 0.7 },
-    { s: 18, x: 15, y: -8, d: 0.8 },
-    { s: 20, x: 40, y: 2, d: 0.9 },
-    { s: 17, x: 65, y: -4, d: 1.0 },
-    { s: 16, x: -80, y: 2, d: 1.1 },
-    { s: 22, x: 80, y: -2, d: 0.55 },
-    { s: 18, x: -45, y: -12, d: 0.65 },
-    { s: 21, x: 30, y: 8, d: 0.75 },
-    { s: 16, x: -20, y: -15, d: 0.85 },
-    { s: 20, x: 55, y: -10, d: 0.95 },
-  ];
+  const bobaConfigs = Array.from({ length: 30 }).map((_, i) => ({
+    s: 14 + Math.random() * 8, // size 14-22
+    x: -80 + Math.random() * 160,
+    y: Math.random() * -20 - 5,
+    d: Math.random() * 1.5,
+    floatDuration: 2 + Math.random() * 3,
+  }));
 
   return (
     <motion.div 
@@ -76,13 +69,22 @@ function CupVisual() {
       <motion.div 
         animate={{ y: [0, -10, 0], rotate: [-1, 1, -1] }}
         transition={{ repeat: Infinity, duration: 8, ease: "easeInOut" }}
-        className="h-full w-full relative z-10"
+        className="h-full w-full relative z-20"
       >
+        {/* Full Length Straw */}
+        <motion.div 
+          initial={{ scaleY: 0, y: -50 }}
+          animate={{ scaleY: 1, y: 0 }}
+          transition={{ type: "spring", delay: 1, stiffness: 80 }}
+          style={{ originY: 1 }}
+          className="absolute -top-24 end-8 h-[125%] w-[22px] rotate-[12deg] rounded-full bg-gradient-to-r from-lav-deep via-lav-soft to-lav-deep shadow-[inset_-3px_0_8px_rgba(0,0,0,0.4),2px_2px_10px_rgba(0,0,0,0.2)] z-10"
+        />
+
         {/* Cup Lid / Rim */}
-        <div className="absolute inset-x-2 -top-2 h-8 rounded-[50%] bg-white/40 shadow-[0_4px_10px_rgba(0,0,0,0.1),inset_0_-2px_4px_rgba(255,255,255,0.8)] border-b-2 border-white/60 backdrop-blur-md z-20" />
+        <div className="absolute inset-x-2 -top-2 h-8 rounded-[50%] bg-white/40 shadow-[0_4px_10px_rgba(0,0,0,0.1),inset_0_-2px_4px_rgba(255,255,255,0.8)] border-b-2 border-white/60 backdrop-blur-md z-30" />
         
         {/* Main Cup Body (Glassmorphism) */}
-        <div className="absolute inset-x-0 top-2 bottom-0 overflow-hidden rounded-b-[3.5rem] rounded-t-[1.5rem] border border-white/40 bg-gradient-to-b from-white/20 to-white/5 shadow-[inset_-10px_-10px_20px_rgba(255,255,255,0.4),inset_10px_10px_20px_rgba(0,0,0,0.05),0_20px_40px_rgba(0,0,0,0.15)] backdrop-blur-md">
+        <div className="absolute inset-x-0 top-2 bottom-0 overflow-hidden rounded-b-[3.5rem] rounded-t-[1.5rem] border border-white/40 bg-gradient-to-b from-white/30 to-white/10 shadow-[inset_-10px_-10px_20px_rgba(255,255,255,0.5),inset_10px_10px_20px_rgba(0,0,0,0.1),0_20px_40px_rgba(0,0,0,0.2)] backdrop-blur-md z-20">
           
           {/* Liquid Container */}
           <motion.div 
@@ -96,7 +98,7 @@ function CupVisual() {
             <div className="absolute inset-0 bg-gradient-to-t from-pink-deep/95 via-pink/80 to-lav/70 backdrop-blur-sm" />
             
             {/* Deep Bottom Layer (Syrup/Plum) */}
-            <div className="absolute inset-x-0 bottom-0 h-[35%] bg-gradient-to-t from-plum/90 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 h-[40%] bg-gradient-to-t from-plum/90 to-transparent" />
           </motion.div>
           
           {/* Boba Pearls */}
@@ -107,40 +109,41 @@ function CupVisual() {
             {bobaConfigs.map((b, i) => (
               <motion.span
                 key={i}
-                className="absolute rounded-full shadow-[inset_-3px_-3px_6px_rgba(0,0,0,0.8),3px_3px_5px_rgba(0,0,0,0.4)]"
+                className="absolute rounded-full shadow-[inset_-4px_-4px_8px_rgba(0,0,0,0.9),2px_2px_4px_rgba(0,0,0,0.5)]"
                 style={{ 
                   width: b.s, 
                   height: b.s, 
                   left: `calc(50% + ${b.x}px)`, 
                   bottom: b.y,
-                  background: "radial-gradient(circle at 35% 35%, #5a4b40 0%, #1a1510 50%, #0a0805 100%)"
+                  background: "radial-gradient(circle at 35% 35%, #4a3b30 0%, #1a1510 60%, #050403 100%)"
                 }}
-                initial={{ y: -300, opacity: 0, scale: 0.5 }}
-                animate={{ y: 0, opacity: 1, scale: 1 }}
+                initial={{ y: -400, opacity: 0, scale: 0.5 }}
+                animate={{ 
+                  y: [0, -10, 0], 
+                  opacity: 1, 
+                  scale: 1,
+                  rotate: [0, 180, 360]
+                }}
                 transition={{
-                  type: "spring",
-                  stiffness: 120,
-                  damping: 15,
-                  delay: b.d,
-                  mass: 1.2
+                  y: {
+                    repeat: Infinity,
+                    duration: b.floatDuration,
+                    ease: "easeInOut",
+                    delay: b.d
+                  },
+                  opacity: { duration: 0.5, delay: b.d },
+                  scale: { type: "spring", delay: b.d },
+                  rotate: { repeat: Infinity, duration: b.floatDuration * 2, ease: "linear" }
                 }}
               />
             ))}
           </motion.div>
           
           {/* Glossy Highlights (Reflections) */}
-          <div className="absolute inset-y-4 start-3 w-6 rounded-full bg-gradient-to-b from-white/60 to-transparent blur-[2px] opacity-70" />
-          <div className="absolute inset-y-10 end-4 w-3 rounded-full bg-gradient-to-b from-white/40 to-transparent blur-[1px] opacity-50" />
+          <div className="absolute inset-y-4 start-3 w-8 rounded-full bg-gradient-to-b from-white/70 to-transparent blur-[2px] opacity-80" />
+          <div className="absolute inset-y-12 end-4 w-4 rounded-full bg-gradient-to-b from-white/50 to-transparent blur-[1px] opacity-60" />
           
         </div>
-        
-        {/* Straw */}
-        <motion.div 
-          initial={{ scale: 0, y: 50 }}
-          animate={{ scale: 1, y: 0 }}
-          transition={{ type: "spring", delay: 1, stiffness: 100 }}
-          className="absolute -top-16 end-10 h-32 w-4 rotate-12 rounded-full bg-gradient-to-r from-lav-deep to-lav-soft shadow-[inset_-2px_0_4px_rgba(0,0,0,0.2),2px_2px_10px_rgba(0,0,0,0.3)] z-0" 
-        />
       </motion.div>
       
       {/* Ambient Floor Shadow */}
