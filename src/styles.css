@@ -77,22 +77,21 @@
 :root {
   --radius: 1rem;
 
-  /* warm pastel palette */
-  --cream: oklch(0.985 0.018 76);
-  --cream-2: oklch(0.968 0.026 55);
-  --pink: oklch(0.895 0.058 20);
-  --pink-soft: oklch(0.945 0.032 28);
-  --pink-deep: oklch(0.78 0.125 15);
-  --lav: oklch(0.9 0.045 330);
-  --lav-soft: oklch(0.945 0.028 340);
-  --lav-deep: oklch(0.775 0.1 335);
-  --plum: oklch(0.315 0.06 25);
-  --plum-soft: oklch(0.52 0.06 28);
-  --neon: oklch(0.665 0.19 20);
-  --neon-2: oklch(0.66 0.16 45);
+  /* warm pastel palette - adjusted for a softer, warmer feel */
+  --cream: oklch(0.97 0.02 85);       /* Softer, warmer cream */
+  --cream-2: oklch(0.94 0.04 75);     /* Warmer secondary cream */
+  --pink: oklch(0.88 0.06 35);        /* Warmer, peachy pink */
+  --pink-soft: oklch(0.95 0.03 40);   /* Soft peach-pink */
+  --pink-deep: oklch(0.75 0.12 30);   /* Deeper warm rose */
+  --lav: oklch(0.88 0.04 310);        /* Softer lavender */
+  --lav-soft: oklch(0.95 0.02 320);
+  --lav-deep: oklch(0.75 0.08 300);
+  --plum: oklch(0.3 0.05 35);         /* Warmer dark plum/brown */
+  --plum-soft: oklch(0.5 0.06 35);
+  --neon: oklch(0.7 0.15 35);         /* Less harsh, warmer coral/neon */
+  --neon-2: oklch(0.68 0.14 55);
   --accent-ink: oklch(0.56 0.18 15);
   --bark: oklch(0.45 0.06 55);
-
 
   --background: var(--cream);
   --foreground: var(--plum);
