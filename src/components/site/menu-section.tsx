@@ -209,7 +209,7 @@ export function MenuSection() {
     if (!active) return;
     const offset =
       dir === "rtl"
-        ? container.offsetWidth - active.offsetLeft - active.offsetWidth
+        ? container.scrollWidth - active.offsetLeft - active.offsetWidth
         : active.offsetLeft;
     setIndicator({ width: active.offsetWidth, offset });
   };
@@ -279,7 +279,7 @@ export function MenuSection() {
                 key={c.id}
                 data-active={cat === c.id}
                 onClick={() => setCat(c.id)}
-                className={`relative z-10 flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-colors ${
+                className={`relative z-10 flex shrink-0 whitespace-nowrap items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-colors ${
                   cat === c.id ? "text-primary-foreground" : "text-plum-soft hover:text-plum"
                 }`}
               >
