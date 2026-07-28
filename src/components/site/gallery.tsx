@@ -2,14 +2,14 @@ import { useLang } from "@/lib/i18n";
 import { useReveal } from "@/hooks/use-reveal";
 
 const CARDS = [
-  { imgSrc: "/images/gallery/peony_corner.jpg", label: { en: "Peony corner", ar: "ركن الفاوانيا" } },
-  { imgSrc: "/images/gallery/rose_collagen.jpg", label: { en: "Rose collagen", ar: "كولاجين الورد" } },
-  { imgSrc: "/images/gallery/pearl_pour.jpg", label: { en: "Pearl pour", ar: "سكب اللؤلؤ" } },
-  { imgSrc: "/images/gallery/neon_evening.jpg", label: { en: "Neon evenings", ar: "أمسيات نيون" } },
-  { imgSrc: "/images/gallery/fresh_pour.jpg", label: { en: "Fresh pour", ar: "تحضير طازج" } },
-  { imgSrc: "/images/gallery/bloom_wall.jpg", label: { en: "Bloom wall", ar: "جدار الأزهار" } },
-  { imgSrc: "/images/gallery/taro_delight.jpg", label: { en: "Taro delight", ar: "متعة القلقاس" } },
-  { imgSrc: "/images/gallery/peach_oolong.jpg", label: { en: "Peach oolong", ar: "أولونغ الخوخ" } },
+  { imgSrc: "./images/gallery/peony_corner.jpg", label: { en: "Peony corner", ar: "ركن الفاوانيا" } },
+  { imgSrc: "./images/gallery/rose_collagen.jpg", label: { en: "Rose collagen", ar: "كولاجين الورد" } },
+  { imgSrc: "./images/gallery/pearl_pour.jpg", label: { en: "Pearl pour", ar: "سكب اللؤلؤ" } },
+  { imgSrc: "./images/gallery/neon_evening.jpg", label: { en: "Neon evenings", ar: "أمسيات نيون" } },
+  { imgSrc: "./images/gallery/fresh_pour.jpg", label: { en: "Fresh pour", ar: "تحضير طازج" } },
+  { imgSrc: "./images/gallery/bloom_wall.jpg", label: { en: "Bloom wall", ar: "جدار الأزهار" } },
+  { imgSrc: "./images/gallery/taro_delight.jpg", label: { en: "Taro delight", ar: "متعة القلقاس" } },
+  { imgSrc: "./images/gallery/peach_oolong.jpg", label: { en: "Peach oolong", ar: "أولونغ الخوخ" } },
 ];
 
 export function Gallery() {

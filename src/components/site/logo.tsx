@@ -1,20 +1,9 @@
-import logoAsset from "@/assets/gotcha-logo.jpg.asset.json";
+import { GotchaFarmerVector } from "./logo";
 
 export function GotchaLogo({ className, showText = false }: { className?: string; showText?: boolean }) {
   return (
     <div className={`relative flex flex-col items-center justify-center select-none ${className ?? ""}`}>
-      {/* High-Resolution Crisp Logo Image with Image-Rendering Smoothness */}
-      <img
-        src={logoAsset.url}
-        alt="Gotcha Fresh Tea Logo"
-        loading="eager"
-        decoding="async"
-        className="w-full h-full object-contain rounded-full bg-white p-1 ring-2 ring-[#C5A059]/30 shadow-sm transition-transform duration-300"
-        style={{
-          imageRendering: "crisp-edges",
-          WebkitBackfaceVisibility: "hidden",
-        }}
-      />
+      <GotchaFarmerVector className="w-full h-full" />
     </div>
   );
 }
