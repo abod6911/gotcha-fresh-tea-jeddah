@@ -95,22 +95,23 @@ export function Gallery() {
                 loading="lazy"
                 className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
               />
-              {/* High contrast dark gradient overlay */}
-              <span className="absolute inset-0 bg-gradient-to-t from-plum/95 via-plum/50 to-transparent opacity-85 transition-opacity duration-300 group-hover:opacity-95" />
+              {/* Smooth Frosted Dark Overlay */}
+              <span className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-80 transition-opacity duration-300 group-hover:opacity-95" />
               
-              {/* Floating Category Tag */}
-              <span className="absolute top-2.5 start-2.5 z-10 rounded-full bg-white/95 backdrop-blur-md px-2.5 py-0.5 text-[0.65rem] font-bold text-plum border border-pink-deep/30 shadow-sm">
+              {/* Floating Top Category Badge */}
+              <span className="absolute top-3 start-3 z-10 inline-flex items-center gap-1 rounded-full border border-pink-deep/40 bg-plum/90 backdrop-blur-md px-3 py-1 text-[0.7rem] font-bold text-pink-soft shadow-md">
+                <Sparkles className="h-3 w-3 text-neon shrink-0" />
                 {t(card.tag)}
               </span>
 
               {/* Zoom Icon Hint */}
-              <div className="absolute top-2.5 end-2.5 z-10 flex h-7 w-7 items-center justify-center rounded-full bg-plum/60 backdrop-blur-md text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 shadow-md">
+              <div className="absolute top-3 end-3 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-plum/70 backdrop-blur-md text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 shadow-md border border-white/20">
                 <ZoomIn className="h-4 w-4" />
               </div>
 
-              {/* High-contrast Caption Badge Pill */}
-              <figcaption className="absolute inset-x-0 bottom-0 p-2.5 sm:p-3 text-end z-10">
-                <span className="inline-block rounded-xl border border-white/20 bg-plum/90 backdrop-blur-md px-2.5 sm:px-3 py-1 text-[0.72rem] sm:text-xs font-bold text-white shadow-lg drop-shadow-md leading-relaxed">
+              {/* Seamless Full-Width Glassmorphism Caption Banner */}
+              <figcaption className="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black/95 via-plum/85 to-transparent pt-10 pb-3.5 px-3.5 rounded-b-3xl">
+                <span className="block text-start text-xs sm:text-sm font-bold text-white drop-shadow-md leading-snug font-display">
                   {t(card.label)}
                 </span>
               </figcaption>
