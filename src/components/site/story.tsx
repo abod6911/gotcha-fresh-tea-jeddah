@@ -4,7 +4,8 @@ import { MapPin, Sparkles, Navigation } from "lucide-react";
 import { motion } from "framer-motion";
 
 export function Story() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
+  const isRtl = lang === "ar";
   const art = useReveal();
   const copy = useReveal();
 
