@@ -60,19 +60,21 @@ export function Story() {
             })}
           </h2>
 
-          <p className="mt-5 text-base sm:text-lg leading-relaxed text-plum/90 font-medium">
-            {t({
-              en: "Born in Australia's cultural capital, Gotcha Fresh Tea was founded on a singular philosophy: tea is an artisan craft, never a shortcut. We cultivate our own tea leaves on high-altitude family estates in Taiwan, harvesting every flush at peak aroma and hand-steeping each batch fresh in-store daily.",
-              ar: "بدأت قوتشا فريش تي في ملبورن، أستراليا، من فكرة بسيطة: الشاي يستحق أن يُعامل كحرفة أصيلة لا كحل سريع. كل كوب يبدأ رحلته من مزارعنا الخاصة في تايوان، حيث تُقطف الأوراق يدويًا في أوج نضجها وتُحضّر طازجة داخل المحل.",
-            })}
-          </p>
+          <div className="mt-5 rounded-3xl border border-pink-deep/25 bg-white/90 p-5 sm:p-6 shadow-soft backdrop-blur-md space-y-4">
+            <p className="text-base sm:text-lg leading-relaxed sm:leading-loose text-[#1A1A1A] font-bold">
+              {t({
+                en: "Born in Australia's cultural capital, Gotcha Fresh Tea was founded on a singular philosophy: tea is an artisan craft, never a shortcut. We cultivate our own tea leaves on high-altitude family estates in Taiwan, harvesting every flush at peak aroma and hand-steeping each batch fresh in-store daily.",
+                ar: "بدأت قوتشا فريش تي في ملبورن، أستراليا، من فكرة بسيطة: الشاي يستحق أن يُعامل كحرفة أصيلة لا كحل سريع. كل كوب يبدأ رحلته من مزارعنا الخاصة في تايوان، حيث تُقطف الأوراق يدويًا في أوج نضجها وتُحضّر طازجة داخل المحل.",
+              })}
+            </p>
 
-          <p className="mt-3.5 text-base sm:text-lg leading-relaxed text-plum/90 font-medium">
-            {t({
-              en: "What began as a boutique tea house now blooms globally — welcoming you to our pastel sanctuary in Jeddah, where every sip carries pure aesthetic joy & uncompromising quality.",
-              ar: "وما بدأ فكرة صغيرة أصبح اليوم يتفتّح في مدن حول العالم، وها هو يزهر هنا في جدة، حيث يحمل كل فرع دفء الباستيل الذي يميزنا.",
-            })}
-          </p>
+            <p className="text-base sm:text-lg leading-relaxed sm:leading-loose text-[#1A1A1A] font-bold border-t border-pink-deep/15 pt-4">
+              {t({
+                en: "What began as a boutique tea house now blooms globally — welcoming you to our pastel sanctuary in Jeddah, where every sip carries pure aesthetic joy & uncompromising quality.",
+                ar: "وما بدأ فكرة صغيرة أصبح اليوم يتفتّح في مدن حول العالم، وها هو يزهر هنا في جدة، حيث يحمل كل فرع دفء الباستيل الذي يميزنا.",
+              })}
+            </p>
+          </div>
 
           <div className="mt-8 flex flex-wrap gap-3">
             {features.map((f) => (

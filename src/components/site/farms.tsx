@@ -34,12 +34,14 @@ export function Farms() {
             {t({ en: "Pristine High-Altitude Taiwanese Tea Gardens", ar: "من مزارعنا الخاصة في تايوان" })}
           </h2>
 
-          <p className="mt-5 text-base sm:text-lg leading-relaxed text-plum/90 font-medium">
-            {t({
-              en: "Nestled in the misty high mountain ridges of Taiwan, our leaves are cultivated at 1,200m elevation. Each bud is hand-harvested at peak bloom and rigorously inspected to ensure uncompromised purity. That is why Gotcha tea tastes genuinely fresh, botanical, and pure — never artificial.",
-              ar: "في التلال الضبابية المرتفعة بتايوان، تُزرع أوراق شاينا على ارتفاعات مثالية (1,200 متر فوق سطح البحر)، وتُقطف يدويًا في أوج نضجها، وتُفحص ورقة تلو الأخرى قبل أن تصل إلى الكوب. لهذا السبب يبقى طعم شاينا حقيقي، طازج، وصافي.",
-            })}
-          </p>
+          <div className="mt-5 rounded-3xl border border-pink-deep/25 bg-white/90 p-5 sm:p-6 shadow-soft backdrop-blur-md">
+            <p className="text-base sm:text-lg leading-relaxed sm:leading-loose text-[#1A1A1A] font-bold">
+              {t({
+                en: "Nestled in the misty high mountain ridges of Taiwan, our leaves are cultivated at 1,200m elevation. Each bud is hand-harvested at peak bloom and rigorously inspected to ensure uncompromised purity. That is why Gotcha tea tastes genuinely fresh, botanical, and pure — never artificial.",
+                ar: "في التلال الضبابية المرتفعة بتايوان، تُزرع أوراق شاينا على ارتفاعات مثالية (1,200 متر فوق سطح البحر)، وتُقطف يدويًا في أوج نضجها، وتُفحص ورقة تلو الأخرى قبل أن تصل إلى الكوب. لهذا السبب يبقى طعم شاينا حقيقي، طازج، وصافي.",
+              })}
+            </p>
+          </div>
 
           <div className="mt-8 grid grid-cols-2 gap-3.5 sm:gap-4">
             {stats.map((s) => (
