@@ -32,8 +32,8 @@ export function Rewards() {
           className={`${card.className} grid gap-8 lg:grid-cols-2 rounded-[2.5rem] bg-gradient-to-br from-card via-cream-2/90 to-pink-soft/50 p-5 sm:p-8 lg:p-12 shadow-2xl border border-pink-deep/30 relative overflow-hidden backdrop-blur-md`}
         >
           {/* Background Ambient Glows */}
-          <div className="pointer-events-none absolute -top-24 -start-24 h-56 w-56 rounded-full bg-pink-deep/20 blur-3xl" />
-          <div className="pointer-events-none absolute -bottom-24 -end-24 h-56 w-56 rounded-full bg-lav-deep/20 blur-3xl" />
+          <div className="pointer-events-none absolute -top-24 -start-24 h-48 w-48 rounded-full bg-pink-soft/30 blur-2xl opacity-50" />
+          <div className="pointer-events-none absolute -bottom-24 -end-24 h-48 w-48 rounded-full bg-lav-soft/30 blur-2xl opacity-50" />
 
           {/* Left Column: Loyalty Info & User Status */}
           <div className="relative z-10 flex flex-col justify-between">

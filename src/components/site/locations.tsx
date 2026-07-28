@@ -74,8 +74,8 @@ export function Locations() {
   return (
     <section id="locations" className="bg-gradient-to-b from-cream-2 via-pink-soft/20 to-white py-20 sm:py-28 relative z-10 overflow-hidden max-w-full">
       {/* Decorative ambient background glows */}
-      <div className="absolute top-1/3 start-10 w-72 h-72 rounded-full bg-pink-deep/10 blur-3xl pointer-events-none" />
-      <div className="absolute bottom-10 end-10 w-80 h-80 rounded-full bg-neon/10 blur-3xl pointer-events-none" />
+      <div className="absolute top-1/3 start-10 w-60 h-60 rounded-full bg-pink-soft/30 blur-2xl opacity-50 pointer-events-none" />
+      <div className="absolute bottom-10 end-10 w-64 h-64 rounded-full bg-lav-soft/30 blur-2xl opacity-50 pointer-events-none" />
 
       <div className="mx-auto max-w-[1180px] px-4 sm:px-6 relative z-10">
         
