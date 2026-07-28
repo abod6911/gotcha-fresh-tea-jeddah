@@ -182,12 +182,18 @@ export function Hero() {
               >
                 {t({ en: "Explore Full Menu", ar: "استعرض القائمة الكاملة" })}
               </a>
-              <a
-                href="#locations"
-                className="inline-flex items-center justify-center rounded-full w-full sm:w-auto border-2 border-pink-deep/30 bg-card/50 backdrop-blur px-8 py-4 text-base font-semibold text-plum transition-all duration-300 hover:bg-pink-soft hover:border-pink-deep"
+              <button
+                onClick={() => {
+                  setIsAutoPlaying(false);
+                  const el = document.getElementById("locations");
+                  if (el) {
+                    el.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }
+                }}
+                className="inline-flex items-center justify-center rounded-full w-full sm:w-auto border-2 border-pink-deep/30 bg-card/70 backdrop-blur px-8 py-4 text-base font-semibold text-plum transition-all duration-300 hover:bg-pink-soft hover:border-pink-deep cursor-pointer shadow-xs"
               >
                 {t({ en: "Find Branch in Jeddah", ar: "فرع جدة" })}
-              </a>
+              </button>
             </div>
 
             {/* Stats Bar */}
