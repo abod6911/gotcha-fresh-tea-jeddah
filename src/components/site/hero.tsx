@@ -206,116 +206,100 @@ export function Hero() {
             
             <div 
               onClick={() => goToStep((activeStep + 1) % 4)}
-              className="relative mx-auto h-[320px] w-[200px] sm:h-[380px] sm:w-[240px] drop-shadow-2xl cursor-pointer group"
+              className="relative mx-auto h-[340px] w-[210px] sm:h-[400px] sm:w-[250px] cursor-pointer group select-none transition-transform duration-300 hover:scale-[1.02]"
               title={t({ en: "Tap cup to brew next step!", ar: "انقر الكوب لتحضير الخطوة التالية!" })}
             >
               
-              {/* Animated Straw */}
-              <motion.div 
-                animate={{
-                  y: isStrawDropped ? 0 : -350,
-                  rotate: isStrawDropped ? 12 : -15,
+              {/* Straw */}
+              <div 
+                className="absolute -top-24 left-1/2 -translate-x-1/2 h-[120%] w-[22px] rounded-full bg-gradient-to-r from-pink-400 via-pink-300 to-pink-500 shadow-[inset_-3px_0_6px_rgba(0,0,0,0.3),2px_4px_12px_rgba(0,0,0,0.15)] z-10 transition-all duration-500 ease-out"
+                style={{
+                  transform: `translateX(-50%) rotate(${isStrawDropped ? '10deg' : '-12deg'}) translateY(${isStrawDropped ? '0' : '-300px'})`,
                   opacity: isStrawDropped ? 1 : 0
                 }}
-                transition={{ type: "spring", stiffness: 100, damping: 15 }}
-                style={{ originY: 1 }}
-                className="absolute -top-28 left-1/2 -translate-x-1/2 h-[125%] w-[24px] rounded-full bg-gradient-to-r from-lav-deep via-lav-soft to-lav-deep shadow-[inset_-3px_0_8px_rgba(0,0,0,0.4),2px_2px_10px_rgba(0,0,0,0.2)] z-10"
               />
 
               {/* Cup Lid */}
-              <div className="absolute inset-x-2 -top-3 h-8 rounded-[50%] bg-white/60 shadow-[0_4px_10px_rgba(0,0,0,0.1),inset_0_-2px_4px_rgba(255,255,255,0.8)] border-b-2 border-white/80 backdrop-blur-md z-30 flex justify-center items-center">
-                <div className="w-12 h-2 rounded-full bg-plum/20" />
+              <div className="absolute inset-x-2 -top-2.5 h-7 rounded-[50%] bg-white/70 shadow-[0_4px_12px_rgba(0,0,0,0.08),inset_0_-2px_4px_rgba(255,255,255,0.9)] border-b border-white/90 backdrop-blur-md z-30 flex justify-center items-center">
+                <div className="w-10 h-1.5 rounded-full bg-plum/20" />
               </div>
               
               {/* Cup Glass Body */}
-              <div className="absolute inset-x-0 top-2 bottom-0 overflow-hidden rounded-b-[3.5rem] rounded-t-[1.5rem] border-4 border-white/70 bg-gradient-to-b from-white/30 to-white/10 shadow-[inset_-10px_-10px_20px_rgba(255,255,255,0.5),inset_10px_10px_20px_rgba(0,0,0,0.1),0_20px_40px_rgba(0,0,0,0.2)] backdrop-blur-md z-20">
+              <div className="absolute inset-x-0 top-2 bottom-0 overflow-hidden rounded-b-[3.5rem] rounded-t-[1.2rem] border-4 border-white/80 bg-gradient-to-b from-white/40 via-white/20 to-white/10 shadow-[inset_-10px_-10px_20px_rgba(255,255,255,0.6),inset_10px_10px_20px_rgba(0,0,0,0.08),0_20px_40px_rgba(0,0,0,0.15)] backdrop-blur-md z-20">
                 
-                {/* Dynamic Wavy Tea Liquid */}
-                <motion.div 
-                  animate={{ height: `${getLiquidHeightPercent()}%` }}
-                  transition={{ type: "spring", stiffness: 70, damping: 16 }}
-                  className="absolute inset-x-0 bottom-0 origin-bottom"
+                {/* Dynamic Liquid */}
+                <div 
+                  className="absolute inset-x-0 bottom-0 transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] will-change-[height]"
+                  style={{ height: `${getLiquidHeightPercent()}%` }}
                 >
                   {/* Wavy Surface SVG */}
-                  <div className="absolute -top-5 inset-x-0 h-7 w-[200%] animate-[wave-move_3s_linear_infinite] pointer-events-none">
+                  <div className="absolute -top-4 inset-x-0 h-6 w-[200%] animate-[wave-move_4s_linear_infinite] pointer-events-none opacity-90">
                     <svg className="w-full h-full" viewBox="0 0 800 50" preserveAspectRatio="none">
-                      <path d="M0,25 C100,0 100,50 200,25 C300,0 300,50 400,25 C500,0 500,50 600,25 C700,0 700,50 800,25 L800,50 L0,50 Z" fill="oklch(0.79 0.06 35)" opacity="0.9" />
+                      <path d="M0,25 C100,5 100,45 200,25 C300,5 300,45 400,25 C500,5 500,45 600,25 C700,5 700,45 800,25 L800,50 L0,50 Z" fill="#e88aa7" />
                     </svg>
                   </div>
                   
-                  {/* Liquid Body */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-pink-deep/95 via-pink/80 to-lav/70 backdrop-blur-sm" />
+                  {/* Liquid Body Gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-pink-deep/95 via-pink/85 to-lav-soft/75 backdrop-blur-sm" />
                   
                   {/* Floating Ice Cubes */}
                   {isIceVisible && (
-                    <>
-                      <div className="absolute top-2 left-4 w-9 h-9 rounded-xl bg-white/40 border border-white/60 backdrop-blur-sm animate-pulse transform rotate-12" />
-                      <div className="absolute top-4 right-5 w-8 h-8 rounded-xl bg-white/40 border border-white/60 backdrop-blur-sm animate-pulse transform -rotate-12" />
-                    </>
+                    <div className="transition-opacity duration-500 opacity-100">
+                      <div className="absolute top-2 left-4 w-9 h-9 rounded-xl bg-white/40 border border-white/70 backdrop-blur-sm transform rotate-12 shadow-sm" />
+                      <div className="absolute top-3 right-5 w-8 h-8 rounded-xl bg-white/40 border border-white/70 backdrop-blur-sm transform -rotate-12 shadow-sm" />
+                    </div>
                   )}
-                </motion.div>
+                </div>
                 
-                {/* Boba Pearls */}
-                <div className="absolute inset-x-0 bottom-3 flex justify-center items-end h-[50%]">
-                  {Array.from({ length: 28 }).map((_, i) => {
-                    const row = Math.floor(i / 6);
-                    const col = i % 6;
-
-                    return (
-                      <motion.span
+                {/* Optimized Lightweight Boba Pearls Container */}
+                <div 
+                  className="absolute inset-x-0 bottom-2.5 h-[120px] transition-all duration-500 ease-out pointer-events-none flex items-end justify-center"
+                  style={{
+                    transform: isBobaVisible ? 'translateY(0)' : 'translateY(160px)',
+                    opacity: isBobaVisible ? 1 : 0
+                  }}
+                >
+                  <div className="grid grid-cols-5 gap-1.5 px-5 pb-1 w-full justify-items-center">
+                    {Array.from({ length: 20 }).map((_, i) => (
+                      <div
                         key={i}
-                        initial={false}
-                        animate={{
-                          y: isBobaVisible ? 0 : -320,
-                          opacity: isBobaVisible ? 1 : 0,
-                          scale: isBobaVisible ? 1 : 0.3
-                        }}
-                        transition={{
-                          type: "spring",
-                          stiffness: 110,
-                          damping: 14,
-                          delay: (i * 0.02) % 0.3
-                        }}
-                        className="absolute rounded-full shadow-[inset_-3px_-3px_6px_rgba(0,0,0,0.9),1px_1px_3px_rgba(0,0,0,0.5)]"
+                        className="w-5 h-5 sm:w-6 sm:h-6 rounded-full shadow-[inset_-2px_-2px_5px_rgba(0,0,0,0.8),1px_1px_3px_rgba(0,0,0,0.4)] transition-transform duration-300 hover:scale-125"
                         style={{
-                          width: 22,
-                          height: 22,
-                          left: `calc(15% + ${col * 24}px + ${(row % 2) * 10}px)`,
-                          bottom: row * 18 + 6,
-                          background: "radial-gradient(circle at 35% 35%, #5d4037 0%, #2c1e16 60%, #100b08 100%)"
+                          background: "radial-gradient(circle at 35% 35%, #6d4c41 0%, #3e2723 65%, #1a0e0a 100%)",
+                          transform: `translateY(${ (i % 3) * -2 }px)`
                         }}
                       />
-                    );
-                  })}
+                    ))}
+                  </div>
                 </div>
 
-                {/* Official Brand Logo Emblem on Cup Glass */}
+                {/* Official Brand Logo Emblem */}
                 <div className="absolute top-[38%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none flex flex-col items-center">
-                  <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white/90 p-1.5 shadow-[0_8px_25px_rgba(0,0,0,0.18)] border-2 border-white backdrop-blur-md flex items-center justify-center transform group-hover:scale-105 transition-transform duration-300">
+                  <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white/95 p-1.5 shadow-[0_8px_25px_rgba(0,0,0,0.15)] border-2 border-white backdrop-blur-md flex items-center justify-center transform group-hover:scale-105 transition-transform duration-300">
                     <GotchaLogo className="w-full h-full object-contain rounded-full" />
                   </div>
                 </div>
                 
-                {/* Glass Glossy Reflections */}
-                <div className="absolute inset-y-4 start-3 w-6 rounded-full bg-gradient-to-b from-white/70 to-transparent blur-[2px] opacity-80 z-20" />
-                <div className="absolute inset-y-12 end-4 w-3 rounded-full bg-gradient-to-b from-white/50 to-transparent blur-[1px] opacity-60 z-20" />
+                {/* Glass Glossy Highlights */}
+                <div className="absolute inset-y-4 start-3 w-5 rounded-full bg-gradient-to-b from-white/70 via-white/30 to-transparent blur-[1px] opacity-80 z-20 pointer-events-none" />
+                <div className="absolute inset-y-10 end-3.5 w-2.5 rounded-full bg-gradient-to-b from-white/50 to-transparent blur-[1px] opacity-60 z-20 pointer-events-none" />
               </div>
               
               {/* Floor Shadow */}
-              <div className="absolute -bottom-8 inset-x-6 h-6 rounded-[50%] bg-pink-deep/30 blur-xl opacity-70" />
+              <div className="absolute -bottom-6 inset-x-6 h-5 rounded-[50%] bg-pink-deep/30 blur-lg opacity-70" />
             </div>
 
-            {/* Badge pill below cup */}
-            <motion.div 
+            {/* Interactive hint badge */}
+            <div 
               onClick={() => goToStep((activeStep + 1) % 4)}
-              className="relative mt-7 flex items-center gap-2.5 rounded-full border border-border bg-card/90 backdrop-blur-md px-5 py-2 text-xs font-bold text-plum shadow-glow-lg z-20 cursor-pointer hover:scale-105 transition-transform"
+              className="relative mt-6 flex items-center gap-2.5 rounded-full border border-pink-deep/30 bg-card/95 backdrop-blur-md px-5 py-2 text-xs font-bold text-plum shadow-soft z-20 cursor-pointer hover:scale-105 transition-transform"
             >
               <span className="relative flex h-2.5 w-2.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-neon"></span>
               </span>
               {t({ en: "Tap cup or scroll to brew", ar: "انقر الكوب أو مرّر للتحضير" })}
-            </motion.div>
+            </div>
 
           </div>
 
