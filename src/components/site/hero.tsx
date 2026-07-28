@@ -90,18 +90,18 @@ export function Hero() {
 
   return (
     <section id="top" className="relative bg-gradient-pastel min-h-screen max-w-full overflow-hidden flex items-center justify-center pt-24 sm:pt-28 pb-12 px-4 sm:px-6">
-      {/* Decorative trees & petals — positioned far off-edge with soft opacity so they never overlap text */}
+      {/* Decorative trees & petals — framing the boba cup side & top corner on all devices without overlapping text */}
       <TabebuiaTree
-        className="hidden xl:block h-[480px] w-[360px] opacity-35 pointer-events-none drop-shadow-sm blur-[0.5px]"
-        style={{ bottom: -40, insetInlineStart: -150 }}
+        className="h-[360px] w-[280px] sm:h-[500px] sm:w-[380px] opacity-80 pointer-events-none drop-shadow-sm"
+        style={{ bottom: -40, insetInlineEnd: -50 }}
       />
       <TabebuiaTree
         flip
-        className="hidden 2xl:block h-[420px] w-[320px] opacity-20 pointer-events-none drop-shadow-sm blur-[0.5px]"
-        style={{ bottom: -60, insetInlineEnd: -180 }}
+        className="h-[300px] w-[240px] sm:h-[400px] sm:w-[310px] opacity-65 pointer-events-none drop-shadow-sm"
+        style={{ top: 10, insetInlineStart: -80 }}
       />
-      <Petals count={20} />
-      <FlowerDeco className="hidden lg:block w-[200px] opacity-40 pointer-events-none" style={{ top: 80, insetInlineStart: -80 }} />
+      <Petals count={24} />
+      <FlowerDeco className="w-[180px] sm:w-[220px] opacity-50 pointer-events-none" style={{ bottom: 20, insetInlineStart: -50 }} />
 
       {/* Hero Content Viewport */}
       <div className="relative z-10 mx-auto grid w-full max-w-[1180px] items-center gap-8 lg:gap-14 lg:grid-cols-[1.1fr_0.9fr]">
