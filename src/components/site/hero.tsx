@@ -178,10 +178,13 @@ export function Hero() {
             <div className="mt-8 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 w-full sm:w-auto">
               <a
                 href="#menu"
-                className="bg-gradient-neon inline-flex items-center justify-center rounded-full w-full sm:w-auto px-8 py-4 text-base font-semibold text-primary-foreground shadow-glow transition-all duration-300 hover:-translate-y-1 hover:shadow-glow-lg hover:scale-105 active:scale-95"
+                className="group relative inline-flex items-center justify-center gap-2.5 rounded-full w-full sm:w-auto px-8 py-4 text-base sm:text-lg font-bold text-white bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 shadow-[0_10px_28px_-6px_rgba(255,20,147,0.55)] border-2 border-white/40 backdrop-blur-md overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_36px_-4px_rgba(255,20,147,0.75)] hover:scale-105 active:scale-95"
               >
-                {t({ en: "Explore Full Menu", ar: "استعرض القائمة الكاملة" })}
+                <Sparkles className="h-5 w-5 text-yellow-200 animate-pulse shrink-0" />
+                <span>{t({ en: "Explore Full Menu", ar: "استعرض القائمة الكاملة" })}</span>
+                <ChevronLeft className="h-5 w-5 transition-transform duration-300 group-hover:-translate-x-1.5 shrink-0 rtl:rotate-0 ltr:rotate-180" />
               </a>
+
               <button
                 onClick={() => {
                   setIsAutoPlaying(false);
@@ -190,9 +193,10 @@ export function Hero() {
                     el.scrollIntoView({ behavior: "smooth", block: "start" });
                   }
                 }}
-                className="inline-flex items-center justify-center rounded-full w-full sm:w-auto border-2 border-pink-deep/30 bg-card/70 backdrop-blur px-8 py-4 text-base font-semibold text-plum transition-all duration-300 hover:bg-pink-soft hover:border-pink-deep cursor-pointer shadow-xs"
+                className="inline-flex items-center justify-center gap-2 rounded-full w-full sm:w-auto border-2 border-pink-deep/30 bg-card/85 backdrop-blur-md px-7 py-4 text-base font-bold text-plum transition-all duration-300 hover:bg-pink-soft hover:border-pink-deep hover:scale-105 cursor-pointer shadow-soft"
               >
-                {t({ en: "Find Branch in Jeddah", ar: "فرع جدة" })}
+                <ChevronRight className="h-5 w-5 text-neon shrink-0 rtl:rotate-0 ltr:rotate-180" />
+                <span>{t({ en: "Find Branch in Jeddah", ar: "فرع جدة" })}</span>
               </button>
             </div>
 
