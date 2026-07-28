@@ -59,18 +59,36 @@ export function Header() {
     return () => observer.disconnect();
   }, []);
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    setActive(href);
+    setMobileOpen(false);
+
+    const targetEl = document.querySelector(href);
+    if (targetEl) {
+      const headerOffset = 85;
+      const elementPosition = targetEl.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: Math.max(0, offsetPosition),
+        behavior: "smooth"
+      });
+    }
+  };
+
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-500 ${
         scrolled 
-          ? "shadow-soft bg-white/80 backdrop-blur-2xl border-pink-deep/20" 
-          : "bg-gradient-to-b from-white/90 via-white/50 to-transparent border-transparent"
+          ? "shadow-soft bg-white/85 backdrop-blur-2xl border-pink-deep/20" 
+          : "bg-gradient-to-b from-white/95 via-white/60 to-transparent border-transparent"
       }`}
     >
       <div className="mx-auto flex max-w-[1180px] items-center justify-between gap-1.5 sm:gap-4 px-3 sm:px-6 py-2 sm:py-3 flex-nowrap overflow-hidden">
         
         {/* Brand Logo */}
-        <a href="#top" className="flex items-center gap-1.5 sm:gap-2.5 group shrink-0 select-none">
+        <a href="#top" onClick={(e) => handleNavClick(e, "#top")} className="flex items-center gap-1.5 sm:gap-2.5 group shrink-0 select-none cursor-pointer">
           <GotchaLogo className="h-8 w-8 sm:h-9 sm:w-9 shrink-0 transition-transform duration-300 group-hover:scale-105" />
           <span className="flex flex-col leading-none">
             <b className="font-display text-base sm:text-xl tracking-wide text-plum">Gotcha</b>
@@ -81,16 +99,17 @@ export function Header() {
         </a>
 
         {/* Desktop Nav Links Pill Container (Only on XL 1280px+) */}
-        <nav className="hidden xl:flex items-center gap-1 shrink-0 bg-card/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-pink-deep/25 shadow-soft">
+        <nav className="hidden xl:flex items-center gap-1 shrink-0 bg-card/95 backdrop-blur-md px-3 py-1.5 rounded-full border border-pink-deep/25 shadow-soft">
           {NAV.map((item) => {
             const isActive = active === item.href;
             return (
               <a
                 key={item.href}
                 href={item.href}
-                className={`relative rounded-full px-3 py-1 text-xs xl:text-sm font-bold whitespace-nowrap transition-all duration-300 ${
+                onClick={(e) => handleNavClick(e, item.href)}
+                className={`relative rounded-full px-3.5 py-1.5 text-xs xl:text-sm font-bold whitespace-nowrap transition-all duration-300 cursor-pointer ${
                   isActive
-                    ? "bg-gradient-neon text-white shadow-glow"
+                    ? "bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 text-white shadow-md scale-105"
                     : "text-plum/80 hover:text-plum hover:bg-pink-soft/60"
                 }`}
               >
@@ -237,8 +256,12 @@ export function Header() {
               >
                 <a
                   href={item.href}
-                  onClick={() => setMobileOpen(false)}
-                  className="block rounded-xl px-3 py-2 text-sm font-bold text-plum transition-all duration-300 hover:bg-pink-soft hover:ps-5"
+                  onClick={(e) => handleNavClick(e, item.href)}
+                  className={`block rounded-xl px-4 py-2.5 text-sm font-bold transition-all duration-300 ${
+                    active === item.href
+                      ? "bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 text-white shadow-md font-display"
+                      : "text-plum hover:bg-pink-soft hover:ps-5"
+                  }`}
                 >
                   {t(item.label)}
                 </a>
