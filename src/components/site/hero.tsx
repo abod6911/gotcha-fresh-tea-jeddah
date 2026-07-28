@@ -48,9 +48,9 @@ export function Hero() {
       }
     },
     {
-      badge: { en: "Step 3 · Ready to Drink", ar: "الخطوة 3 · جاهز للاستمتاع" },
+      badge: { en: "Step 3 · Ready to Drink", ar: "الخطوة 3 · جاهز للتذوّق" },
       title: { en: "Ready to ", ar: "جاهز " },
-      highlight: { en: "Enjoy!", ar: "للارتشاف!" },
+      highlight: { en: "Enjoy!", ar: "للتذوّق!" },
       desc: {
         en: "Your fresh boba tea is ready! Taste the authentic freshness of Taiwan & Melbourne in Jeddah.",
         ar: "كوب قوتشا الباستيل جاهز الآن! نضارة تايوان وفخامة ملبورن بين يديك في جدة."
