@@ -144,8 +144,8 @@ export function Footer() {
         <div className="group relative inline-flex items-center gap-2.5 rounded-full border-2 border-pink-deep/35 bg-gradient-to-r from-plum via-plum/95 to-pink-950 px-5 py-2 text-xs sm:text-sm font-bold text-white shadow-[0_8px_24px_-6px_rgba(255,20,147,0.35)] transition-all duration-300 hover:scale-105 hover:border-pink-deep hover:shadow-[0_12px_28px_-4px_rgba(255,20,147,0.55)] cursor-pointer">
           <Sparkles className="h-4 w-4 text-neon animate-pulse shrink-0" />
           <span className="text-white/95 font-medium">{t({ en: "Crafted with passion by", ar: "تم تطوير هذا الموقع بواسطة" })}</span>
-          <span className="inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 px-3 py-0.5 text-xs font-black font-display text-white shadow-md tracking-wider group-hover:from-rose-500 group-hover:to-pink-500 transition-all duration-300 border border-white/30">
-            👑 abed
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 px-3.5 py-1 text-xs font-extrabold font-display text-white shadow-md tracking-wider group-hover:from-rose-500 group-hover:to-pink-500 transition-all duration-300 border border-white/30">
+            abed · MUHAB
           </span>
         </div>
       </div>
