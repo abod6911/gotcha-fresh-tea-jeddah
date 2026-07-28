@@ -132,9 +132,10 @@ export function Gallery() {
           >
             <button
               onClick={() => setSelectedImg(null)}
-              className="absolute top-5 end-5 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-plum/70 text-white hover:bg-plum transition-colors shadow-md"
+              className="absolute top-4 start-4 sm:top-5 sm:start-5 z-50 flex h-10 w-10 items-center justify-center rounded-full border-2 border-white/80 bg-white/95 text-plum shadow-lg backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-pink-500 hover:text-white active:scale-95 cursor-pointer"
+              aria-label={t({ en: "Close preview", ar: "إغلاق المعاينة" })}
             >
-              <X className="h-5 w-5" />
+              <X className="h-5 w-5 stroke-[2.5]" />
             </button>
             <img
               src={selectedImg.src}

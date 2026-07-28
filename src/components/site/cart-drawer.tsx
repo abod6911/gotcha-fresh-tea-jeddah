@@ -93,9 +93,9 @@ export function CartDrawer() {
           <button
             onClick={() => setOpen(false)}
             aria-label={t({ en: "Close", ar: "إغلاق" })}
-            className="rounded-full p-2 text-plum-soft hover:bg-pink-soft hover:text-plum transition-colors"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-pink-deep/30 bg-white/90 text-plum shadow-sm backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-pink-500 hover:text-white cursor-pointer"
           >
-            <X className="h-4 w-4" />
+            <X className="h-5 w-5 stroke-[2.5]" />
           </button>
         </header>
 

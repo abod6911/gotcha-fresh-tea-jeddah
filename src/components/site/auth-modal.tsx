@@ -43,13 +43,13 @@ export function AuthModal() {
         <div className="pointer-events-none absolute -top-20 -end-20 h-44 w-44 rounded-full bg-pink-deep/20 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-20 -start-20 h-44 w-44 rounded-full bg-lav-deep/20 blur-3xl" />
 
-        {/* Close button */}
+        {/* Luxury High-Precision Circular Close Button */}
         <button
           onClick={() => setAuthOpen(false)}
-          className="absolute top-5 end-5 rounded-full p-2 text-plum-soft transition-colors hover:bg-pink-soft hover:text-plum"
+          className="absolute top-4 start-4 sm:top-5 sm:start-5 z-50 flex h-10 w-10 items-center justify-center rounded-full border-2 border-pink-deep/30 bg-white/95 text-plum shadow-md backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-pink-500 hover:text-white hover:border-pink-500 active:scale-95 cursor-pointer"
           aria-label={t({ en: "Close modal", ar: "إغلاق النافذة" })}
         >
-          <X className="h-5 w-5" />
+          <X className="h-5 w-5 stroke-[2.5]" />
         </button>
 
         {user?.needsProfile ? (
