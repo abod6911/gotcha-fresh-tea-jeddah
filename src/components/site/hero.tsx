@@ -90,24 +90,24 @@ export function Hero() {
 
   return (
     <section id="top" className="relative bg-gradient-pastel min-h-screen max-w-full overflow-hidden flex items-center justify-center pt-24 sm:pt-28 pb-12 px-4 sm:px-6">
-      {/* Decorative trees & petals */}
+      {/* Decorative trees & petals — positioned far off-edge with soft opacity so they never overlap text */}
       <TabebuiaTree
-        className="h-[450px] w-[340px] sm:h-[540px] sm:w-[420px] opacity-85 pointer-events-none drop-shadow-md"
-        style={{ bottom: -40, insetInlineStart: -70 }}
+        className="hidden xl:block h-[480px] w-[360px] opacity-35 pointer-events-none drop-shadow-sm blur-[0.5px]"
+        style={{ bottom: -40, insetInlineStart: -150 }}
       />
       <TabebuiaTree
         flip
-        className="hidden sm:block h-[460px] w-[350px] opacity-80 pointer-events-none drop-shadow-md"
-        style={{ bottom: -60, insetInlineEnd: -90 }}
+        className="hidden 2xl:block h-[420px] w-[320px] opacity-20 pointer-events-none drop-shadow-sm blur-[0.5px]"
+        style={{ bottom: -60, insetInlineEnd: -180 }}
       />
-      <Petals count={24} />
-      <FlowerDeco className="w-[240px] opacity-75 pointer-events-none drop-shadow-sm" style={{ top: 80, insetInlineStart: -60 }} />
+      <Petals count={20} />
+      <FlowerDeco className="hidden lg:block w-[200px] opacity-40 pointer-events-none" style={{ top: 80, insetInlineStart: -80 }} />
 
       {/* Hero Content Viewport */}
       <div className="relative z-10 mx-auto grid w-full max-w-[1180px] items-center gap-8 lg:gap-14 lg:grid-cols-[1.1fr_0.9fr]">
           
           {/* Left Column: Interactive Dynamic Text */}
-          <div className="flex flex-col items-start min-h-[340px] justify-center">
+          <div className="flex flex-col items-start min-h-[340px] justify-center relative z-20">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeStep}
@@ -117,14 +117,14 @@ export function Hero() {
                 transition={{ duration: 0.3 }}
                 className="flex flex-col items-start"
               >
-                <span className="inline-flex items-center gap-2 rounded-full border border-pink-deep/30 bg-card/90 backdrop-blur-md px-4 py-1.5 text-xs font-bold tracking-wide text-plum shadow-sm">
+                <span className="inline-flex items-center gap-2 rounded-full border border-pink-deep/30 bg-card/95 backdrop-blur-md px-4 py-1.5 text-xs font-bold tracking-wide text-plum shadow-sm">
                   <Sparkles className="h-3.5 w-3.5 text-neon shrink-0" />
                   {t(steps[activeStep].badge)}
                 </span>
                 
-                <h1 className="mt-4 sm:mt-5 text-4xl sm:text-5xl lg:text-7xl leading-[1.25] sm:leading-[1.18] text-plum drop-shadow-sm font-display font-bold">
+                <h1 className="mt-4 sm:mt-5 text-4xl sm:text-5xl lg:text-7xl leading-[1.25] sm:leading-[1.18] text-plum font-display font-bold drop-shadow-[0_2px_12px_rgba(255,255,255,0.95)]">
                   {t(steps[activeStep].title)}
-                  <span className="text-gradient-neon block mt-1 sm:mt-2 pb-2">
+                  <span className="text-gradient-neon block mt-1 sm:mt-2 pb-2 drop-shadow-[0_2px_10px_rgba(255,255,255,0.9)]">
                     {t(steps[activeStep].highlight)}
                   </span>
                 </h1>
