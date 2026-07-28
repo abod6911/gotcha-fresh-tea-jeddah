@@ -57,19 +57,19 @@ export function Rewards() {
                 })}
               </p>
 
-              {/* Interactive User Loyalty Status Card */}
+              {/* Interactive User Loyalty Status Card or Sign-in CTA */}
               {user ? (
-                <div className="mt-6 rounded-3xl border border-pink-deep/30 bg-white/90 p-5 shadow-soft backdrop-blur-md">
+                <div className="mt-6 rounded-3xl border-2 border-pink-deep/30 bg-white/95 p-5 shadow-xl backdrop-blur-md transition-all hover:border-pink-deep/50">
                   <div className="flex items-center justify-between gap-3">
                     <div className="flex items-center gap-3 min-w-0">
-                      <img src={user.avatar} alt={user.name} className="h-12 w-12 rounded-full object-cover ring-2 ring-pink-deep shrink-0 bg-white" />
+                      <img src={user.avatar} alt={user.name} className="h-12 w-12 rounded-full object-cover ring-2 ring-pink-deep shrink-0 bg-white shadow-md" />
                       <div className="min-w-0">
                         <h4 className="text-sm sm:text-base font-bold text-plum truncate">{user.name}</h4>
                         <p className="text-xs text-plum-soft font-semibold">{user.tier || "Bronze"} Member · {user.points ?? 50} pts</p>
                       </div>
                     </div>
-                    <div className="text-end shrink-0 bg-pink-soft/80 border border-pink-deep/30 px-3.5 py-1.5 rounded-2xl">
-                      <span className="text-xl sm:text-2xl font-black text-plum">🌸 {user.blossoms ?? 1}</span>
+                    <div className="text-end shrink-0 bg-gradient-to-r from-pink-soft to-cream-2 border-2 border-pink-deep/40 px-4 py-2 rounded-2xl shadow-sm">
+                      <span className="text-xl sm:text-2xl font-black text-plum font-display">🌸 {user.blossoms ?? 1}</span>
                       <p className="text-[0.65rem] font-bold text-plum-soft">{t({ en: "Blossoms", ar: "أزهار الولاء" })}</p>
                     </div>
                   </div>
@@ -80,9 +80,9 @@ export function Rewards() {
                       <span>{t({ en: "Progress to free drink", ar: "التقدم نحو الكوب المجاني" })}</span>
                       <span className="text-plum">{user.blossoms ?? 1} / {targetBlossoms} 🌸</span>
                     </div>
-                    <div className="h-3 w-full overflow-hidden rounded-full bg-cream-2 p-0.5 border border-pink-deep/20">
+                    <div className="h-3.5 w-full overflow-hidden rounded-full bg-cream-2 p-0.5 border border-pink-deep/30 shadow-inner">
                       <div
-                        className="h-full rounded-full bg-gradient-neon transition-all duration-700 ease-out shadow-glow"
+                        className="h-full rounded-full bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 transition-all duration-700 ease-out shadow-md"
                         style={{ width: `${progressPercent}%` }}
                       />
                     </div>
@@ -92,7 +92,7 @@ export function Rewards() {
                 <div className="mt-6">
                   <button
                     onClick={() => setAuthOpen(true)}
-                    className="bg-gradient-neon inline-flex items-center justify-center gap-2.5 rounded-full px-7 py-3.5 text-xs sm:text-sm font-bold text-primary-foreground shadow-glow transition-all duration-300 hover:scale-[1.02] active:scale-95 w-full sm:w-auto"
+                    className="bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 border-2 border-white/40 text-white shadow-[0_10px_25px_-5px_rgba(255,20,147,0.45)] inline-flex items-center justify-center gap-2.5 rounded-full px-8 py-3.5 text-xs sm:text-sm font-bold transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_14px_30px_-4px_rgba(255,20,147,0.6)] active:scale-95 w-full sm:w-auto cursor-pointer"
                   >
                     <LogIn className="h-4 w-4" />
                     {t({ en: "Sign in with Google", ar: "تسجيل الدخول بواسطة Google" })}
@@ -101,16 +101,16 @@ export function Rewards() {
               )}
 
               {/* How it works steps */}
-              <div className="mt-6 grid gap-2.5">
+              <div className="mt-6 grid gap-3">
                 {steps.map((s) => (
                   <div
                     key={s.n}
-                    className="flex items-center gap-3.5 rounded-2xl border border-pink-deep/20 bg-white/70 p-3 shadow-xs transition-colors hover:bg-white"
+                    className="group flex items-center gap-3.5 rounded-2xl border-2 border-pink-deep/20 bg-white/90 p-3.5 shadow-sm backdrop-blur-md transition-all duration-300 hover:border-pink-deep/50 hover:bg-white hover:scale-[1.02] hover:shadow-md"
                   >
-                    <b className="bg-gradient-neon flex h-8 w-8 shrink-0 items-center justify-center rounded-full font-display text-sm text-primary-foreground shadow-sm">
+                    <b className="bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 flex h-9 w-9 shrink-0 items-center justify-center rounded-full font-display text-sm font-black text-white shadow-md border border-white/40">
                       {s.n}
                     </b>
-                    <span className="text-xs sm:text-sm text-plum font-bold">{t(s.label)}</span>
+                    <span className="text-xs sm:text-sm text-plum font-bold font-display">{t(s.label)}</span>
                   </div>
                 ))}
               </div>
@@ -118,46 +118,46 @@ export function Rewards() {
           </div>
 
           {/* Right Column: Redeemable Rewards Grid */}
-          <div className="relative z-10 flex flex-col justify-between rounded-3xl border border-pink-deep/25 bg-white/80 p-5 sm:p-6 backdrop-blur-sm shadow-soft">
+          <div className="relative z-10 flex flex-col justify-between rounded-[2rem] border-2 border-pink-deep/30 bg-white/95 p-5 sm:p-7 backdrop-blur-md shadow-xl">
             <div>
-              <div className="flex items-center justify-between border-b border-pink-deep/15 pb-4">
+              <div className="flex items-center justify-between border-b border-pink-deep/20 pb-4">
                 <h3 className="flex items-center gap-2 text-base sm:text-lg font-bold text-plum font-display">
                   <Gift className="h-5 w-5 text-neon" />
                   {t({ en: "Redeemable Rewards", ar: "قائمة المكافآت المتاحة" })}
                 </h3>
-                <span className="text-xs font-bold text-plum bg-pink-soft px-3 py-1 rounded-full border border-pink-deep/20">
+                <span className="text-xs font-bold text-plum bg-pink-soft/90 px-3.5 py-1.5 rounded-full border border-pink-deep/30 shadow-xs">
                   {user ? `🌸 ${user.blossoms ?? 1}` : t({ en: "Sign in to redeem", ar: "سجل للاستبدال" })}
                 </span>
               </div>
 
-              <div className="mt-5 space-y-3">
+              <div className="mt-5 space-y-3.5">
                 {rewardsList.map((rw) => {
                   const canAfford = user && (user.blossoms ?? 1) >= rw.cost;
                   return (
                     <div
                       key={rw.id}
-                      className={`flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 rounded-2xl border p-3.5 transition-all duration-300 ${
+                      className={`flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3.5 rounded-2xl border-2 p-4 transition-all duration-300 ${
                         canAfford
-                          ? "border-pink-deep/40 bg-gradient-to-r from-pink-soft/60 to-white shadow-soft"
-                          : "border-border bg-card/60 opacity-90"
+                          ? "border-pink-deep/40 bg-gradient-to-r from-pink-soft/70 via-cream-2 to-white shadow-md hover:scale-[1.02]"
+                          : "border-pink-deep/20 bg-white/90 shadow-sm hover:border-pink-deep/40"
                       }`}
                     >
-                      <div className="flex items-center gap-3">
-                        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-pink-soft/80 text-xl border border-pink-deep/20 shadow-inner">
+                      <div className="flex items-center gap-3.5">
+                        <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-pink-soft to-cream-2 text-2xl border border-pink-deep/30 shadow-inner">
                           {rw.icon}
                         </span>
                         <div>
-                          <h4 className="text-xs sm:text-sm font-bold text-plum leading-snug">{t(rw.title)}</h4>
-                          <p className="text-[0.7rem] text-plum-soft font-semibold">{rw.cost} {t({ en: "Blossoms required", ar: "أزهار مطلوبة" })}</p>
+                          <h4 className="text-xs sm:text-sm font-bold text-plum leading-snug font-display">{t(rw.title)}</h4>
+                          <p className="text-[0.72rem] text-plum-soft font-semibold mt-0.5">{rw.cost} {t({ en: "Blossoms required", ar: "أزهار مطلوبة" })}</p>
                         </div>
                       </div>
 
                       <button
                         onClick={() => redeemBlossom(rw.cost, t(rw.title))}
-                        className={`w-full sm:w-auto rounded-full px-4 py-2 text-xs font-bold transition-all duration-300 shrink-0 ${
+                        className={`w-full sm:w-auto rounded-full px-5 py-2.5 text-xs font-bold transition-all duration-300 shrink-0 cursor-pointer ${
                           canAfford
-                            ? "bg-gradient-neon text-primary-foreground shadow-glow hover:scale-105"
-                            : "border border-pink-deep/30 bg-card text-plum-soft hover:bg-pink-soft hover:text-plum"
+                            ? "bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 border-2 border-white/40 text-white shadow-md hover:scale-105 active:scale-95"
+                            : "border-2 border-pink-deep/30 bg-card text-plum font-bold hover:bg-pink-soft hover:border-pink-deep shadow-xs"
                         }`}
                       >
                         {canAfford ? (
@@ -175,7 +175,7 @@ export function Rewards() {
               </div>
             </div>
 
-            <div className="mt-6 rounded-2xl bg-pink-soft/60 p-3.5 text-center text-xs text-plum font-semibold border border-pink-deep/20">
+            <div className="mt-6 rounded-2xl bg-gradient-to-r from-pink-soft/80 via-cream-2 to-pink-soft/80 p-4 text-center text-xs text-plum font-semibold border-2 border-pink-deep/25 shadow-xs">
               <span className="font-bold text-plum">💡 {t({ en: "Pro tip:", ar: "نصيحة:" })}</span>{" "}
               {t({
                 en: "Every WhatsApp order automatically credits points & blossoms to your active profile!",
