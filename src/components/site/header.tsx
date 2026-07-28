@@ -117,35 +117,44 @@ export function Header() {
             <div className="relative user-dropdown-container">
               <button
                 onClick={() => setUserDropdown((v) => !v)}
-                className="flex items-center gap-1.5 rounded-full border-[1.5px] border-pink-deep/40 bg-cream-2 px-2 sm:px-3 py-1 text-xs font-bold text-plum shadow-sm transition-all hover:bg-pink-soft"
+                className="flex items-center gap-1.5 sm:gap-2 rounded-full border-[1.5px] border-pink-deep/50 bg-gradient-to-r from-card to-pink-soft/60 px-2 sm:px-3 py-1 text-xs font-bold text-plum shadow-sm transition-all hover:scale-105 hover:border-pink-deep hover:shadow-soft"
+                title={user.name}
               >
                 <img
                   src={user.avatar}
                   alt={user.name}
-                  className="h-5 w-5 sm:h-6 sm:w-6 rounded-full object-cover ring-1 ring-pink-deep"
+                  className="h-6 w-6 sm:h-7 sm:w-7 rounded-full object-cover ring-2 ring-pink-deep shrink-0 bg-white"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = `https://api.dicebear.com/7.x/notionists/svg?seed=${user.email || 'gotcha'}`;
+                  }}
                 />
-                <span className="hidden md:inline-block max-w-[80px] truncate">{user.name}</span>
-                <span className="flex items-center gap-1 rounded-full bg-plum/10 px-1.5 py-0.5 text-[0.65rem] font-bold text-plum">
-                  🌸 {user.blossoms}
+                <span className="inline-block max-w-[70px] sm:max-w-[100px] truncate font-bold text-plum">{user.name.split(" ")[0]}</span>
+                <span className="flex items-center gap-0.5 rounded-full bg-pink-soft px-2 py-0.5 text-[0.65rem] font-bold text-plum border border-pink-deep/30">
+                  🌸 {user.blossoms ?? 1}
                 </span>
               </button>
 
               {userDropdown && (
-                <div className="absolute end-0 mt-2 w-56 rounded-2xl border border-pink-deep/20 bg-card p-3 shadow-xl animate-in fade-in slide-in-from-top-2 duration-200 z-50">
-                  <div className="border-b border-border pb-2.5 mb-2 px-2">
-                    <p className="text-xs font-bold text-plum">{user.name}</p>
-                    <p className="text-[0.7rem] text-plum-soft truncate">{user.email}</p>
-                    <div className="mt-2 flex items-center justify-between rounded-xl bg-pink-soft/60 px-2.5 py-1 text-xs font-semibold text-plum">
-                      <span className="flex items-center gap-1">
-                        <Award className="h-3.5 w-3.5 text-neon" /> {user.tier}
+                <div className="absolute end-0 mt-2 w-60 rounded-2xl border border-pink-deep/30 bg-card/95 p-3.5 shadow-2xl backdrop-blur-md animate-in fade-in slide-in-from-top-2 duration-200 z-50">
+                  <div className="border-b border-border pb-3 mb-2 px-1 text-start">
+                    <div className="flex items-center gap-2 mb-2">
+                      <img src={user.avatar} alt="" className="h-9 w-9 rounded-full ring-2 ring-pink-deep object-cover" />
+                      <div className="min-w-0 flex-1">
+                        <p className="text-xs font-bold text-plum truncate">{user.name}</p>
+                        <p className="text-[0.68rem] text-plum-soft truncate">{user.email || "حساب Google محقق"}</p>
+                      </div>
+                    </div>
+                    <div className="mt-2 flex items-center justify-between rounded-xl bg-gradient-to-r from-pink-soft/80 to-cream-2 px-3 py-1.5 text-xs font-semibold text-plum border border-pink-deep/20">
+                      <span className="flex items-center gap-1 font-bold">
+                        <Award className="h-4 w-4 text-neon" /> {user.tier || "Bronze"}
                       </span>
-                      <span>{user.points} pts</span>
+                      <span className="font-bold">{user.points ?? 50} pts · 🌸 {user.blossoms ?? 1}</span>
                     </div>
                   </div>
                   <a
                     href="#rewards"
                     onClick={() => setUserDropdown(false)}
-                    className="flex items-center gap-2 rounded-xl px-2.5 py-2 text-xs font-medium text-plum hover:bg-pink-soft"
+                    className="flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-bold text-plum hover:bg-pink-soft transition-colors"
                   >
                     <Sparkles className="h-4 w-4 text-neon" />
                     {t({ en: "Loyalty Dashboard", ar: "لوحة تحكم الولاء" })}
@@ -155,7 +164,7 @@ export function Header() {
                       logout();
                       setUserDropdown(false);
                     }}
-                    className="flex w-full items-center gap-2 rounded-xl px-2.5 py-2 text-xs font-medium text-destructive hover:bg-destructive/10"
+                    className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-xs font-bold text-destructive hover:bg-destructive/10 transition-colors"
                   >
                     <LogOut className="h-4 w-4" />
                     {t({ en: "Sign out", ar: "تسجيل الخروج" })}
@@ -166,10 +175,10 @@ export function Header() {
           ) : (
             <button
               onClick={() => setAuthOpen(true)}
-              className="flex items-center gap-1 rounded-full border-[1.5px] border-pink-deep/40 bg-card px-2.5 sm:px-3 py-1.5 text-[0.65rem] sm:text-xs font-bold text-plum transition-all duration-300 hover:border-neon hover:bg-pink-soft hover:scale-105"
+              className="flex items-center gap-1.5 rounded-full border-[1.5px] border-pink-deep/40 bg-card px-3 py-1.5 text-[0.7rem] sm:text-xs font-bold text-plum transition-all duration-300 hover:border-neon hover:bg-pink-soft hover:scale-105 shadow-sm"
             >
               <User className="h-3.5 w-3.5 text-ink shrink-0" />
-              <span className="hidden xs:inline-block">{t({ en: "Login", ar: "دخول" })}</span>
+              <span>{t({ en: "Login", ar: "تسجيل الدخول" })}</span>
             </button>
           )}
 

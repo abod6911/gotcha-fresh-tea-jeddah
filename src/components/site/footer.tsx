@@ -37,14 +37,38 @@ export function Footer() {
     { href: "#rewards", label: { en: "Rewards", ar: "المكافآت" } },
   ];
 
+  const socialLinks = [
+    {
+      name: { en: "WhatsApp", ar: "واتساب الخدمة" },
+      icon: <WhatsAppIcon />,
+      color: "hover:border-emerald-400 hover:text-emerald-500 hover:bg-emerald-50/50",
+    },
+    {
+      name: { en: "Instagram", ar: "إنستغرام قوتشا" },
+      icon: <InstagramIcon />,
+      color: "hover:border-pink-500 hover:text-pink-600 hover:bg-pink-50/50",
+    },
+    {
+      name: { en: "TikTok", ar: "تيك توك جدة" },
+      icon: <TikTokIcon />,
+      color: "hover:border-violet-500 hover:text-violet-600 hover:bg-violet-50/50",
+    },
+    {
+      name: { en: "X Platform", ar: "منصة إكس" },
+      icon: <XIcon />,
+      color: "hover:border-slate-800 hover:text-slate-900 hover:bg-slate-100",
+    },
+  ];
+
   return (
-    <footer id="contact" className="border-t border-border bg-cream pt-16 relative z-10 overflow-hidden max-w-full">
+    <footer id="contact" className="border-t border-pink-deep/20 bg-gradient-to-b from-cream via-cream-2 to-pink-soft/40 pt-16 pb-8 relative z-10 overflow-hidden max-w-full">
       <div className="mx-auto grid max-w-[1180px] gap-10 px-4 sm:px-6 md:grid-cols-3">
+        {/* Brand & Mission */}
         <div>
-          <div className="flex items-center gap-2.5">
-            <GotchaLogo className="h-10 w-10" />
+          <div className="flex items-center gap-3">
+            <GotchaLogo className="h-11 w-11 shadow-sm" />
             <span className="font-display text-2xl font-bold text-plum">
-              Gotcha {t({ en: "Fresh Tea", ar: "فريش تي" })}
+              Gotcha <span className="text-neon">{t({ en: "Fresh Tea", ar: "فريش تي" })}</span>
             </span>
           </div>
           <p className="mt-4 max-w-sm text-sm sm:text-base leading-relaxed font-medium text-plum/90">
@@ -53,33 +77,35 @@ export function Footer() {
               ar: "شاي طازج بلمسة يدوية، وُلد في ملبورن، وينمو في مزارعنا الخاصة بتايوان.",
             })}
           </p>
-          <div className="mt-5 flex gap-3">
-            {[
-              { label: "WhatsApp", icon: <WhatsAppIcon /> },
-              { label: "X", icon: <XIcon /> },
-              { label: "TikTok", icon: <TikTokIcon /> },
-              { label: "Instagram", icon: <InstagramIcon /> },
-            ].map((s) => (
-              <a
-                key={s.label}
-                href="#contact"
-                aria-label={s.label}
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-pink-deep/30 bg-card text-plum shadow-soft transition-all duration-300 hover:bg-pink-soft hover:scale-110 hover:border-pink-deep hover:text-pink-deep hover:shadow-glow"
-              >
-                {s.icon}
-              </a>
-            ))}
+
+          {/* Luxury Social Pill Cards with Text Labels */}
+          <div className="mt-6">
+            <p className="text-xs font-bold uppercase tracking-wider text-ink mb-3">
+              {t({ en: "Official Channels", ar: "قنوات التواصل الرسمية" })}
+            </p>
+            <div className="grid grid-cols-2 gap-2.5 max-w-sm">
+              {socialLinks.map((s) => (
+                <div
+                  key={s.name.en}
+                  className={`flex items-center gap-2.5 rounded-2xl border border-pink-deep/25 bg-card/90 px-3.5 py-2.5 text-xs font-bold text-plum shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-soft cursor-pointer ${s.color}`}
+                >
+                  <span className="shrink-0">{s.icon}</span>
+                  <span className="truncate">{t(s.name)}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
+        {/* Quick Links */}
         <div>
           <h3 className="text-xs font-bold uppercase tracking-[0.18em] text-ink">
             {t({ en: "Explore", ar: "استكشف" })}
           </h3>
-          <ul className="mt-4 space-y-2.5">
+          <ul className="mt-4 space-y-3">
             {explore.map((l) => (
               <li key={l.href}>
-                <a href={l.href} className="text-sm sm:text-base font-bold text-plum/80 transition-colors hover:text-neon">
+                <a href={l.href} className="text-sm sm:text-base font-bold text-plum/80 transition-all hover:text-neon hover:ps-1 inline-block">
                   {t(l.label)}
                 </a>
               </li>
@@ -87,18 +113,26 @@ export function Footer() {
           </ul>
         </div>
 
+        {/* Contact Info */}
         <div>
           <h3 className="text-xs font-bold uppercase tracking-[0.18em] text-ink">
             {t({ en: "Get in Touch", ar: "تواصل معنا" })}
           </h3>
-          <ul className="mt-4 space-y-2.5 text-sm sm:text-base font-bold text-plum/80">
-            <li className="hover:text-neon transition-colors">hello@gotcha-jeddah.sa</li>
-            <li>{t({ en: "Jeddah, Saudi Arabia", ar: "جدة، المملكة العربية السعودية" })}</li>
-          </ul>
+          <div className="mt-4 space-y-3">
+            <div className="rounded-2xl border border-pink-deep/20 bg-card/80 p-4 shadow-sm">
+              <p className="text-xs text-plum-soft font-semibold">{t({ en: "Customer Care", ar: "خدمة العملاء" })}</p>
+              <p className="text-sm font-bold text-plum mt-1">hello@gotcha-jeddah.sa</p>
+            </div>
+            <div className="rounded-2xl border border-pink-deep/20 bg-card/80 p-4 shadow-sm">
+              <p className="text-xs text-plum-soft font-semibold">{t({ en: "Main Location", ar: "المقر الرئيسي" })}</p>
+              <p className="text-sm font-bold text-plum mt-1">{t({ en: "Jeddah, Saudi Arabia", ar: "جدة، المملكة العربية السعودية" })}</p>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="mx-auto mt-12 flex max-w-[1180px] flex-col sm:flex-row items-center justify-between gap-4 border-t border-border px-4 sm:px-6 py-6 text-xs sm:text-sm font-semibold text-plum/80">
+      {/* Bottom Bar & Signature Developer Credit Badge */}
+      <div className="mx-auto mt-12 flex max-w-[1180px] flex-col sm:flex-row items-center justify-between gap-4 border-t border-pink-deep/20 px-4 sm:px-6 pt-6 text-xs sm:text-sm font-semibold text-plum/80">
         <span>
           {t({
             en: "© 2026 Gotcha Fresh Tea, Jeddah. All rights reserved.",
@@ -106,11 +140,12 @@ export function Footer() {
           })}
         </span>
 
-        {/* User requested credit line - Upgraded Luxury Badge */}
-        <span className="inline-flex items-center gap-2 rounded-full border border-pink-deep/30 bg-gradient-to-r from-card via-cream-2 to-pink-soft/60 px-5 py-2 text-xs font-bold text-plum shadow-glow-sm transition-all duration-300 hover:scale-105 hover:border-neon hover:shadow-glow">
-          <Sparkles className="h-3.5 w-3.5 text-neon animate-pulse" />
-          تم تطوير هذا الموقع بواسطة <strong className="text-neon font-display">abed</strong>
-        </span>
+        {/* Upgraded Signature Developer Credit Badge */}
+        <div className="group relative inline-flex items-center gap-2 rounded-full border border-pink-deep/40 bg-gradient-to-r from-card via-cream-2 to-pink-soft/80 px-5 py-2.5 text-xs font-bold text-plum shadow-soft transition-all duration-300 hover:scale-105 hover:border-pink-deep hover:shadow-glow">
+          <Sparkles className="h-4 w-4 text-neon animate-pulse shrink-0" />
+          <span>تم تطوير هذا الموقع بواسطة</span>
+          <strong className="text-neon font-display text-sm tracking-wide bg-gradient-neon bg-clip-text text-transparent">abed</strong>
+        </div>
       </div>
     </footer>
   );

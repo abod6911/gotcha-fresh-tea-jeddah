@@ -256,13 +256,18 @@ export function MenuSection() {
 
   const items = useMemo(() => {
     const q = query.trim().toLowerCase();
+    const qRaw = query.trim();
+    if (!q) {
+      return menuItems.filter((i) => i.category === cat);
+    }
     return menuItems.filter(
       (i) =>
-        i.category === cat &&
-        (!q ||
-          i.name.en.toLowerCase().includes(q) ||
-          i.name.ar.includes(query.trim()) ||
-          i.desc.en.toLowerCase().includes(q)),
+        i.name.en.toLowerCase().includes(q) ||
+        i.name.ar.toLowerCase().includes(q) ||
+        i.name.ar.includes(qRaw) ||
+        i.desc.en.toLowerCase().includes(q) ||
+        i.desc.ar.includes(qRaw) ||
+        i.category.toLowerCase().includes(q),
     );
   }, [cat, query]);
 
@@ -288,55 +293,91 @@ export function MenuSection() {
           ref={tabsReveal.ref}
           className={`${tabsReveal.className} mt-10 flex flex-col items-center gap-4`}
         >
-          <div className="w-full max-w-full overflow-x-auto no-scrollbar pb-1">
-            <div
-              ref={tabsRef}
-              className="relative flex w-max mx-auto justify-start gap-1 rounded-full border border-border bg-card p-1.5"
-            >
-              <span
-                className="bg-gradient-neon absolute top-1.5 bottom-1.5 rounded-full transition-all duration-300"
-                style={{
-                  width: indicator.width,
-                  insetInlineStart: indicator.offset,
-                  opacity: indicator.width ? 1 : 0,
-                }}
-                aria-hidden="true"
-              />
-              {categories.map((c) => (
-                <button
-                  key={c.id}
-                  data-active={cat === c.id}
-                  onClick={() => setCat(c.id)}
-                  className={`relative z-10 flex shrink-0 whitespace-nowrap items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-colors ${
-                    cat === c.id ? "text-primary-foreground" : "text-plum-soft hover:text-plum"
-                  }`}
-                >
-                  <img src={c.icon} alt="" className="w-5 h-5 rounded-full object-cover border border-white/20" aria-hidden="true" />
-                  {t(c.label)}
-                </button>
-              ))}
+          {/* Category Tabs */}
+          {!query.trim() && (
+            <div className="w-full max-w-full overflow-x-auto no-scrollbar pb-1">
+              <div
+                ref={tabsRef}
+                className="relative flex w-max mx-auto justify-start gap-1 rounded-full border border-border bg-card p-1.5"
+              >
+                <span
+                  className="bg-gradient-neon absolute top-1.5 bottom-1.5 rounded-full transition-all duration-300"
+                  style={{
+                    width: indicator.width,
+                    insetInlineStart: indicator.offset,
+                    opacity: indicator.width ? 1 : 0,
+                  }}
+                  aria-hidden="true"
+                />
+                {categories.map((c) => (
+                  <button
+                    key={c.id}
+                    data-active={cat === c.id}
+                    onClick={() => setCat(c.id)}
+                    className={`relative z-10 flex shrink-0 whitespace-nowrap items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-colors ${
+                      cat === c.id ? "text-primary-foreground" : "text-plum-soft hover:text-plum"
+                    }`}
+                  >
+                    <img src={c.icon} alt="" className="w-5 h-5 rounded-full object-cover border border-white/20" aria-hidden="true" />
+                    {t(c.label)}
+                  </button>
+                ))}
+              </div>
             </div>
+          )}
+
+          {/* Search Input Bar */}
+          <div className="relative w-full max-w-md">
+            <label className="relative block w-full">
+              <Search className="pointer-events-none absolute inset-y-0 start-4 my-auto h-4 w-4 text-plum-soft" />
+              <input
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder={t({ en: "Search all drinks (e.g. Matcha, Milk Tea)...", ar: "ابحث في جميع المشروبات (مثل: ماتشا، بوبا، كولاجين)..." })}
+                className="w-full rounded-full border border-pink-deep/30 bg-card py-3 ps-11 pe-10 text-sm text-plum shadow-sm outline-none transition-all placeholder:text-plum-soft focus:border-pink-deep focus:ring-2 focus:ring-pink-soft/50"
+              />
+            </label>
+            {query && (
+              <button
+                onClick={() => setQuery("")}
+                className="absolute inset-y-0 end-3 my-auto flex h-6 w-6 items-center justify-center rounded-full bg-pink-soft text-xs font-bold text-plum hover:bg-pink-deep hover:text-white transition-colors"
+                title={t({ en: "Clear search", ar: "مسح البحث" })}
+              >
+                ✕
+              </button>
+            )}
           </div>
 
-          <label className="relative w-full max-w-sm">
-            <Search className="pointer-events-none absolute inset-y-0 start-4 my-auto h-4 w-4 text-plum-soft" />
-            <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder={t({ en: "Search drinks...", ar: "ابحث عن مشروب..." })}
-              className="w-full rounded-full border border-border bg-card py-2.5 ps-11 pe-4 text-sm text-plum outline-none transition-colors placeholder:text-plum-soft focus:border-pink-deep"
-            />
-          </label>
+          {query.trim() && (
+            <p className="text-xs font-semibold text-plum-soft bg-pink-soft/50 px-4 py-1.5 rounded-full border border-pink-deep/20">
+              {t({
+                en: `Found ${items.length} matching drinks across all categories`,
+                ar: `تم العثور على ${items.length} مشروبات مطابقة في جميع الأقسام`,
+              })}
+            </p>
+          )}
         </div>
 
-        <div key={cat} className="mt-10 grid gap-5 md:grid-cols-2">
+        <div key={query.trim() ? "search" : cat} className="mt-10 grid gap-5 md:grid-cols-2">
           {items.map((item, i) => (
             <MenuCard key={item.id} item={item} index={i} />
           ))}
           {items.length === 0 && (
-            <p className="col-span-full text-center text-plum-soft">
-              {t({ en: "No drinks match your search.", ar: "لا توجد مشروبات مطابقة لبحثك." })}
-            </p>
+            <div className="col-span-full py-12 text-center bg-card/60 rounded-3xl border border-pink-deep/20 p-8 shadow-sm">
+              <span className="text-4xl">🍵</span>
+              <h4 className="mt-3 font-bold text-plum text-lg">
+                {t({ en: "No drinks match your search", ar: "لم نجد مشروباً بهذا الاسم" })}
+              </h4>
+              <p className="mt-1 text-sm text-plum-soft">
+                {t({ en: "Try searching for Matcha, Collagen, or Boba Pearl", ar: "جرّب البحث عن: ماتشا، بوبا، شاي الفواكه، أو الكولاجين" })}
+              </p>
+              <button
+                onClick={() => setQuery("")}
+                className="mt-4 rounded-full bg-pink-soft px-5 py-2 text-xs font-bold text-plum hover:bg-pink-deep hover:text-white transition-colors"
+              >
+                {t({ en: "Show all drinks", ar: "عرض جميع المشروبات" })}
+              </button>
+            </div>
           )}
         </div>
       </div>
