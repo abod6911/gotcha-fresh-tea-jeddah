@@ -21,7 +21,8 @@ export function Story() {
       city: { en: "Melbourne", ar: "ملبورن" },
       subtitle: { en: "2013 · The Origin", ar: "2013 · انطلاقة الحرفة" },
       flag: "🇦🇺",
-      pos: "top-[12%] start-[10%]",
+      posRtl: "top-[14%] right-[4%] sm:right-[6%]",
+      posLtr: "top-[14%] left-[4%] sm:left-[6%]",
       accent: "from-amber-400 to-orange-500",
     },
     {
@@ -29,7 +30,8 @@ export function Story() {
       city: { en: "Taiwan", ar: "تايوان" },
       subtitle: { en: "1,200m · Tea Estates", ar: "1,200م · مزارع الشاي الجبلية" },
       flag: "🍃",
-      pos: "top-[42%] start-[48%]",
+      posRtl: "top-[44%] right-[32%] sm:right-[38%]",
+      posLtr: "top-[44%] left-[32%] sm:left-[38%]",
       accent: "from-emerald-400 to-teal-500",
     },
     {
@@ -37,8 +39,9 @@ export function Story() {
       city: { en: "Jeddah", ar: "جدة" },
       subtitle: { en: "Now Blooming", ar: "الفرع الحالي يزهر بك" },
       flag: "🇸🇦",
-      pos: "bottom-[12%] end-[10%]",
-      accent: "from-pink-500 to-neon",
+      posRtl: "bottom-[14%] left-[4%] sm:left-[6%]",
+      posLtr: "bottom-[14%] right-[4%] sm:right-[6%]",
+      accent: "from-pink-500 to-rose-500",
     },
   ];
 
@@ -115,7 +118,7 @@ export function Story() {
           {/* SVG Animated Route Lines */}
           <svg className="absolute inset-0 h-full w-full pointer-events-none z-0" viewBox="0 0 400 400" preserveAspectRatio="none">
             <motion.path
-              d="M 60 80 Q 200 150 200 200 T 340 340"
+              d={isRtl ? "M 340 80 Q 200 160 200 200 T 60 330" : "M 60 80 Q 200 160 200 200 T 340 330"}
               fill="none"
               stroke="url(#route-gradient)"
               strokeWidth="4"
@@ -141,16 +144,16 @@ export function Story() {
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ type: "spring", stiffness: 100 }}
-                className={`absolute ${loc.pos} flex items-center gap-2.5`}
+                className={`absolute ${isRtl ? loc.posRtl : loc.posLtr} flex items-center gap-2 sm:gap-2.5`}
               >
-                <div className="flex items-center gap-2 rounded-2xl border border-white/80 bg-white/95 backdrop-blur-md px-3.5 py-2 shadow-soft">
-                  <span className="text-base">{loc.flag}</span>
+                <div className={`h-4 w-4 rounded-full bg-gradient-to-r ${loc.accent} shadow-glow animate-pulse shrink-0 ring-4 ring-white/60`} />
+                <div className="flex items-center gap-2 rounded-2xl border border-pink-deep/20 bg-white/95 backdrop-blur-md px-3 sm:px-3.5 py-1.5 sm:py-2 shadow-md hover:scale-105 transition-transform duration-300">
+                  <span className="text-sm sm:text-base">{loc.flag}</span>
                   <div className="flex flex-col leading-tight">
-                    <b className="text-xs font-bold text-[#1A1A1A]">{t(loc.city)}</b>
-                    <span className="text-[0.65rem] font-semibold text-plum-soft">{t(loc.subtitle)}</span>
+                    <b className="text-xs sm:text-sm font-extrabold text-[#1A1A1A]">{t(loc.city)}</b>
+                    <span className="text-[0.6rem] sm:text-[0.68rem] font-bold text-plum/75">{t(loc.subtitle)}</span>
                   </div>
                 </div>
-                <div className={`h-4 w-4 rounded-full bg-gradient-to-r ${loc.accent} shadow-glow animate-pulse`} />
               </motion.div>
             ))}
           </div>
