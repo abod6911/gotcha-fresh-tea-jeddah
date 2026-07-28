@@ -206,17 +206,20 @@ export function Hero() {
             
             <div 
               onClick={() => goToStep((activeStep + 1) % 4)}
-              className="relative mx-auto h-[340px] w-[210px] sm:h-[400px] sm:w-[250px] cursor-pointer group select-none transition-transform duration-300 hover:scale-105"
+              className="relative mx-auto h-[320px] w-[200px] sm:h-[380px] sm:w-[240px] drop-shadow-2xl cursor-pointer group select-none"
               title={t({ en: "Tap cup to brew next step!", ar: "انقر الكوب لتحضير الخطوة التالية!" })}
             >
               
               {/* 3D Animated Straw */}
-              <div 
-                className="absolute -top-24 left-1/2 -translate-x-1/2 h-[125%] w-[24px] rounded-full bg-gradient-to-r from-pink-500 via-pink-300 to-pink-600 shadow-[inset_-3px_0_8px_rgba(0,0,0,0.35),2px_4px_12px_rgba(0,0,0,0.2)] z-10 transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] will-change-transform"
-                style={{
-                  transform: `translateX(-50%) rotate(${isStrawDropped ? '12deg' : '-18deg'}) translateY(${isStrawDropped ? '0' : '-320px'})`,
+              <motion.div 
+                animate={{
+                  y: isStrawDropped ? 0 : -350,
+                  rotate: isStrawDropped ? 12 : -15,
                   opacity: isStrawDropped ? 1 : 0
                 }}
+                transition={{ type: "spring", stiffness: 100, damping: 15 }}
+                style={{ originY: 1 }}
+                className="absolute -top-28 left-1/2 -translate-x-1/2 h-[125%] w-[24px] rounded-full bg-gradient-to-r from-pink-500 via-pink-300 to-pink-600 shadow-[inset_-3px_0_8px_rgba(0,0,0,0.4),2px_2px_10px_rgba(0,0,0,0.2)] z-10"
               />
 
               {/* Glass Cup Lid */}
@@ -227,10 +230,11 @@ export function Hero() {
               {/* Glass Cup Body */}
               <div className="absolute inset-x-0 top-2 bottom-0 overflow-hidden rounded-b-[3.5rem] rounded-t-[1.5rem] border-4 border-white/80 bg-gradient-to-b from-white/40 via-white/20 to-white/10 shadow-[inset_-10px_-10px_20px_rgba(255,255,255,0.6),inset_10px_10px_20px_rgba(0,0,0,0.1),0_20px_40px_rgba(0,0,0,0.18)] backdrop-blur-md z-20">
                 
-                {/* Wavy Animated Tea Liquid */}
-                <div 
-                  className="absolute inset-x-0 bottom-0 transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] will-change-[height]"
-                  style={{ height: `${getLiquidHeightPercent()}%` }}
+                {/* Dynamic Wavy Tea Liquid */}
+                <motion.div 
+                  animate={{ height: `${getLiquidHeightPercent()}%` }}
+                  transition={{ type: "spring", stiffness: 70, damping: 16 }}
+                  className="absolute inset-x-0 bottom-0 origin-bottom"
                 >
                   {/* Wavy Surface SVG Animation */}
                   <div className="absolute -top-5 inset-x-0 h-7 w-[200%] animate-[wave-move_3.5s_linear_infinite] pointer-events-none opacity-90">
@@ -244,30 +248,45 @@ export function Hero() {
                   
                   {/* Floating Ice Cubes */}
                   {isIceVisible && (
-                    <div className="transition-opacity duration-500 opacity-100">
+                    <>
                       <div className="absolute top-2 left-4 w-9 h-9 rounded-xl bg-white/45 border border-white/75 backdrop-blur-sm transform rotate-12 shadow-sm animate-pulse" />
                       <div className="absolute top-4 right-5 w-8 h-8 rounded-xl bg-white/45 border border-white/75 backdrop-blur-sm transform -rotate-12 shadow-sm animate-pulse" />
-                    </div>
+                    </>
                   )}
-                </div>
+                </motion.div>
                 
-                {/* Natural Glossy Boba Pearls */}
-                <div 
-                  className="absolute inset-x-0 bottom-3 h-[130px] transition-all duration-600 ease-[cubic-bezier(0.34,1.56,0.64,1)] pointer-events-none flex flex-wrap justify-center items-end p-2 gap-1"
-                  style={{
-                    transform: isBobaVisible ? 'translateY(0) scale(1)' : 'translateY(180px) scale(0.5)',
-                    opacity: isBobaVisible ? 1 : 0
-                  }}
-                >
-                  {Array.from({ length: 24 }).map((_, i) => (
-                    <div
-                      key={i}
-                      className="w-5 h-5 sm:w-6 sm:h-6 rounded-full shadow-[inset_-3px_-3px_6px_rgba(0,0,0,0.85),1px_1px_3px_rgba(0,0,0,0.5)] transition-transform duration-300 hover:scale-125 will-change-transform"
-                      style={{
-                        background: "radial-gradient(circle at 35% 35%, #6d4c41 0%, #3e2723 60%, #100b08 100%)"
-                      }}
-                    />
-                  ))}
+                {/* Organic Natural Boba Pearls */}
+                <div className="absolute inset-x-0 bottom-3 flex justify-center items-end h-[50%] pointer-events-none">
+                  {Array.from({ length: 28 }).map((_, i) => {
+                    const row = Math.floor(i / 6);
+                    const col = i % 6;
+
+                    return (
+                      <motion.span
+                        key={i}
+                        initial={false}
+                        animate={{
+                          y: isBobaVisible ? 0 : -320,
+                          opacity: isBobaVisible ? 1 : 0,
+                          scale: isBobaVisible ? 1 : 0.3
+                        }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 110,
+                          damping: 14,
+                          delay: (i * 0.02) % 0.3
+                        }}
+                        className="absolute rounded-full shadow-[inset_-3px_-3px_6px_rgba(0,0,0,0.9),1px_1px_3px_rgba(0,0,0,0.5)] will-change-transform"
+                        style={{
+                          width: 22,
+                          height: 22,
+                          left: `calc(15% + ${col * 24}px + ${(row % 2) * 10}px)`,
+                          bottom: row * 18 + 6,
+                          background: "radial-gradient(circle at 35% 35%, #5d4037 0%, #2c1e16 60%, #100b08 100%)"
+                        }}
+                      />
+                    );
+                  })}
                 </div>
 
                 {/* Official Brand Logo Emblem on Glass */}
@@ -287,7 +306,7 @@ export function Hero() {
             </div>
 
             {/* Interactive hint badge */}
-            <div 
+            <motion.div 
               onClick={() => goToStep((activeStep + 1) % 4)}
               className="relative mt-7 flex items-center gap-2.5 rounded-full border border-pink-deep/30 bg-card/95 backdrop-blur-md px-5 py-2 text-xs font-bold text-plum shadow-soft z-20 cursor-pointer hover:scale-105 transition-transform"
             >
@@ -296,7 +315,7 @@ export function Hero() {
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-neon"></span>
               </span>
               {t({ en: "Tap cup or scroll to brew", ar: "انقر الكوب أو مرّر للتحضير" })}
-            </div>
+            </motion.div>
 
           </div>
 
