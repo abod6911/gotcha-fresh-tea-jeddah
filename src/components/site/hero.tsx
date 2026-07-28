@@ -92,16 +92,16 @@ export function Hero() {
     <section id="top" className="relative bg-gradient-pastel min-h-screen max-w-full overflow-hidden flex items-center justify-center pt-24 sm:pt-28 pb-12 px-4 sm:px-6">
       {/* Decorative trees & petals */}
       <TabebuiaTree
-        className="hidden h-[520px] w-[400px] opacity-40 sm:block mix-blend-multiply pointer-events-none"
+        className="h-[450px] w-[340px] sm:h-[540px] sm:w-[420px] opacity-85 pointer-events-none drop-shadow-md"
         style={{ bottom: -40, insetInlineStart: -70 }}
       />
       <TabebuiaTree
         flip
-        className="hidden sm:block h-[420px] w-[320px] opacity-30 mix-blend-multiply pointer-events-none"
+        className="hidden sm:block h-[460px] w-[350px] opacity-80 pointer-events-none drop-shadow-md"
         style={{ bottom: -60, insetInlineEnd: -90 }}
       />
-      <Petals />
-      <FlowerDeco className="w-[220px] opacity-45 mix-blend-multiply pointer-events-none" style={{ top: 80, insetInlineStart: -60 }} />
+      <Petals count={24} />
+      <FlowerDeco className="w-[240px] opacity-75 pointer-events-none drop-shadow-sm" style={{ top: 80, insetInlineStart: -60 }} />
 
       {/* Hero Content Viewport */}
       <div className="relative z-10 mx-auto grid w-full max-w-[1180px] items-center gap-8 lg:gap-14 lg:grid-cols-[1.1fr_0.9fr]">

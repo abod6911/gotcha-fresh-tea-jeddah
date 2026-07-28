@@ -75,7 +75,7 @@ export function FlowerDeco({
   );
 }
 
-/** Tabebuia rosea (pink trumpet tree) — soft warm background silhouette. */
+/** Tabebuia rosea (pink trumpet tree) — vibrant sakura bloom illustration. */
 export function TabebuiaTree({
   className,
   style,
@@ -86,14 +86,14 @@ export function TabebuiaTree({
   flip?: boolean;
 }) {
   const blooms = [
-    { cx: 100, cy: 60, r: 46 },
-    { cx: 58, cy: 88, r: 34 },
-    { cx: 145, cy: 86, r: 36 },
-    { cx: 78, cy: 46, r: 26 },
-    { cx: 128, cy: 44, r: 24 },
-    { cx: 100, cy: 104, r: 30 },
-    { cx: 40, cy: 60, r: 20 },
-    { cx: 162, cy: 58, r: 18 },
+    { cx: 100, cy: 60, r: 48, color: "#E86A92" },
+    { cx: 58, cy: 88, r: 36, color: "#D81B60" },
+    { cx: 145, cy: 86, r: 38, color: "#F48FB1" },
+    { cx: 78, cy: 46, r: 28, color: "#EC407A" },
+    { cx: 128, cy: 44, r: 26, color: "#F06292" },
+    { cx: 100, cy: 104, r: 32, color: "#C2185B" },
+    { cx: 40, cy: 60, r: 22, color: "#FF80AB" },
+    { cx: 162, cy: 58, r: 20, color: "#FF4081" },
   ];
 
   return (
@@ -104,31 +104,42 @@ export function TabebuiaTree({
       style={{ ...style, transform: flip ? "scaleX(-1)" : undefined }}
     >
       <g className="animate-sway" style={{ transformOrigin: "100px 240px" }}>
+        {/* Tree Trunk & Branches */}
         <path
           d="M96 260 L96 150 C96 132 78 124 62 112 M104 260 L104 140 C104 120 124 112 140 98 M100 176 C100 164 88 156 74 148"
-          stroke="#FFD1DC"
-          strokeWidth="6"
+          stroke="#8D435E"
+          strokeWidth="7"
           strokeLinecap="round"
-          opacity={0.6}
+          opacity={0.9}
           fill="none"
         />
+        <path
+          d="M97 260 L97 150 C97 132 79 124 63 112 M103 260 L103 140 C103 120 123 112 139 98"
+          stroke="#C86D8B"
+          strokeWidth="3"
+          strokeLinecap="round"
+          opacity={0.95}
+          fill="none"
+        />
+
+        {/* Blossom Clusters */}
         {blooms.map((b, i) => (
           <circle
             key={i}
             cx={b.cx}
             cy={b.cy}
             r={b.r}
-            fill={i % 2 ? "var(--pink)" : "var(--pink-deep)"}
-            opacity={0.55}
+            fill={b.color}
+            opacity={0.85}
           />
         ))}
-        {blooms.slice(0, 5).map((b, i) => (
+        {blooms.map((b, i) => (
           <circle
             key={`h${i}`}
-            cx={b.cx - 8}
-            cy={b.cy - 8}
-            r={b.r * 0.5}
-            fill="var(--pink-soft)"
+            cx={b.cx - 6}
+            cy={b.cy - 6}
+            r={b.r * 0.45}
+            fill="#FFF0F5"
             opacity={0.7}
           />
         ))}
