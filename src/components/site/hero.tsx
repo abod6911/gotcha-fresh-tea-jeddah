@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles, ChevronDown, ChevronRight, ChevronLeft } from "lucide-react";
 import { GotchaLogo } from "./logo";
+import { scrollToSection } from "@/lib/scroll";
 
 export function Hero() {
   const { t, dir } = useLang();
@@ -178,7 +179,8 @@ export function Hero() {
             <div className="mt-8 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 w-full sm:w-auto">
               <a
                 href="#menu"
-                className="group relative inline-flex items-center justify-center gap-2.5 rounded-full w-full sm:w-auto px-8 py-4 text-base sm:text-lg font-bold text-white bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 shadow-[0_10px_28px_-6px_rgba(255,20,147,0.55)] border-2 border-white/40 backdrop-blur-md overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_36px_-4px_rgba(255,20,147,0.75)] hover:scale-105 active:scale-95"
+                onClick={(e) => scrollToSection(e, "#menu")}
+                className="group relative inline-flex items-center justify-center gap-2.5 rounded-full w-full sm:w-auto px-8 py-4 text-base sm:text-lg font-bold text-white bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 shadow-[0_10px_28px_-6px_rgba(255,20,147,0.55)] border-2 border-white/40 backdrop-blur-md overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_36px_-4px_rgba(255,20,147,0.75)] hover:scale-105 active:scale-95 cursor-pointer"
               >
                 <Sparkles className="h-5 w-5 text-yellow-200 animate-pulse shrink-0" />
                 <span>{t({ en: "Explore Full Menu", ar: "استعرض القائمة الكاملة" })}</span>
@@ -186,17 +188,13 @@ export function Hero() {
               </a>
 
               <button
-                onClick={() => {
+                onClick={(e) => {
                   setIsAutoPlaying(false);
-                  const el = document.getElementById("locations");
-                  if (el) {
-                    el.scrollIntoView({ behavior: "smooth", block: "start" });
-                  }
+                  scrollToSection(e, "#locations");
                 }}
-                className="inline-flex items-center justify-center gap-2 rounded-full w-full sm:w-auto border-2 border-pink-deep/30 bg-card/85 backdrop-blur-md px-7 py-4 text-base font-bold text-plum transition-all duration-300 hover:bg-pink-soft hover:border-pink-deep hover:scale-105 cursor-pointer shadow-soft"
+                className="inline-flex items-center justify-center gap-2 rounded-full w-full sm:w-auto px-7 py-4 text-base font-bold text-plum bg-card/95 backdrop-blur-md border-2 border-pink-deep/30 shadow-soft transition-all duration-300 hover:bg-pink-soft/80 hover:border-pink-deep hover:shadow-md hover:scale-105 active:scale-95 cursor-pointer"
               >
-                <ChevronRight className="h-5 w-5 text-neon shrink-0 rtl:rotate-0 ltr:rotate-180" />
-                <span>{t({ en: "Find Branch in Jeddah", ar: "فرع جدة" })}</span>
+                <span>{t({ en: "Find Nearby Store", ar: "حدد موقع أقرب فرع" })}</span>
               </button>
             </div>
 

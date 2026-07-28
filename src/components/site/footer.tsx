@@ -1,6 +1,7 @@
 import { useLang } from "@/lib/i18n";
 import { GotchaLogo } from "./logo";
 import { Sparkles } from "lucide-react";
+import { scrollToSection } from "@/lib/scroll";
 
 const XIcon = () => (
   <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
@@ -105,7 +106,11 @@ export function Footer() {
           <ul className="mt-4 space-y-3">
             {explore.map((l) => (
               <li key={l.href}>
-                <a href={l.href} className="text-sm sm:text-base font-bold text-plum/80 transition-all hover:text-neon hover:ps-1 inline-block">
+                <a
+                  href={l.href}
+                  onClick={(e) => scrollToSection(e, l.href)}
+                  className="text-sm sm:text-base font-bold text-plum/80 transition-all hover:text-neon hover:ps-1 inline-block cursor-pointer"
+                >
                   {t(l.label)}
                 </a>
               </li>

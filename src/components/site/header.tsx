@@ -4,6 +4,7 @@ import { useLang } from "@/lib/i18n";
 import { useCart } from "@/lib/cart";
 import { useAuth } from "@/lib/auth";
 import { GotchaLogo } from "./logo";
+import { scrollToSection } from "@/lib/scroll";
 
 const NAV = [
   { href: "#story", label: { en: "Our Story", ar: "قصتنا" } },
@@ -60,21 +61,9 @@ export function Header() {
   }, []);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
     setActive(href);
     setMobileOpen(false);
-
-    const targetEl = document.querySelector(href);
-    if (targetEl) {
-      const headerOffset = 85;
-      const elementPosition = targetEl.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-      window.scrollTo({
-        top: Math.max(0, offsetPosition),
-        behavior: "smooth"
-      });
-    }
+    scrollToSection(e, href);
   };
 
   return (
