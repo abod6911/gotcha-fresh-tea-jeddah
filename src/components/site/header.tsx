@@ -74,7 +74,7 @@ export function Header() {
           <GotchaLogo className="h-8 w-8 sm:h-9 sm:w-9 shrink-0 transition-transform duration-300 group-hover:scale-105" />
           <span className="flex flex-col leading-none">
             <b className="font-display text-base sm:text-xl tracking-wide text-plum">Gotcha</b>
-            <span className="text-[0.5rem] sm:text-[0.6rem] uppercase tracking-wider text-ink font-bold">
+            <span className="text-[0.55rem] sm:text-[0.65rem] uppercase text-ink font-bold">
               {t({ en: "Fresh Tea", ar: "قوتشا فريش تي" })}
             </span>
           </span>

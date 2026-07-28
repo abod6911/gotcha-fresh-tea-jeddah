@@ -161,9 +161,20 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  html[lang="ar"] body {
+  html[lang="ar"] body,
+  [dir="rtl"] body {
     font-family: "Tajawal", "Cairo", sans-serif;
-    letter-spacing: 0 !important;
+    letter-spacing: normal !important;
+  }
+
+  /* Prevent any Tailwind tracking-* utility from breaking Arabic cursive character connections */
+  [dir="rtl"] *,
+  [dir="rtl"] *::before,
+  [dir="rtl"] *::after,
+  html[lang="ar"] *,
+  html[lang="ar"] *::before,
+  html[lang="ar"] *::after {
+    letter-spacing: normal !important;
   }
 
   h1,
@@ -180,9 +191,14 @@
   html[lang="ar"] h2,
   html[lang="ar"] h3,
   html[lang="ar"] h4,
-  html[lang="ar"] .font-display {
+  html[lang="ar"] .font-display,
+  [dir="rtl"] h1,
+  [dir="rtl"] h2,
+  [dir="rtl"] h3,
+  [dir="rtl"] h4,
+  [dir="rtl"] .font-display {
     font-family: "Cairo", "Tajawal", sans-serif;
-    letter-spacing: 0 !important;
+    letter-spacing: normal !important;
     line-height: 1.35;
   }
 
