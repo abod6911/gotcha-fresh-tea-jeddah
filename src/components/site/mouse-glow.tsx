@@ -36,7 +36,7 @@ export function MouseGlow() {
         translateY: cursorY,
         opacity: isVisible ? 1 : 0,
       }}
-      className="pointer-events-none fixed inset-0 h-[400px] w-[400px] rounded-full bg-pink-soft/20 blur-[100px] mix-blend-screen transition-opacity duration-500 z-0"
+      className="hidden md:block pointer-events-none fixed inset-0 h-[400px] w-[400px] rounded-full bg-pink-soft/20 blur-[100px] mix-blend-screen transition-opacity duration-500 z-0"
     />
   );
 }

@@ -97,7 +97,7 @@ export function Hero() {
       />
       <TabebuiaTree
         flip
-        className="h-[420px] w-[320px] opacity-30 mix-blend-multiply pointer-events-none"
+        className="hidden sm:block h-[420px] w-[320px] opacity-30 mix-blend-multiply pointer-events-none"
         style={{ bottom: -60, insetInlineEnd: -90 }}
       />
       <Petals />

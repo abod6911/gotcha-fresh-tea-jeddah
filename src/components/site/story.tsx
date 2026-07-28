@@ -94,8 +94,8 @@ export function Story() {
         >
           {/* Subtle Ambient Background Grids & Glows */}
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.8),transparent_60%)]" />
-          <div className="pointer-events-none absolute -bottom-20 -end-20 h-56 w-56 rounded-full bg-pink-deep/20 blur-3xl" />
-          <div className="pointer-events-none absolute -top-20 -start-20 h-56 w-56 rounded-full bg-lav-deep/20 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-16 -end-16 h-36 w-36 sm:h-56 sm:w-56 rounded-full bg-pink-deep/15 sm:bg-pink-deep/20 blur-2xl sm:blur-3xl" />
+          <div className="pointer-events-none absolute -top-16 -start-16 h-36 w-36 sm:h-56 sm:w-56 rounded-full bg-lav-deep/15 sm:bg-lav-deep/20 blur-2xl sm:blur-3xl" />
 
           {/* Top Header inside Map Card */}
           <div className="relative z-10 flex items-center justify-between border-b border-pink-deep/15 pb-4">

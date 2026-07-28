@@ -236,9 +236,18 @@
 
 @utility bg-gradient-pastel {
   background:
-    radial-gradient(circle at 15% 15%, #FFD1DC 0%, transparent 40%),
-    radial-gradient(circle at 85% 75%, #FFF0F5 0%, transparent 50%),
+    radial-gradient(circle at 50% 12%, rgba(255, 209, 220, 0.45) 0%, transparent 60%),
+    radial-gradient(circle at 85% 85%, rgba(255, 240, 245, 0.7) 0%, transparent 60%),
     linear-gradient(180deg, #FFFFFF 0%, #FFF0F5 50%, #FFFFFF 100%);
+}
+
+@media (min-width: 768px) {
+  .bg-gradient-pastel {
+    background:
+      radial-gradient(circle at 15% 15%, #FFD1DC 0%, transparent 40%),
+      radial-gradient(circle at 85% 75%, #FFF0F5 0%, transparent 50%),
+      linear-gradient(180deg, #FFFFFF 0%, #FFF0F5 50%, #FFFFFF 100%);
+  }
 }
 
 /* Floating Product Card with Soft Pink Border (#FFE4E1) */
