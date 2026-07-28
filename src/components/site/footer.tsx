@@ -143,7 +143,7 @@ export function Footer() {
         {/* Upgraded Signature Developer Credit Badge */}
         <div className="group relative inline-flex items-center gap-2 rounded-full border border-pink-deep/40 bg-gradient-to-r from-card via-cream-2 to-pink-soft/80 px-5 py-2.5 text-xs font-bold text-plum shadow-soft transition-all duration-300 hover:scale-105 hover:border-pink-deep hover:shadow-glow">
           <Sparkles className="h-4 w-4 text-neon animate-pulse shrink-0" />
-          <span>تم تطوير هذا الموقع بواسطة</span>
+          <span>{t({ en: "Developed by", ar: "تم تطوير هذا الموقع بواسطة" })}</span>
           <strong className="text-neon font-display text-sm tracking-wide bg-gradient-neon bg-clip-text text-transparent">abed</strong>
         </div>
       </div>
