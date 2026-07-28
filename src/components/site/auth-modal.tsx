@@ -3,6 +3,8 @@ import { X, Sparkles, Award } from "lucide-react";
 import { useAuth } from "@/lib/auth";
 import { useLang } from "@/lib/i18n";
 
+import { GOTCHA_LOGO_DATA_URL } from "@/lib/logo-data-url";
+
 export function AuthModal() {
   const { t } = useLang();
   const { user, isAuthOpen, isAuthenticating, setAuthOpen, loginWithGoogle, loginWithApple, saveProfile } = useAuth();
@@ -90,8 +92,8 @@ export function AuthModal() {
         ) : (
           /* Initial Auth Screen */
           <div className="relative z-10 text-center animate-in fade-in slide-in-from-left-4 duration-500">
-            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-white p-2 shadow-glow border border-pink-deep/20">
-              <img src="./images/gotcha_logo.png" alt="Gotcha Logo" className="h-10 w-10 object-contain" />
+            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-white p-2 shadow-glow border border-pink-deep/20 overflow-hidden">
+              <img src={GOTCHA_LOGO_DATA_URL} alt="Gotcha Logo" className="h-10 w-10 object-cover rounded-full" />
             </div>
 
             <h3 className="mt-4 font-display text-2xl font-bold text-plum">

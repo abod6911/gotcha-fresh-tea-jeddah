@@ -1,8 +1,10 @@
+import { GOTCHA_LOGO_DATA_URL } from "@/lib/logo-data-url";
+
 export function GotchaLogo({ className }: { className?: string; showText?: boolean }) {
   return (
     <div className={`relative flex items-center justify-center select-none shrink-0 ${className ?? ""}`}>
       <img
-        src="./images/gotcha_logo.png"
+        src={GOTCHA_LOGO_DATA_URL}
         alt="Gotcha Fresh Tea Logo"
         loading="eager"
         decoding="async"
@@ -16,7 +18,7 @@ export function GotchaFarmerVector({ className }: { className?: string }) {
   return (
     <div className={`flex flex-col items-center justify-center p-2 text-center select-none ${className ?? ""}`}>
       <img
-        src="./images/gotcha_logo.png"
+        src={GOTCHA_LOGO_DATA_URL}
         alt="Gotcha Fresh Tea Logo"
         loading="eager"
         decoding="async"
