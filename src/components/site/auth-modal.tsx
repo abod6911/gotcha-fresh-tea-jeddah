@@ -90,8 +90,8 @@ export function AuthModal() {
         ) : (
           /* Initial Auth Screen */
           <div className="relative z-10 text-center animate-in fade-in slide-in-from-left-4 duration-500">
-            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-pink to-lav shadow-glow">
-              <Award className="h-7 w-7 text-plum" />
+            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-white p-2 shadow-glow border border-pink-deep/20">
+              <img src="./images/gotcha_logo.png" alt="Gotcha Logo" className="h-10 w-10 object-contain" />
             </div>
 
             <h3 className="mt-4 font-display text-2xl font-bold text-plum">
@@ -99,8 +99,8 @@ export function AuthModal() {
             </h3>
             <p className="mt-2 text-sm text-plum-soft leading-relaxed">
               {t({
-                en: "Sign in with Google or Apple to track your blossoms, calculate loyalty points, and redeem free drinks!",
-                ar: "سجّل دخولك الآن بواسطة جوجل أو أبل لحساب نقاط الولاء وتجميع أزهار قوتشا والحصول على مشروبات مجانية!",
+                en: "Sign in with Google to track your blossoms, calculate loyalty points, and redeem free drinks!",
+                ar: "سجّل دخولك الآن بواسطة حساب Google لحساب نقاط الولاء وتجميع أزهار قوتشا والحصول على مشروبات مجانية!",
               })}
             </p>
 
@@ -143,25 +143,6 @@ export function AuthModal() {
                   {isAuthenticating
                     ? t({ en: "Connecting securely...", ar: "جاري الاتصال الآمن..." })
                     : t({ en: "Continue with Google", ar: "متابعة بواسطة حساب Google" })}
-                </span>
-              </button>
-
-              <button
-                onClick={loginWithApple}
-                disabled={isAuthenticating}
-                className="group relative flex w-full items-center justify-center gap-3 rounded-2xl bg-plum px-5 py-3.5 text-sm font-semibold text-cream shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-plum/90 hover:shadow-soft disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:translate-y-0"
-              >
-                {isAuthenticating ? (
-                  <div className="h-5 w-5 animate-spin rounded-full border-2 border-cream border-t-transparent" />
-                ) : (
-                  <svg className="h-5 w-5 fill-current shrink-0 text-cream" viewBox="0 0 170 170">
-                    <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.34.13-9.16-1.9-14.49-6.06-3.18-2.58-7.07-7.23-11.68-13.95-6.53-9.48-11.68-20.15-15.46-32.01-3.78-11.86-5.67-23.2-5.67-34.02 0-15.46 3.99-28.53 11.96-39.2 7.98-10.67 18.1-16.12 30.38-16.36 4.79 0 9.99 1.18 15.6 3.54 5.61 2.36 9.61 3.54 12.01 3.54 2.11 0 6.24-1.25 12.39-3.75 6.15-2.5 11.51-3.61 16.08-3.33 11.97.98 21.6 5.48 28.89 13.5-10.62 6.42-15.82 15.46-15.6 27.13.22 9.14 3.73 16.8 10.53 22.98 6.8 6.18 14.97 9.87 24.51 11.07-2.39 7.08-5.66 14.28-9.8 21.6zm-27.17-107.5c0 7.39-2.67 14.37-8.01 20.94-5.34 6.57-11.94 10.45-19.8 11.64-.22-.87-.33-1.85-.33-2.94 0-7.29 2.78-14.36 8.34-21.2 5.56-6.84 12.3-10.74 20.22-11.7.11.87.16 1.77.16 2.71z" />
-                  </svg>
-                )}
-                <span>
-                  {isAuthenticating
-                    ? t({ en: "Connecting securely...", ar: "جاري الاتصال الآمن..." })
-                    : t({ en: "Continue with Apple", ar: "متابعة بواسطة حساب Apple" })}
                 </span>
               </button>
             </div>
