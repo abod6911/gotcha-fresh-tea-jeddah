@@ -56,7 +56,7 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-function Index() {
+export function IndexPage() {
   return (
     <LanguageProvider>
       <AuthProvider>
@@ -82,4 +82,8 @@ function Index() {
       </AuthProvider>
     </LanguageProvider>
   );
+}
+
+function Index() {
+  return <IndexPage />;
 }
