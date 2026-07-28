@@ -158,7 +158,7 @@ function MenuCard({ item, index }: { item: MenuItem; index: number }) {
 
   return (
     <article
-      className="animate-card-in group relative rounded-[2rem] border border-pink-deep/20 bg-card p-5 sm:p-6 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-glow hover:border-neon/50"
+      className="product-card animate-card-in group relative"
       style={{ animationDelay: `${index * 0.08}s` }}
     >
       <div className="flex flex-col sm:flex-row items-start gap-4">
@@ -174,18 +174,23 @@ function MenuCard({ item, index }: { item: MenuItem; index: number }) {
 
         {/* Item Content */}
         <div className="min-w-0 flex-1 w-full">
-          <div className="flex items-start justify-between gap-3">
-            <h3 className="text-base sm:text-lg font-bold text-plum font-display leading-snug">
-              {t(item.name)}
+          <div className="flex items-start justify-between gap-3 flex-wrap sm:flex-nowrap">
+            <h3 className="text-base sm:text-lg font-bold text-plum font-display leading-snug flex items-center flex-wrap gap-2">
+              <span>{t(item.name)}</span>
               {item.isNew && (
-                <span className="bg-gradient-neon ms-2 inline-block rounded-full px-2.5 py-0.5 align-middle text-[0.65rem] font-bold text-primary-foreground shadow-glow">
-                  {t({ en: "NEW", ar: "جديد" })}
+                <span className="badge-pastel shadow-sm">
+                  ✨ {t({ en: "NEW", ar: "جديد" })}
+                </span>
+              )}
+              {item.popular && (
+                <span className="badge-pastel shadow-sm">
+                  🔥 {t({ en: "Best Seller", ar: "الأكثر مبيعاً" })}
                 </span>
               )}
             </h3>
 
             {/* Glowing Price Tag */}
-            <span className="shrink-0 bg-pink-soft/90 border border-pink-deep/30 px-3 py-1 rounded-full text-xs sm:text-sm font-bold text-plum shadow-sm">
+            <span className="shrink-0 bg-pink-soft/80 border border-pink-deep/30 px-3.5 py-1 rounded-full text-xs sm:text-sm font-bold text-plum shadow-sm">
               {item.price} {t({ en: "SAR", ar: "ر.س" })}
             </span>
           </div>
@@ -194,13 +199,13 @@ function MenuCard({ item, index }: { item: MenuItem; index: number }) {
             {t(item.desc)}
           </p>
 
-          <div className="mt-4 flex items-center justify-between border-t border-pink-deep/10 pt-3">
+          <div className="mt-4 flex items-center justify-between border-t border-pink-deep/15 pt-3">
             <span className="text-[0.7rem] font-bold uppercase tracking-wider text-plum-soft">
               Gotcha Signature
             </span>
             <button
               onClick={() => setOpen((v) => !v)}
-              className="rounded-full border-2 border-pink-deep/40 bg-card px-4 sm:px-5 py-1.5 text-xs font-bold text-plum transition-all duration-300 hover:bg-pink-soft hover:border-pink-deep hover:scale-105 active:scale-95 shadow-sm"
+              className="bg-gradient-neon px-4 sm:px-5 py-2 text-xs font-bold text-white shadow-glow hover:scale-105 active:scale-95 transition-all"
             >
               {open ? t({ en: "Close Panel", ar: "إغلاق النافذة" }) : t({ en: "Customise & Order", ar: "خصّص واطلب" })}
             </button>

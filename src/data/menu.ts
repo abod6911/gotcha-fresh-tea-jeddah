@@ -10,6 +10,7 @@ export type MenuItem = {
   price: number;
   icon: string;
   isNew?: boolean;
+  popular?: boolean;
 };
 
 export const categories: { id: MenuCategory; label: Bilingual; icon: string }[] = [

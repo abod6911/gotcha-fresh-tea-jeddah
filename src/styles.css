@@ -38,28 +38,36 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  /* brand tokens */
-  --color-cream: var(--cream);
-  --color-cream-2: var(--cream-2);
-  --color-pink: var(--pink);
-  --color-pink-soft: var(--pink-soft);
-  --color-pink-deep: var(--pink-deep);
-  --color-lav: var(--lav);
-  --color-lav-soft: var(--lav-soft);
-  --color-lav-deep: var(--lav-deep);
-  --color-plum: var(--plum);
-  --color-plum-soft: var(--plum-soft);
-  --color-neon: var(--neon);
-  --color-neon-2: var(--neon-2);
-  --color-ink: var(--accent-ink);
-  --color-bark: var(--bark);
+  /* brand tokens from user specifications */
+  --color-primary-pink: #FF69B4;
+  --color-pastel-pink: #FFD1DC;
+  --color-neon-pink: #FF1493;
+  --color-dark-text: #1A1A1A;
+  --color-bg-white: #FFFFFF;
+  --color-milk-swirl: #FFF0F5;
+  --color-card-border: #FFE4E1;
 
-  --font-display: "Fraunces", "El Messiri", serif;
-  --font-body: "Poppins", "Tajawal", sans-serif;
+  --color-cream: #FFFFFF;
+  --color-cream-2: #FFF0F5;
+  --color-pink: #FF69B4;
+  --color-pink-soft: #FFD1DC;
+  --color-pink-deep: #FF1493;
+  --color-lav: #FFF0F5;
+  --color-lav-soft: #FFD1DC;
+  --color-lav-deep: #FF1493;
+  --color-plum: #1A1A1A;
+  --color-plum-soft: #333333;
+  --color-neon: #FF69B4;
+  --color-neon-2: #FF1493;
+  --color-ink: #1A1A1A;
+  --color-bark: #1A1A1A;
 
-  --shadow-soft: 0 20px 50px -20px oklch(0.62 0.13 30 / 0.28);
-  --shadow-glow: 0 12px 24px -10px oklch(0.665 0.19 20 / 0.55);
-  --shadow-glow-lg: 0 16px 34px -8px oklch(0.665 0.19 20 / 0.65);
+  --font-display: "Cairo", "Poppins", sans-serif;
+  --font-body: "Tajawal", "Inter", sans-serif;
+
+  --shadow-soft: 0 10px 30px -10px rgba(255, 105, 180, 0.2);
+  --shadow-glow: 0 10px 25px -4px rgba(255, 105, 180, 0.45);
+  --shadow-glow-lg: 0 15px 35px -5px rgba(255, 20, 147, 0.7);
 
   --ease-silk: cubic-bezier(0.22, 1, 0.36, 1);
 
@@ -76,48 +84,58 @@
 }
 
 :root {
-  --radius: 1rem;
+  --radius: 50px; /* Pill buttons by brand standard */
 
-  /* warm pastel palette - Lightened by 5% as requested */
-  --cream: oklch(0.86 0.02 85);       /* Softer, warmer cream */
-  --cream-2: oklch(0.84 0.04 75);     /* Warmer secondary cream */
-  --pink: oklch(0.79 0.06 35);        /* Warmer, peachy pink */
-  --pink-soft: oklch(0.85 0.03 40);   /* Soft peach-pink */
-  --pink-deep: oklch(0.67 0.12 30);   /* Deeper warm rose */
-  --lav: oklch(0.79 0.04 310);        /* Softer lavender */
-  --lav-soft: oklch(0.85 0.02 320);   /* Soft lavender */
-  --lav-deep: oklch(0.67 0.08 300);   /* Deep lavender */
-  --plum: oklch(0.26 0.05 35);        /* Warmer dark plum/brown */
-  --plum-soft: oklch(0.44 0.06 35);   /* Soft plum */
-  --neon: oklch(0.62 0.15 35);        /* Warmer coral/neon */
-  --neon-2: oklch(0.61 0.14 55);      /* Neon secondary */
-  --accent-ink: oklch(0.50 0.18 15);
-  --bark: oklch(0.40 0.06 55);
+  /* Exact brand color palette */
+  --primary-pink: #FF69B4;     /* Hot Pink */
+  --pastel-pink: #FFD1DC;      /* Baby Pink */
+  --neon-pink: #FF1493;        /* Deep Pink Neon */
+  --dark-text: #1A1A1A;        /* Neutral Dark / Almost Black */
+  --bg-white: #FFFFFF;         /* Pure White */
+  --milk-swirl: #FFF0F5;       /* Light Pastel Pink Swirl */
+  --card-border: #FFE4E1;      /* Soft Pink Border */
 
-  --background: var(--cream);
-  --foreground: var(--plum);
-  --card: oklch(1 0 0);
-  --card-foreground: var(--plum);
-  --popover: oklch(1 0 0);
-  --popover-foreground: var(--plum);
-  --primary: var(--neon);
-  --primary-foreground: oklch(1 0 0);
-  --secondary: var(--pink-soft);
-  --secondary-foreground: var(--plum);
-  --muted: var(--cream-2);
-  --muted-foreground: var(--plum-soft);
-  --accent: var(--lav-soft);
-  --accent-foreground: var(--plum);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.62 0.13 30 / 0.16);
-  --input: oklch(0.62 0.13 30 / 0.2);
-  --ring: var(--pink-deep);
+  /* System tokens mapped to brand palette */
+  --background: #FFFFFF;
+  --foreground: #1A1A1A;
+  --card: #FFFFFF;
+  --card-foreground: #1A1A1A;
+  --popover: #FFFFFF;
+  --popover-foreground: #1A1A1A;
+  --primary: #FF69B4;
+  --primary-foreground: #FFFFFF;
+  --secondary: #FFD1DC;
+  --secondary-foreground: #1A1A1A;
+  --muted: #FFF0F5;
+  --muted-foreground: #4A4A4A;
+  --accent: #FFD1DC;
+  --accent-foreground: #FF1493;
+  --destructive: #FF1493;
+  --destructive-foreground: #FFFFFF;
+  --border: #FFE4E1;
+  --input: #FFE4E1;
+  --ring: #FF1493;
+
+  /* Aliasing for backward compatibility */
+  --cream: #FFFFFF;
+  --cream-2: #FFF0F5;
+  --pink: #FF69B4;
+  --pink-soft: #FFD1DC;
+  --pink-deep: #FF1493;
+  --lav: #FFF0F5;
+  --lav-soft: #FFD1DC;
+  --lav-deep: #FF1493;
+  --plum: #1A1A1A;
+  --plum-soft: #333333;
+  --neon: #FF69B4;
+  --neon-2: #FF1493;
+  --accent-ink: #1A1A1A;
+  --bark: #1A1A1A;
 }
 
 @layer base {
   * {
-    border-color: var(--color-border);
+    border-color: var(--card-border);
   }
 
   html,
@@ -136,18 +154,16 @@
 
   body {
     @apply bg-background text-foreground selection:bg-pink-soft selection:text-plum;
-    background-color: var(--color-background);
-    color: var(--color-foreground);
-    font-family: var(--font-body);
-    font-weight: 500; /* Increased font weight for readability */
-    letter-spacing: 0.025em; /* tracking-wide */
+    background-color: var(--bg-white);
+    color: var(--dark-text);
+    font-family: "Poppins", "Inter", sans-serif;
+    font-weight: 500;
     -webkit-font-smoothing: antialiased;
   }
 
   html[lang="ar"] body {
-    font-family: "Tajawal", "Poppins", sans-serif;
+    font-family: "Tajawal", "Cairo", sans-serif;
     letter-spacing: 0 !important;
-    word-spacing: 0.05em;
   }
 
   h1,
@@ -155,8 +171,9 @@
   h3,
   h4,
   .font-display {
-    font-family: var(--font-display);
+    font-family: "Cairo", "Poppins", sans-serif;
     font-weight: 700;
+    color: var(--dark-text);
   }
 
   html[lang="ar"] h1,
@@ -164,7 +181,7 @@
   html[lang="ar"] h3,
   html[lang="ar"] h4,
   html[lang="ar"] .font-display {
-    font-family: "El Messiri", "Fraunces", serif;
+    font-family: "Cairo", "Tajawal", sans-serif;
     letter-spacing: 0 !important;
     line-height: 1.35;
   }
@@ -176,16 +193,23 @@
 }
 
 @utility text-gradient-neon {
-  background: linear-gradient(120deg, var(--neon), var(--neon-2));
+  background: linear-gradient(120deg, #FF69B4, #FF1493);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
 @utility bg-gradient-neon {
-  background: linear-gradient(135deg, var(--neon), var(--neon-2));
+  background: linear-gradient(135deg, #FF69B4, #FF1493);
+  border-radius: 50px;
+  box-shadow: 0 8px 25px -4px rgba(255, 105, 180, 0.45);
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
   position: relative;
   overflow: hidden;
+}
+
+.bg-gradient-neon:hover {
+  box-shadow: 0 14px 32px -4px rgba(255, 20, 147, 0.75);
 }
 
 .bg-gradient-neon::after {
@@ -212,10 +236,38 @@
 
 @utility bg-gradient-pastel {
   background:
-    radial-gradient(circle at 15% 20%, var(--pink-soft), transparent 55%),
-    radial-gradient(circle at 85% 12%, var(--cream-2), transparent 50%),
-    radial-gradient(circle at 70% 85%, var(--lav-soft), transparent 55%),
-    var(--cream);
+    radial-gradient(circle at 15% 15%, #FFD1DC 0%, transparent 40%),
+    radial-gradient(circle at 85% 75%, #FFF0F5 0%, transparent 50%),
+    linear-gradient(180deg, #FFFFFF 0%, #FFF0F5 50%, #FFFFFF 100%);
+}
+
+/* Floating Product Card with Soft Pink Border (#FFE4E1) */
+.product-card {
+  background-color: #FFFFFF;
+  border: 1.5px solid #FFE4E1;
+  border-radius: 2rem;
+  padding: 1.5rem;
+  box-shadow: 0 10px 35px -10px rgba(255, 209, 220, 0.6);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px -10px rgba(255, 105, 180, 0.35);
+  border-color: #FF69B4;
+}
+
+/* Brand Badge: Pastel Pink (#FFD1DC) background with Neon Pink (#FF1493) text */
+.badge-pastel {
+  background-color: #FFD1DC;
+  color: #FF1493;
+  font-weight: 700;
+  border-radius: 50px;
+  padding: 0.25rem 0.85rem;
+  font-size: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
 }
 
 @keyframes sway {
