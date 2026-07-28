@@ -201,41 +201,41 @@ export function Hero() {
             </div>
           </div>
 
-          {/* Right Column: Visual Interactive Boba Cup */}
+          {/* Right Column: Visual Interactive 3D Boba Cup */}
           <div className="relative w-full flex flex-col justify-center items-center">
             
             <div 
               onClick={() => goToStep((activeStep + 1) % 4)}
-              className="relative mx-auto h-[340px] w-[210px] sm:h-[400px] sm:w-[250px] cursor-pointer group select-none transition-transform duration-300 hover:scale-[1.02]"
+              className="relative mx-auto h-[340px] w-[210px] sm:h-[400px] sm:w-[250px] cursor-pointer group select-none transition-transform duration-300 hover:scale-105"
               title={t({ en: "Tap cup to brew next step!", ar: "انقر الكوب لتحضير الخطوة التالية!" })}
             >
               
-              {/* Straw */}
+              {/* 3D Animated Straw */}
               <div 
-                className="absolute -top-24 left-1/2 -translate-x-1/2 h-[120%] w-[22px] rounded-full bg-gradient-to-r from-pink-400 via-pink-300 to-pink-500 shadow-[inset_-3px_0_6px_rgba(0,0,0,0.3),2px_4px_12px_rgba(0,0,0,0.15)] z-10 transition-all duration-500 ease-out"
+                className="absolute -top-24 left-1/2 -translate-x-1/2 h-[125%] w-[24px] rounded-full bg-gradient-to-r from-pink-500 via-pink-300 to-pink-600 shadow-[inset_-3px_0_8px_rgba(0,0,0,0.35),2px_4px_12px_rgba(0,0,0,0.2)] z-10 transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] will-change-transform"
                 style={{
-                  transform: `translateX(-50%) rotate(${isStrawDropped ? '10deg' : '-12deg'}) translateY(${isStrawDropped ? '0' : '-300px'})`,
+                  transform: `translateX(-50%) rotate(${isStrawDropped ? '12deg' : '-18deg'}) translateY(${isStrawDropped ? '0' : '-320px'})`,
                   opacity: isStrawDropped ? 1 : 0
                 }}
               />
 
-              {/* Cup Lid */}
-              <div className="absolute inset-x-2 -top-2.5 h-7 rounded-[50%] bg-white/70 shadow-[0_4px_12px_rgba(0,0,0,0.08),inset_0_-2px_4px_rgba(255,255,255,0.9)] border-b border-white/90 backdrop-blur-md z-30 flex justify-center items-center">
-                <div className="w-10 h-1.5 rounded-full bg-plum/20" />
+              {/* Glass Cup Lid */}
+              <div className="absolute inset-x-2 -top-3 h-8 rounded-[50%] bg-white/70 shadow-[0_4px_12px_rgba(0,0,0,0.1),inset_0_-2px_4px_rgba(255,255,255,0.9)] border-b-2 border-white/80 backdrop-blur-md z-30 flex justify-center items-center">
+                <div className="w-12 h-2 rounded-full bg-plum/20" />
               </div>
               
-              {/* Cup Glass Body */}
-              <div className="absolute inset-x-0 top-2 bottom-0 overflow-hidden rounded-b-[3.5rem] rounded-t-[1.2rem] border-4 border-white/80 bg-gradient-to-b from-white/40 via-white/20 to-white/10 shadow-[inset_-10px_-10px_20px_rgba(255,255,255,0.6),inset_10px_10px_20px_rgba(0,0,0,0.08),0_20px_40px_rgba(0,0,0,0.15)] backdrop-blur-md z-20">
+              {/* Glass Cup Body */}
+              <div className="absolute inset-x-0 top-2 bottom-0 overflow-hidden rounded-b-[3.5rem] rounded-t-[1.5rem] border-4 border-white/80 bg-gradient-to-b from-white/40 via-white/20 to-white/10 shadow-[inset_-10px_-10px_20px_rgba(255,255,255,0.6),inset_10px_10px_20px_rgba(0,0,0,0.1),0_20px_40px_rgba(0,0,0,0.18)] backdrop-blur-md z-20">
                 
-                {/* Dynamic Liquid */}
+                {/* Wavy Animated Tea Liquid */}
                 <div 
                   className="absolute inset-x-0 bottom-0 transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] will-change-[height]"
                   style={{ height: `${getLiquidHeightPercent()}%` }}
                 >
-                  {/* Wavy Surface SVG */}
-                  <div className="absolute -top-4 inset-x-0 h-6 w-[200%] animate-[wave-move_4s_linear_infinite] pointer-events-none opacity-90">
+                  {/* Wavy Surface SVG Animation */}
+                  <div className="absolute -top-5 inset-x-0 h-7 w-[200%] animate-[wave-move_3.5s_linear_infinite] pointer-events-none opacity-90">
                     <svg className="w-full h-full" viewBox="0 0 800 50" preserveAspectRatio="none">
-                      <path d="M0,25 C100,5 100,45 200,25 C300,5 300,45 400,25 C500,5 500,45 600,25 C700,5 700,45 800,25 L800,50 L0,50 Z" fill="#e88aa7" />
+                      <path d="M0,25 C100,0 100,50 200,25 C300,0 300,50 400,25 C500,0 500,50 600,25 C700,0 700,50 800,25 L800,50 L0,50 Z" fill="#e88aa7" opacity="0.95" />
                     </svg>
                   </div>
                   
@@ -245,54 +245,51 @@ export function Hero() {
                   {/* Floating Ice Cubes */}
                   {isIceVisible && (
                     <div className="transition-opacity duration-500 opacity-100">
-                      <div className="absolute top-2 left-4 w-9 h-9 rounded-xl bg-white/40 border border-white/70 backdrop-blur-sm transform rotate-12 shadow-sm" />
-                      <div className="absolute top-3 right-5 w-8 h-8 rounded-xl bg-white/40 border border-white/70 backdrop-blur-sm transform -rotate-12 shadow-sm" />
+                      <div className="absolute top-2 left-4 w-9 h-9 rounded-xl bg-white/45 border border-white/75 backdrop-blur-sm transform rotate-12 shadow-sm animate-pulse" />
+                      <div className="absolute top-4 right-5 w-8 h-8 rounded-xl bg-white/45 border border-white/75 backdrop-blur-sm transform -rotate-12 shadow-sm animate-pulse" />
                     </div>
                   )}
                 </div>
                 
-                {/* Optimized Lightweight Boba Pearls Container */}
+                {/* Natural Glossy Boba Pearls */}
                 <div 
-                  className="absolute inset-x-0 bottom-2.5 h-[120px] transition-all duration-500 ease-out pointer-events-none flex items-end justify-center"
+                  className="absolute inset-x-0 bottom-3 h-[130px] transition-all duration-600 ease-[cubic-bezier(0.34,1.56,0.64,1)] pointer-events-none flex flex-wrap justify-center items-end p-2 gap-1"
                   style={{
-                    transform: isBobaVisible ? 'translateY(0)' : 'translateY(160px)',
+                    transform: isBobaVisible ? 'translateY(0) scale(1)' : 'translateY(180px) scale(0.5)',
                     opacity: isBobaVisible ? 1 : 0
                   }}
                 >
-                  <div className="grid grid-cols-5 gap-1.5 px-5 pb-1 w-full justify-items-center">
-                    {Array.from({ length: 20 }).map((_, i) => (
-                      <div
-                        key={i}
-                        className="w-5 h-5 sm:w-6 sm:h-6 rounded-full shadow-[inset_-2px_-2px_5px_rgba(0,0,0,0.8),1px_1px_3px_rgba(0,0,0,0.4)] transition-transform duration-300 hover:scale-125"
-                        style={{
-                          background: "radial-gradient(circle at 35% 35%, #6d4c41 0%, #3e2723 65%, #1a0e0a 100%)",
-                          transform: `translateY(${ (i % 3) * -2 }px)`
-                        }}
-                      />
-                    ))}
-                  </div>
+                  {Array.from({ length: 24 }).map((_, i) => (
+                    <div
+                      key={i}
+                      className="w-5 h-5 sm:w-6 sm:h-6 rounded-full shadow-[inset_-3px_-3px_6px_rgba(0,0,0,0.85),1px_1px_3px_rgba(0,0,0,0.5)] transition-transform duration-300 hover:scale-125 will-change-transform"
+                      style={{
+                        background: "radial-gradient(circle at 35% 35%, #6d4c41 0%, #3e2723 60%, #100b08 100%)"
+                      }}
+                    />
+                  ))}
                 </div>
 
-                {/* Official Brand Logo Emblem */}
+                {/* Official Brand Logo Emblem on Glass */}
                 <div className="absolute top-[38%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none flex flex-col items-center">
-                  <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white/95 p-1.5 shadow-[0_8px_25px_rgba(0,0,0,0.15)] border-2 border-white backdrop-blur-md flex items-center justify-center transform group-hover:scale-105 transition-transform duration-300">
+                  <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white/95 p-1.5 shadow-[0_8px_25px_rgba(0,0,0,0.18)] border-2 border-white backdrop-blur-md flex items-center justify-center transform group-hover:scale-105 transition-transform duration-300">
                     <GotchaLogo className="w-full h-full object-contain rounded-full" />
                   </div>
                 </div>
                 
-                {/* Glass Glossy Highlights */}
-                <div className="absolute inset-y-4 start-3 w-5 rounded-full bg-gradient-to-b from-white/70 via-white/30 to-transparent blur-[1px] opacity-80 z-20 pointer-events-none" />
-                <div className="absolute inset-y-10 end-3.5 w-2.5 rounded-full bg-gradient-to-b from-white/50 to-transparent blur-[1px] opacity-60 z-20 pointer-events-none" />
+                {/* Glass Glossy Reflections */}
+                <div className="absolute inset-y-4 start-3 w-6 rounded-full bg-gradient-to-b from-white/75 via-white/30 to-transparent blur-[2px] opacity-80 z-20 pointer-events-none" />
+                <div className="absolute inset-y-12 end-4 w-3 rounded-full bg-gradient-to-b from-white/55 to-transparent blur-[1px] opacity-60 z-20 pointer-events-none" />
               </div>
               
               {/* Floor Shadow */}
-              <div className="absolute -bottom-6 inset-x-6 h-5 rounded-[50%] bg-pink-deep/30 blur-lg opacity-70" />
+              <div className="absolute -bottom-7 inset-x-6 h-6 rounded-[50%] bg-pink-deep/35 blur-xl opacity-75" />
             </div>
 
             {/* Interactive hint badge */}
             <div 
               onClick={() => goToStep((activeStep + 1) % 4)}
-              className="relative mt-6 flex items-center gap-2.5 rounded-full border border-pink-deep/30 bg-card/95 backdrop-blur-md px-5 py-2 text-xs font-bold text-plum shadow-soft z-20 cursor-pointer hover:scale-105 transition-transform"
+              className="relative mt-7 flex items-center gap-2.5 rounded-full border border-pink-deep/30 bg-card/95 backdrop-blur-md px-5 py-2 text-xs font-bold text-plum shadow-soft z-20 cursor-pointer hover:scale-105 transition-transform"
             >
               <span className="relative flex h-2.5 w-2.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon opacity-75"></span>

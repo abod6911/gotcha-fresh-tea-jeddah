@@ -87,7 +87,7 @@ export function Gallery() {
             <figure
               key={card.id}
               onClick={() => setSelectedImg({ src: card.imgSrc, title: t(card.label), tag: t(card.tag) })}
-              className="group relative aspect-square cursor-pointer overflow-hidden rounded-3xl border border-pink-deep/20 bg-card shadow-soft transition-all duration-300 hover:-translate-y-1 hover:border-pink-deep hover:shadow-xl"
+              className="group relative aspect-square cursor-pointer overflow-hidden rounded-3xl border border-pink-deep/30 bg-card shadow-soft transition-all duration-300 hover:-translate-y-1 hover:border-pink-deep hover:shadow-xl"
             >
               <img
                 src={card.imgSrc}
@@ -95,20 +95,24 @@ export function Gallery() {
                 loading="lazy"
                 className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
               />
-              <span className="absolute inset-0 bg-gradient-to-t from-plum/90 via-plum/20 to-transparent opacity-60 transition-opacity duration-300 group-hover:opacity-85" />
+              {/* High contrast dark gradient overlay */}
+              <span className="absolute inset-0 bg-gradient-to-t from-plum/95 via-plum/50 to-transparent opacity-85 transition-opacity duration-300 group-hover:opacity-95" />
               
-              {/* Floating Tag */}
-              <span className="absolute top-3 start-3 z-10 rounded-full bg-white/90 backdrop-blur-md px-2.5 py-0.5 text-[0.65rem] font-bold text-plum border border-pink-deep/20 shadow-xs">
+              {/* Floating Category Tag */}
+              <span className="absolute top-2.5 start-2.5 z-10 rounded-full bg-white/95 backdrop-blur-md px-2.5 py-0.5 text-[0.65rem] font-bold text-plum border border-pink-deep/30 shadow-sm">
                 {t(card.tag)}
               </span>
 
               {/* Zoom Icon Hint */}
-              <div className="absolute top-3 end-3 z-10 flex h-7 w-7 items-center justify-center rounded-full bg-plum/40 backdrop-blur-md text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+              <div className="absolute top-2.5 end-2.5 z-10 flex h-7 w-7 items-center justify-center rounded-full bg-plum/60 backdrop-blur-md text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 shadow-md">
                 <ZoomIn className="h-4 w-4" />
               </div>
 
-              <figcaption className="absolute inset-x-0 bottom-0 p-3.5 text-xs sm:text-sm font-bold text-white z-10 drop-shadow-md translate-y-1 transition-transform duration-300 group-hover:translate-y-0 leading-snug">
-                {t(card.label)}
+              {/* High-contrast Caption Badge Pill */}
+              <figcaption className="absolute inset-x-0 bottom-0 p-2.5 sm:p-3 text-end z-10">
+                <span className="inline-block rounded-xl border border-white/20 bg-plum/90 backdrop-blur-md px-2.5 sm:px-3 py-1 text-[0.72rem] sm:text-xs font-bold text-white shadow-lg drop-shadow-md leading-relaxed">
+                  {t(card.label)}
+                </span>
               </figcaption>
             </figure>
           ))}

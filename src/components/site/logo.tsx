@@ -8,7 +8,8 @@ export function GotchaLogo({ className }: { className?: string; showText?: boole
         alt="Gotcha Fresh Tea Logo"
         loading="eager"
         decoding="async"
-        className="w-full h-full object-cover rounded-full bg-white p-0.5 shadow-sm ring-1 ring-pink-deep/20 transition-transform duration-300 hover:scale-105"
+        className="w-full h-full object-cover rounded-full bg-white p-0.5 shadow-sm ring-2 ring-pink-deep/40 border border-white transition-transform duration-300 hover:scale-105"
+        style={{ imageRendering: "auto" }}
       />
     </div>
   );
@@ -22,8 +23,9 @@ export function GotchaFarmerVector({ className }: { className?: string }) {
         alt="Gotcha Fresh Tea Logo"
         loading="eager"
         decoding="async"
-        className="h-28 w-28 sm:h-36 sm:w-36 rounded-full object-cover bg-white p-1 shadow-md ring-2 ring-pink-deep/30 transition-transform duration-300 hover:scale-105"
+        className="h-28 w-28 sm:h-36 sm:w-36 rounded-full object-cover bg-white p-1 shadow-md ring-4 ring-pink-deep/40 border-2 border-white transition-transform duration-300 hover:scale-105"
       />
     </div>
   );
 }
+
