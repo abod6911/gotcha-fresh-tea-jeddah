@@ -1,8 +1,9 @@
 import { useLang } from "@/lib/i18n";
 import { FlowerDeco, Petals, TabebuiaTree } from "./decor";
-import { useEffect, useState, useRef } from "react";
-import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles, ChevronDown, ChevronRight, ChevronLeft } from "lucide-react";
+import { GotchaLogo } from "./logo";
 
 export function Hero() {
   const { t, dir } = useLang();
@@ -287,10 +288,17 @@ export function Hero() {
                     );
                   })}
                 </div>
+
+                {/* Official Brand Logo Emblem on Cup Glass */}
+                <div className="absolute top-[38%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none flex flex-col items-center">
+                  <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white/90 p-1.5 shadow-[0_8px_25px_rgba(0,0,0,0.18)] border-2 border-white backdrop-blur-md flex items-center justify-center transform group-hover:scale-105 transition-transform duration-300">
+                    <GotchaLogo className="w-full h-full object-contain rounded-full" />
+                  </div>
+                </div>
                 
                 {/* Glass Glossy Reflections */}
-                <div className="absolute inset-y-4 start-3 w-6 rounded-full bg-gradient-to-b from-white/70 to-transparent blur-[2px] opacity-80" />
-                <div className="absolute inset-y-12 end-4 w-3 rounded-full bg-gradient-to-b from-white/50 to-transparent blur-[1px] opacity-60" />
+                <div className="absolute inset-y-4 start-3 w-6 rounded-full bg-gradient-to-b from-white/70 to-transparent blur-[2px] opacity-80 z-20" />
+                <div className="absolute inset-y-12 end-4 w-3 rounded-full bg-gradient-to-b from-white/50 to-transparent blur-[1px] opacity-60 z-20" />
               </div>
               
               {/* Floor Shadow */}
