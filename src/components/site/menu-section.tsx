@@ -152,14 +152,14 @@ function OrderPanel({ item, onDone }: { item: MenuItem; onDone: () => void }) {
   );
 }
 
-function MenuCard({ item, index }: { item: MenuItem; index: number }) {
+function MenuCard({ item, index, isSearching }: { item: MenuItem; index: number; isSearching: boolean }) {
   const { t } = useLang();
   const [open, setOpen] = useState(false);
 
   return (
     <article
-      className="product-card animate-card-in group relative"
-      style={{ animationDelay: `${index * 0.08}s` }}
+      className={`product-card group relative ${!isSearching ? 'animate-card-in' : ''}`}
+      style={{ animationDelay: !isSearching ? `${Math.min(index, 8) * 0.05}s` : '0s' }}
     >
       <div className="flex flex-col sm:flex-row items-start gap-4">
         {/* Item Icon / Image Container */}
@@ -234,12 +234,10 @@ export function MenuSection() {
     if (!active) return;
     const cRect = container.getBoundingClientRect();
     const aRect = active.getBoundingClientRect();
-    // inset-inline-start is measured from the right edge in RTL
     const offset =
       dir === "rtl" ? cRect.right - aRect.right : aRect.left - cRect.left;
     setIndicator({ width: aRect.width, offset });
   };
-
 
   useEffect(() => {
     position();
@@ -251,24 +249,32 @@ export function MenuSection() {
       window.removeEventListener("resize", onResize);
       window.clearTimeout(timer);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cat, dir]);
 
+  const isSearching = useMemo(() => query.trim().length > 0, [query]);
+
   const items = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    const qRaw = query.trim();
-    if (!q) {
+    const raw = query.trim();
+    if (!raw) {
       return menuItems.filter((i) => i.category === cat);
     }
-    return menuItems.filter(
-      (i) =>
-        i.name.en.toLowerCase().includes(q) ||
-        i.name.ar.toLowerCase().includes(q) ||
-        i.name.ar.includes(qRaw) ||
-        i.desc.en.toLowerCase().includes(q) ||
-        i.desc.ar.includes(qRaw) ||
-        i.category.toLowerCase().includes(q),
-    );
+    const q = raw.toLowerCase();
+    return menuItems.filter((i) => {
+      const nameEn = i.name.en?.toLowerCase() || "";
+      const nameAr = i.name.ar || "";
+      const descEn = i.desc.en?.toLowerCase() || "";
+      const descAr = i.desc.ar || "";
+      const category = i.category?.toLowerCase() || "";
+
+      return (
+        nameEn.includes(q) ||
+        nameAr.toLowerCase().includes(q) ||
+        nameAr.includes(raw) ||
+        descEn.includes(q) ||
+        descAr.includes(raw) ||
+        category.includes(q)
+      );
+    });
   }, [cat, query]);
 
   return (
@@ -294,7 +300,7 @@ export function MenuSection() {
           className={`${tabsReveal.className} mt-10 flex flex-col items-center gap-4`}
         >
           {/* Category Tabs */}
-          {!query.trim() && (
+          {!isSearching && (
             <div className="w-full max-w-full overflow-x-auto no-scrollbar pb-1">
               <div
                 ref={tabsRef}
@@ -328,27 +334,29 @@ export function MenuSection() {
 
           {/* Search Input Bar */}
           <div className="relative w-full max-w-md">
-            <label className="relative block w-full">
-              <Search className="pointer-events-none absolute inset-y-0 start-4 my-auto h-4 w-4 text-plum-soft" />
+            <div className="relative flex items-center w-full">
+              <Search className="pointer-events-none absolute start-4 h-4 w-4 text-plum-soft shrink-0 z-10" />
               <input
+                type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder={t({ en: "Search all drinks (e.g. Matcha, Milk Tea)...", ar: "ابحث في جميع المشروبات (مثل: ماتشا، بوبا، كولاجين)..." })}
-                className="w-full rounded-full border border-pink-deep/30 bg-card py-3 ps-11 pe-10 text-sm text-plum shadow-sm outline-none transition-all placeholder:text-plum-soft focus:border-pink-deep focus:ring-2 focus:ring-pink-soft/50"
+                placeholder={t({ en: "Search drinks...", ar: "ابحث عن المشروب (ماتشا، بوبا، كولاجين)..." })}
+                className="w-full rounded-full border border-pink-deep/30 bg-card py-3 ps-11 pe-10 text-sm text-plum shadow-sm outline-none transition-all placeholder:text-plum-soft/70 focus:border-pink-deep focus:ring-2 focus:ring-pink-soft/50"
               />
-            </label>
-            {query && (
-              <button
-                onClick={() => setQuery("")}
-                className="absolute inset-y-0 end-3 my-auto flex h-6 w-6 items-center justify-center rounded-full bg-pink-soft text-xs font-bold text-plum hover:bg-pink-deep hover:text-white transition-colors"
-                title={t({ en: "Clear search", ar: "مسح البحث" })}
-              >
-                ✕
-              </button>
-            )}
+              {query && (
+                <button
+                  type="button"
+                  onClick={() => setQuery("")}
+                  className="absolute end-3 flex h-6 w-6 items-center justify-center rounded-full bg-pink-soft text-xs font-bold text-plum hover:bg-pink-deep hover:text-white transition-colors z-10"
+                  title={t({ en: "Clear search", ar: "مسح البحث" })}
+                >
+                  ✕
+                </button>
+              )}
+            </div>
           </div>
 
-          {query.trim() && (
+          {isSearching && (
             <p className="text-xs font-semibold text-plum-soft bg-pink-soft/50 px-4 py-1.5 rounded-full border border-pink-deep/20">
               {t({
                 en: `Found ${items.length} matching drinks across all categories`,
@@ -358,9 +366,9 @@ export function MenuSection() {
           )}
         </div>
 
-        <div key={query.trim() ? "search" : cat} className="mt-10 grid gap-5 md:grid-cols-2">
+        <div className="mt-10 grid gap-5 md:grid-cols-2">
           {items.map((item, i) => (
-            <MenuCard key={item.id} item={item} index={i} />
+            <MenuCard key={item.id} item={item} index={i} isSearching={isSearching} />
           ))}
           {items.length === 0 && (
             <div className="col-span-full py-12 text-center bg-card/60 rounded-3xl border border-pink-deep/20 p-8 shadow-sm">
