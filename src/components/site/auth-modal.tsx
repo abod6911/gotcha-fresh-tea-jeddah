@@ -127,6 +127,8 @@ export function AuthModal() {
             {/* Auth Action Buttons */}
             <div className="mt-6 space-y-3">
               <button
+                id="google-login-btn"
+                type="button"
                 onClick={loginWithGoogle}
                 disabled={isAuthenticating}
                 className="group relative flex w-full items-center justify-center gap-3 rounded-2xl border border-border bg-card px-5 py-3.5 text-sm font-semibold text-plum shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-pink-deep hover:bg-pink-soft/50 hover:shadow-soft disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:translate-y-0"

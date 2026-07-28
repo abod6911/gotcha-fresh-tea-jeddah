@@ -44,20 +44,32 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const { t } = useLang();
 
-  // Listen to Firebase Auth state
+  // Listen to Firebase Auth state & LocalStorage
   useEffect(() => {
+    // Check saved local user first
+    const savedUser = localStorage.getItem("gotcha_user");
+    if (savedUser) {
+      try {
+        setUser(JSON.parse(savedUser));
+        setIsAuthenticating(false);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
     const unsubscribeAuth = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
-        // User logged in, listen to their Firestore document
         const userRef = doc(db, "users", firebaseUser.uid);
         const unsubscribeDoc = onSnapshot(userRef, (docSnap) => {
           if (docSnap.exists()) {
-            setUser(docSnap.data() as UserProfile);
+            const uData = docSnap.data() as UserProfile;
+            setUser(uData);
+            localStorage.setItem("gotcha_user", JSON.stringify(uData));
           }
         });
         setIsAuthenticating(false);
         return () => unsubscribeDoc();
-      } else {
+      } else if (!localStorage.getItem("gotcha_user")) {
         setUser(null);
         setIsAuthenticating(false);
       }
@@ -103,8 +115,74 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const loginWithGoogle = async () => {
-    const provider = new GoogleAuthProvider();
-    await handleOAuthLogin(provider, "Google");
+    setIsAuthenticating(true);
+
+    const GOOGLE_CLIENT_ID = "324963011837-blnn2ur0vhlooqtsmp96o7l9rfk4pdk4.apps.googleusercontent.com";
+
+    // 1. Check if Google Identity Services SDK is loaded
+    if (typeof window !== "undefined" && (window as any).google?.accounts?.oauth2) {
+      try {
+        const tokenClient = (window as any).google.accounts.oauth2.initTokenClient({
+          client_id: GOOGLE_CLIENT_ID,
+          scope: "openid email profile",
+          callback: async (response: any) => {
+            if (response.error) {
+              console.error("حدث خطأ أثناء تسجيل الدخول:", response);
+              setIsAuthenticating(false);
+              toast.error(t({ en: "Sign in canceled or failed", ar: "حدث خطأ أثناء تسجيل الدخول" }));
+              return;
+            }
+
+            try {
+              // 2. Fetch user profile after successful login
+              const userInfoRes = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+                headers: { Authorization: `Bearer ${response.access_token}` },
+              });
+
+              const googleUser = await userInfoRes.json();
+
+              const userProfile: UserProfile = {
+                id: googleUser.sub || `google_${Date.now()}`,
+                name: googleUser.name || "مستخدم قوتشا",
+                email: googleUser.email || "",
+                avatar: googleUser.picture || `https://api.dicebear.com/7.x/notionists/svg?seed=${googleUser.email || 'gotcha'}`,
+                points: 50,
+                blossoms: 1,
+                tier: "Bronze",
+                needsProfile: false,
+              };
+
+              setUser(userProfile);
+              localStorage.setItem("gotcha_user", JSON.stringify(userProfile));
+
+              toast.success(`أهلاً بك يا ${userProfile.name}! تم تسجيل دخولك بنجاح. 🌸`, {
+                description: `تم إضافة 50 نقطة ولاء وزهرة رحيق ترحيبية لحسابك!`,
+              });
+
+              setAuthOpen(false);
+            } catch (err) {
+              console.error("فشل في جلب بيانات البروفايل:", err);
+              toast.error(t({ en: "Failed to fetch user profile", ar: "فشل في جلب بيانات البروفايل" }));
+            } finally {
+              setIsAuthenticating(false);
+            }
+          },
+        });
+
+        tokenClient.requestAccessToken();
+        return;
+      } catch (e) {
+        console.warn("Falling back to standard Google popup:", e);
+      }
+    }
+
+    // Fallback to Firebase Google Provider if GSI script is blocked/loading
+    try {
+      const provider = new GoogleAuthProvider();
+      await handleOAuthLogin(provider, "Google");
+    } finally {
+      setIsAuthenticating(false);
+    }
   };
 
   const loginWithApple = async () => {
@@ -125,7 +203,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const logout = async () => {
+    localStorage.removeItem("gotcha_user");
     await firebaseSignOut(auth);
+    setUser(null);
     toast.success(t({ en: "Signed out safely", ar: "تم تسجيل الخروج بأمان" }));
   };
 
