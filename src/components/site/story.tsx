@@ -48,8 +48,8 @@ export function Story() {
         
         {/* Left Column: Text & Features */}
         <div ref={copy.ref} className={copy.className}>
-          <span className="inline-flex items-center gap-2 rounded-full border border-pink-deep/20 bg-pink-soft/40 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.18em] text-ink shadow-sm">
-            <Sparkles className="h-3.5 w-3.5 text-neon shrink-0" />
+          <span className="badge-pastel shadow-sm">
+            <Sparkles className="h-3.5 w-3.5 text-[#FF1493] shrink-0" />
             {t({ en: "Our Story", ar: "قصتنا ورحلتنا" })}
           </span>
 
@@ -100,12 +100,12 @@ export function Story() {
           {/* Top Header inside Map Card */}
           <div className="relative z-10 flex items-center justify-between border-b border-pink-deep/15 pb-4">
             <div className="flex items-center gap-2">
-              <Navigation className="h-4 w-4 text-neon" />
-              <span className="text-xs font-bold uppercase tracking-wider text-plum">
+              <Navigation className="h-4 w-4 text-[#FF1493]" />
+              <span className="text-xs font-bold uppercase tracking-wider text-[#1A1A1A]">
                 {t({ en: "Global Tea Journey", ar: "مسار الرحلة العالمية للشاي" })}
               </span>
             </div>
-            <span className="rounded-full bg-card px-3 py-1 text-[0.7rem] font-bold text-plum border border-pink-deep/20 shadow-sm">
+            <span className="rounded-full bg-white px-3 py-1 text-[0.75rem] font-bold text-[#1A1A1A] border border-pink-deep/25 shadow-sm">
               Melbourne • Taiwan • Jeddah
             </span>
           </div>
@@ -124,9 +124,9 @@ export function Story() {
             />
             <defs>
               <linearGradient id="route-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="oklch(0.62 0.15 35)" />
-                <stop offset="50%" stopColor="oklch(0.79 0.04 310)" />
-                <stop offset="100%" stopColor="oklch(0.67 0.12 30)" />
+                <stop offset="0%" stopColor="#FF69B4" />
+                <stop offset="50%" stopColor="#FF1493" />
+                <stop offset="100%" stopColor="#C5A059" />
               </linearGradient>
             </defs>
           </svg>
@@ -139,35 +139,28 @@ export function Story() {
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ type: "spring", stiffness: 100 }}
-                className={`absolute ${loc.pos} flex items-center gap-3`}
+                className={`absolute ${loc.pos} flex items-center gap-2.5`}
               >
-                {/* Pulsing Node Marker */}
-                <div className="relative flex h-6 w-6 items-center justify-center shrink-0">
-                  <span className={`animate-ping absolute inline-flex h-full w-full rounded-full bg-gradient-to-r ${loc.accent} opacity-75`} />
-                  <span className={`relative inline-flex h-4 w-4 rounded-full bg-gradient-to-r ${loc.accent} shadow-glow ring-2 ring-white`} />
-                </div>
-
-                {/* Glassmorphic Info Badge */}
-                <div className="rounded-2xl border border-white/80 bg-card/90 backdrop-blur-md px-3.5 py-2 shadow-soft transition-all duration-300 hover:scale-105 hover:shadow-glow">
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-sm">{loc.flag}</span>
-                    <b className="font-display text-sm text-plum">{t(loc.city)}</b>
+                <div className="flex items-center gap-2 rounded-2xl border border-white/80 bg-white/95 backdrop-blur-md px-3.5 py-2 shadow-soft">
+                  <span className="text-base">{loc.flag}</span>
+                  <div className="flex flex-col leading-tight">
+                    <b className="text-xs font-bold text-[#1A1A1A]">{t(loc.city)}</b>
+                    <span className="text-[0.65rem] font-semibold text-plum-soft">{t(loc.subtitle)}</span>
                   </div>
-                  <span className="block text-[0.65rem] font-medium text-plum-soft">
-                    {t(loc.subtitle)}
-                  </span>
                 </div>
+                <div className={`h-4 w-4 rounded-full bg-gradient-to-r ${loc.accent} shadow-glow animate-pulse`} />
               </motion.div>
             ))}
           </div>
-
-          {/* Bottom Card Footer */}
-          <div className="relative z-10 flex items-center justify-between border-t border-pink-deep/15 pt-3.5 text-xs text-plum-soft">
-            <span className="flex items-center gap-1 font-semibold text-plum">
-              <MapPin className="h-3.5 w-3.5 text-neon" />
-              {t({ en: "Direct Farm to Cup", ar: "من المزرعة مباشرة إلى كوبك" })}
+          {/* High-Contrast Footer Badge inside Map Card */}
+          <div className="relative z-10 flex items-center justify-between border-t border-pink-deep/15 pt-3">
+            <span className="flex items-center gap-1.5 rounded-full bg-white/95 px-3 py-1 text-xs font-bold text-[#1A1A1A] shadow-sm">
+              <MapPin className="h-3.5 w-3.5 text-[#FF1493]" />
+              {t({ en: "Direct From Farm To Cup", ar: "من المزرعة مباشرة إلى كوبك" })}
             </span>
-            <span className="font-bold text-neon">100% Organic</span>
+            <span className="rounded-full bg-[#FF1493] text-white px-3 py-1 text-xs font-bold shadow-sm">
+              🌱 Organic 100%
+            </span>
           </div>
 
         </div>

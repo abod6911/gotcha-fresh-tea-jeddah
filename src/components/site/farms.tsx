@@ -25,8 +25,8 @@ export function Farms() {
         
         {/* Text & Stats */}
         <div ref={copy.ref} className={copy.className}>
-          <span className="inline-flex items-center gap-2 rounded-full border border-pink-deep/20 bg-pink-soft/40 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.18em] text-ink shadow-sm">
-            <Leaf className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
+          <span className="badge-pastel shadow-sm">
+            <Leaf className="h-3.5 w-3.5 text-[#FF1493] shrink-0" />
             {t({ en: "Single-Origin Farming", ar: "مصدر نُقدّر عنايته" })}
           </span>
 
@@ -78,18 +78,18 @@ export function Farms() {
 
           {/* Floating Glass Badges */}
           <div className="relative z-10 flex items-center justify-between">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-white/80 bg-card/90 backdrop-blur-md px-3.5 py-1.5 text-xs font-bold text-plum shadow-sm">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-white/80 bg-card/95 backdrop-blur-md px-3.5 py-1.5 text-xs font-bold text-[#1A1A1A] shadow-sm">
               <Leaf className="h-3.5 w-3.5 text-emerald-600" />
               {t({ en: "Formosa Estate · Taiwan", ar: "مزارع فوروسا · تايوان" })}
             </span>
-            <span className="rounded-full bg-emerald-600/90 text-white px-3 py-1 text-[0.7rem] font-bold shadow-sm">
+            <span className="rounded-full bg-[#1A1A1A] text-white px-3.5 py-1 text-xs font-bold shadow-md">
               1,200m Altitude
             </span>
           </div>
 
           {/* Center Card Caption */}
-          <div className="relative z-10 max-w-xs rounded-2xl border border-white/70 bg-card/85 backdrop-blur-md p-4 shadow-soft">
-            <b className="block text-sm font-bold text-plum font-display">
+          <div className="relative z-10 max-w-xs rounded-2xl border border-white/80 bg-card/90 backdrop-blur-md p-4 shadow-soft">
+            <b className="block text-sm font-bold text-[#1A1A1A] font-display">
               {t({ en: "Pure Botanical Integrity", ar: "نقاء وطزاجة من أصل الطبيعة" })}
             </b>
             <p className="mt-1 text-xs font-medium text-plum-soft">
@@ -100,10 +100,10 @@ export function Farms() {
             </p>
           </div>
 
-          {/* Footer Badge */}
-          <div className="relative z-10 flex items-center justify-between border-t border-white/50 pt-3 text-xs font-bold text-plum">
-            <span>100% Single-Origin</span>
-            <span className="text-neon">Hand-Picked Daily</span>
+          {/* High-Contrast Footer Pills */}
+          <div className="relative z-10 flex items-center justify-between border-t border-white/50 pt-3 text-xs font-bold">
+            <span className="rounded-full bg-white/95 px-3 py-1 text-[#1A1A1A] shadow-sm">🌱 {t({ en: "100% Single-Origin", ar: "100% شاي صافي" })}</span>
+            <span className="rounded-full bg-white/95 px-3 py-1 text-[#FF1493] shadow-sm">✨ {t({ en: "Hand-Picked Daily", ar: "قطف يدوي يومياً" })}</span>
           </div>
 
         </div>

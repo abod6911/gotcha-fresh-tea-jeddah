@@ -106,9 +106,10 @@ export function TabebuiaTree({
       <g className="animate-sway" style={{ transformOrigin: "100px 240px" }}>
         <path
           d="M96 260 L96 150 C96 132 78 124 62 112 M104 260 L104 140 C104 120 124 112 140 98 M100 176 C100 164 88 156 74 148"
-          stroke="var(--bark)"
-          strokeWidth="7"
+          stroke="#FFD1DC"
+          strokeWidth="6"
           strokeLinecap="round"
+          opacity={0.6}
           fill="none"
         />
         {blooms.map((b, i) => (
