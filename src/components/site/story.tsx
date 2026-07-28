@@ -90,12 +90,12 @@ export function Story() {
         {/* Right Column: Luxury Interactive Journey Card */}
         <div 
           ref={art.ref} 
-          className={`${art.className} relative h-[380px] sm:h-[440px] w-full overflow-hidden rounded-[2.5rem] border border-pink-deep/30 bg-gradient-to-br from-cream via-cream-2/90 to-pink-soft/40 p-6 shadow-glow-lg flex flex-col justify-between`}
+          className={`${art.className} relative h-[380px] sm:h-[440px] w-full overflow-hidden rounded-[2.5rem] border border-pink-deep/20 bg-gradient-to-br from-cream via-cream-2/90 to-pink-soft/30 p-5 sm:p-6 shadow-xl flex flex-col justify-between`}
         >
-          {/* Subtle Ambient Background Grids & Glows */}
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.8),transparent_60%)]" />
-          <div className="pointer-events-none absolute -bottom-16 -end-16 h-36 w-36 sm:h-56 sm:w-56 rounded-full bg-pink-deep/15 sm:bg-pink-deep/20 blur-2xl sm:blur-3xl" />
-          <div className="pointer-events-none absolute -top-16 -start-16 h-36 w-36 sm:h-56 sm:w-56 rounded-full bg-lav-deep/15 sm:bg-lav-deep/20 blur-2xl sm:blur-3xl" />
+          {/* Subtle Ambient Background Grids & Soft Glows */}
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.95),transparent_70%)]" />
+          <div className="pointer-events-none absolute -bottom-12 -end-12 h-32 w-32 sm:h-48 sm:w-48 rounded-full bg-pink-soft/40 blur-xl opacity-50" />
+          <div className="pointer-events-none absolute -top-12 -start-12 h-32 w-32 sm:h-48 sm:w-48 rounded-full bg-lav-soft/40 blur-xl opacity-50" />
 
           {/* Top Header inside Map Card */}
           <div className="relative z-10 flex items-center justify-between border-b border-pink-deep/15 pb-4">

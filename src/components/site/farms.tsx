@@ -60,7 +60,7 @@ export function Farms() {
         {/* Taiwan Tea Farm Mountain Illustration Card */}
         <div
           ref={art.ref}
-          className={`${art.className} relative h-[360px] sm:h-[420px] w-full overflow-hidden rounded-[2.5rem] border border-pink-deep/30 bg-gradient-to-br from-emerald-950/20 via-pink-soft/40 to-lav-soft/60 p-6 shadow-glow-lg flex flex-col justify-between`}
+          className={`${art.className} relative h-[360px] sm:h-[420px] w-full overflow-hidden rounded-[2.5rem] border border-pink-deep/20 bg-gradient-to-br from-emerald-950/20 via-pink-soft/30 to-lav-soft/50 p-5 sm:p-6 shadow-xl flex flex-col justify-between`}
         >
           {/* Ambient Glows & Sun */}
           <div className="pointer-events-none absolute top-4 end-4 sm:top-8 sm:end-8 h-16 w-16 sm:h-24 sm:w-24 rounded-full bg-amber-200/40 blur-lg sm:blur-xl flex items-center justify-center">

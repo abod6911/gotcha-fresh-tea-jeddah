@@ -65,9 +65,9 @@
   --font-display: "Cairo", "Poppins", sans-serif;
   --font-body: "Tajawal", "Inter", sans-serif;
 
-  --shadow-soft: 0 10px 30px -10px rgba(255, 105, 180, 0.2);
-  --shadow-glow: 0 10px 25px -4px rgba(255, 105, 180, 0.45);
-  --shadow-glow-lg: 0 15px 35px -5px rgba(255, 20, 147, 0.7);
+  --shadow-soft: 0 8px 24px -8px rgba(255, 105, 180, 0.15);
+  --shadow-glow: 0 10px 25px -6px rgba(255, 105, 180, 0.22);
+  --shadow-glow-lg: 0 12px 28px -6px rgba(255, 105, 180, 0.25);
 
   --ease-silk: cubic-bezier(0.22, 1, 0.36, 1);
 
