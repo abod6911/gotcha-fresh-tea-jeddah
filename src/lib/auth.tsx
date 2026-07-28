@@ -127,9 +127,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           scope: "openid email profile",
           callback: async (response: any) => {
             if (response.error) {
-              console.error("حدث خطأ أثناء تسجيل الدخول:", response);
-              setIsAuthenticating(false);
-              toast.error(t({ en: "Sign in canceled or failed", ar: "حدث خطأ أثناء تسجيل الدخول" }));
+              console.warn("GSI error, falling back to Firebase Auth Popup:", response);
+              const provider = new GoogleAuthProvider();
+              await handleOAuthLogin(provider, "Google");
               return;
             }
 
@@ -162,7 +162,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
               setAuthOpen(false);
             } catch (err) {
               console.error("فشل في جلب بيانات البروفايل:", err);
-              toast.error(t({ en: "Failed to fetch user profile", ar: "فشل في جلب بيانات البروفايل" }));
+              const provider = new GoogleAuthProvider();
+              await handleOAuthLogin(provider, "Google");
             } finally {
               setIsAuthenticating(false);
             }
