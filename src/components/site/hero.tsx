@@ -331,13 +331,7 @@ export function Hero() {
 
         </div>
 
-      {/* Scroll Prompt indicator */}
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex flex-col items-center z-30 pointer-events-none opacity-80">
-        <span className="text-[0.65rem] font-bold text-plum uppercase tracking-widest mb-1.5 font-display">
-          {t({ en: "Scroll to Brew", ar: "مرّر للتحضير" })}
-        </span>
-        <ChevronDown className="h-4 w-4 text-plum animate-bounce" />
-      </div>
+
     </section>
   );
 }
