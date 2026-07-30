@@ -229,30 +229,58 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       tier: newTier
     });
 
-    toast.success(`🎉 تم إضافة ${earnedPoints} نقطة ولاء إلى حسابك!`, {
-      description: `تم كسب ${newBlossoms} أزهار · ${earnedPoints} نقطة.`,
-    });
+    toast.success(
+      t({
+        en: `🎉 Added ${earnedPoints} loyalty points to your account!`,
+        ar: `🎉 تم إضافة ${earnedPoints} نقطة ولاء إلى حسابك!`,
+      }),
+      {
+        description: t({
+          en: `Earned ${newBlossoms} blossoms · ${earnedPoints} points.`,
+          ar: `تم كسب ${newBlossoms} أزهار · ${earnedPoints} نقطة.`,
+        }),
+      }
+    );
   };
 
   const redeemBlossom = async (cost: number, rewardTitle: string): Promise<boolean> => {
     if (!user) {
-      toast.error("يرجى تسجيل الدخول لاستبدال المكافأة");
+      toast.error(
+        t({
+          en: "Please sign in to redeem this reward",
+          ar: "يرجى تسجيل الدخول لاستبدال المكافأة",
+        })
+      );
       setAuthOpen(true);
       return false;
     }
-    if (user.blossoms < cost) {
-      toast.error(`تحتاج إلى ${cost} أزهار على الأقل لاستبدال هذه المكافأة`);
+    if ((user.blossoms ?? 1) < cost) {
+      toast.error(
+        t({
+          en: `You need at least ${cost} blossoms to redeem this reward`,
+          ar: `تحتاج إلى ${cost} أزهار على الأقل لاستبدال هذه المكافأة`,
+        })
+      );
       return false;
     }
 
     const userRef = doc(db, "users", user.id);
     await updateDoc(userRef, {
-      blossoms: increment(-cost)
+      blossoms: increment(-cost),
     });
 
-    toast.success(`🌸 تم استبدال المكافأة: ${rewardTitle}!`, {
-      description: "رمز الكوبون: GOTCHA-FREE-DRINK-2026",
-    });
+    toast.success(
+      t({
+        en: `🌸 Reward redeemed: ${rewardTitle}!`,
+        ar: `🌸 تم استبدال المكافأة: ${rewardTitle}!`,
+      }),
+      {
+        description: t({
+          en: "Coupon Code: GOTCHA-FREE-DRINK-2026",
+          ar: "رمز الكوبون: GOTCHA-FREE-DRINK-2026",
+        }),
+      }
+    );
     return true;
   };
 

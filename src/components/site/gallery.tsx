@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { X, ZoomIn, Sparkles } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { useReveal } from "@/hooks/use-reveal";
@@ -59,6 +59,21 @@ export function Gallery() {
   const head = useReveal();
   const grid = useReveal();
   const [selectedImg, setSelectedImg] = useState<{ src: string; title: string; tag: string } | null>(null);
+
+  useEffect(() => {
+    if (!selectedImg) return;
+    document.body.style.overflow = "hidden";
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setSelectedImg(null);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [selectedImg]);
 
   return (
     <section id="gallery" className="bg-gradient-to-b from-lav-soft/40 via-cream to-pink-soft/30 py-16 lg:py-24 overflow-hidden max-w-full">

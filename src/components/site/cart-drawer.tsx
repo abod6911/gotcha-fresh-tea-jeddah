@@ -16,6 +16,21 @@ export function CartDrawer() {
   const [note, setNote] = useState("");
   const controls = useAnimation();
 
+  useEffect(() => {
+    if (!isOpen) return;
+    document.body.style.overflow = "hidden";
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isOpen) {
+        setOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen, setOpen]);
+
   if (!isOpen) return null;
 
   const handleDragEnd = (e: any, info: PanInfo) => {

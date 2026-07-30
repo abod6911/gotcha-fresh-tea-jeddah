@@ -13,13 +13,18 @@ export function AuthModal() {
   const [ageInput, setAgeInput] = useState("");
 
   useEffect(() => {
+    if (!isAuthOpen) return;
+    document.body.style.overflow = "hidden";
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape" && isAuthOpen) {
         setAuthOpen(false);
       }
     };
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
   }, [isAuthOpen, setAuthOpen]);
 
   if (!isAuthOpen) return null;
