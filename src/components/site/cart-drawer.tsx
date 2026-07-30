@@ -1,5 +1,5 @@
 import { Minus, Plus, ShoppingBag, Trash2, X, Sparkles } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, useAnimation, PanInfo } from "framer-motion";
 import { TOPPINGS, useCart } from "@/lib/cart";
 import { useLang } from "@/lib/i18n";
