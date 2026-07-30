@@ -1,4 +1,4 @@
-import { Clock, MapPin, Truck, Navigation, Sparkles, ExternalLink, Coffee, ShieldCheck, CheckCircle2 } from "lucide-react";
+import { Clock, MapPin, Truck, Navigation, Sparkles, ExternalLink, Coffee, ShieldCheck, CheckCircle2, X } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { useReveal } from "@/hooks/use-reveal";
 import { useState } from "react";
@@ -84,6 +84,7 @@ export function Locations() {
   const [isLocating, setIsLocating] = useState(false);
   const [branchDistances, setBranchDistances] = useState<Record<string, number>>({});
   const [userCoords, setUserCoords] = useState<{ lat: number; lng: number } | null>(null);
+  const [showPermissionModal, setShowPermissionModal] = useState(false);
 
   const activeBranch = BRANCHES.find((b) => b.id === selectedBranchId) || BRANCHES[0];
 
@@ -109,6 +110,7 @@ export function Locations() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         setIsLocating(false);
+        setShowPermissionModal(false);
         const { latitude, longitude } = position.coords;
         setUserCoords({ lat: latitude, lng: longitude });
 
@@ -149,17 +151,23 @@ export function Locations() {
       (error) => {
         setIsLocating(false);
         console.warn("Geolocation error:", error);
-        let errorMsg = t({
-          en: "Location access denied or unavailable. Selected main branch.",
-          ar: "تعذر الحصول على إذن الموقع الجغرافي. تم اختيار الفرع الرئيسي.",
-        });
+
         if (error.code === error.PERMISSION_DENIED) {
-          errorMsg = t({
-            en: "Location permission denied. Please enable location access in your browser.",
-            ar: "تم رفض إذن تحديد الموقع. يرجى تفعيل الإذن من إعدادات المتصفح.",
-          });
+          setShowPermissionModal(true);
+          toast.error(
+            t({
+              en: "Location permission denied. Please allow location access in browser settings.",
+              ar: "تم رفض إذن تحديد الموقع. يرجى تفعيل الصلاحية من شريط المتصفح.",
+            })
+          );
+        } else {
+          toast.error(
+            t({
+              en: "Location access unavailable. Showing flagship branch.",
+              ar: "تعذر الحصول على موقعك الحالي. تم عرض الفرع الرئيسي.",
+            })
+          );
         }
-        toast.error(errorMsg);
       },
       {
         enableHighAccuracy: true,
@@ -392,6 +400,72 @@ export function Locations() {
 
         </div>
       </div>
+
+      {/* Mobile Location Permission Modal */}
+      {showPermissionModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md p-4 animate-fadeIn">
+          <div className="relative w-full max-w-md rounded-[2.5rem] border-2 border-pink-deep/40 bg-white/95 p-6 sm:p-8 shadow-2xl backdrop-blur-xl">
+            <button
+              onClick={() => setShowPermissionModal(false)}
+              className="absolute top-5 end-5 flex h-9 w-9 items-center justify-center rounded-full border border-pink-deep/30 bg-white/90 text-plum shadow-sm hover:scale-105 cursor-pointer"
+            >
+              <X className="h-5 w-5 stroke-[2.5]" />
+            </button>
+
+            <div className="flex flex-col items-center text-center">
+              <div className="h-16 w-16 rounded-full bg-pink-soft/80 flex items-center justify-center border-2 border-pink-deep/30 mb-4 shadow-inner">
+                <Navigation className="h-8 w-8 text-neon animate-pulse" />
+              </div>
+
+              <h3 className="text-lg sm:text-xl font-bold font-display text-plum">
+                {t({ en: "Enable Location Permission", ar: "يرجى تفعيل صلاحية تحديد الموقع" })}
+              </h3>
+
+              <p className="mt-2 text-xs sm:text-sm text-plum-soft/90 font-medium leading-relaxed">
+                {t({
+                  en: "To find your nearest Gotcha branch and open instant GPS directions, please allow location access on your mobile browser.",
+                  ar: "لتحديد أقرب فرع قوتشا لك وعرض خط السير المباشر، يرجى تفعيل إذن الموقع الجغرافي في متصفح الجوال.",
+                })}
+              </p>
+
+              {/* Step-by-step instructions for Mobile Safari & Chrome */}
+              <div className="mt-5 w-full rounded-2xl bg-cream-2/90 border border-pink-deep/20 p-4 text-start space-y-3 text-xs font-semibold text-plum">
+                <div className="flex items-start gap-2.5">
+                  <span className="text-base shrink-0">📱</span>
+                  <div>
+                    <b className="text-plum font-bold block">{t({ en: "iPhone (Safari):", ar: "لأجهزة الآيفون (Safari):" })}</b>
+                    <span className="text-plum-soft">{t({ en: "Tap 'aA' or '🔒' in the address bar ➔ Website Settings ➔ Location ➔ Allow.", ar: "اضغط على أيقونة 'aA' أو '🔒' بجانب الرابط ➔ إعدادات الموقع ➔ الموقع الجغرافي ➔ السماح." })}</span>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-2.5 border-t border-pink-deep/15 pt-2.5">
+                  <span className="text-base shrink-0">🤖</span>
+                  <div>
+                    <b className="text-plum font-bold block">{t({ en: "Android (Chrome):", ar: "لأجهزة الأندرويد (Chrome):" })}</b>
+                    <span className="text-plum-soft">{t({ en: "Tap '🔒' in address bar ➔ Permissions ➔ Location ➔ Allow.", ar: "اضغط على أيقونة القفل '🔒' في شريط العنوان ➔ الصلاحيات ➔ الموقع ➔ السماح." })}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="mt-6 flex w-full gap-3">
+                <button
+                  onClick={handleDetectLocation}
+                  className="bg-gradient-neon flex-1 rounded-full py-3.5 text-xs sm:text-sm font-bold text-primary-foreground shadow-glow transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
+                >
+                  {t({ en: "Try Again Now", ar: "إعادة المحاولة والطلب الآن 📍" })}
+                </button>
+                <button
+                  onClick={() => setShowPermissionModal(false)}
+                  className="rounded-full border border-pink-deep/30 bg-card px-5 py-3.5 text-xs sm:text-sm font-bold text-plum hover:bg-pink-soft cursor-pointer"
+                >
+                  {t({ en: "Cancel", ar: "إغلاق" })}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
