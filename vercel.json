@@ -1,7 +1,6 @@
 {
-  "framework": "vite",
-  "buildCommand": "npx vite build",
-  "outputDirectory": ".output/public",
+  "buildCommand": "vite build && node -e \"const fs=require('fs'); fs.cpSync('.output/public', 'dist', {recursive: true});\"",
+  "outputDirectory": "dist",
   "rewrites": [
     {
       "source": "/(.*)",
